@@ -32,7 +32,7 @@ public class LoginController {
             user_login.setPassword(password);
             return Msg.success("登陆成功").add("user_info", user_login);
         }else{
-            return Msg.fail("登录失败");
+            return Msg.fail("登录失败 ");
         }
     }
 }

@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="LCXMB.dao.Pro_commentMapper">
+  <resultMap id="BaseResultMap" type="LCXMB.pojo.Pro_comment">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="pro_id" jdbcType="INTEGER" property="proId" />
+    <result column="commenter" jdbcType="VARCHAR" property="commenter" />
+    <result column="replyer" jdbcType="VARCHAR" property="replyer" />
+    <result column="commenter_avatar" jdbcType="VARCHAR" property="commenterAvatar" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, pro_id, commenter, replyer, commenter_avatar, content, create_time
+  </sql>
+  <select id="selectByExample" parameterType="LCXMB.pojo.Pro_commentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from pro_comment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pro_comment
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from pro_comment
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="LCXMB.pojo.Pro_commentExample">
+    delete from pro_comment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="LCXMB.pojo.Pro_comment">
+    insert into pro_comment (id, pro_id, commenter, 
+      replyer, commenter_avatar, content, 
+      create_time)
+    values (#{id,jdbcType=INTEGER}, #{proId,jdbcType=INTEGER}, #{commenter,jdbcType=VARCHAR}, 
+      #{replyer,jdbcType=VARCHAR}, #{commenterAvatar,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="LCXMB.pojo.Pro_comment">
+    insert into pro_comment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="proId != null">
+        pro_id,
+      </if>
+      <if test="commenter != null">
+        commenter,
+      </if>
+      <if test="replyer != null">
+        replyer,
+      </if>
+      <if test="commenterAvatar != null">
+        commenter_avatar,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="proId != null">
+        #{proId,jdbcType=INTEGER},
+      </if>
+      <if test="commenter != null">
+        #{commenter,jdbcType=VARCHAR},
+      </if>
+      <if test="replyer != null">
+        #{replyer,jdbcType=VARCHAR},
+      </if>
+      <if test="commenterAvatar != null">
+        #{commenterAvatar,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="LCXMB.pojo.Pro_commentExample" resultType="java.lang.Long">
+    select count(*) from pro_comment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update pro_comment
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.proId != null">
+        pro_id = #{record.proId,jdbcType=INTEGER},
+      </if>
+      <if test="record.commenter != null">
+        commenter = #{record.commenter,jdbcType=VARCHAR},
+      </if>
+      <if test="record.replyer != null">
+        replyer = #{record.replyer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commenterAvatar != null">
+        commenter_avatar = #{record.commenterAvatar,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update pro_comment
+    set id = #{record.id,jdbcType=INTEGER},
+      pro_id = #{record.proId,jdbcType=INTEGER},
+      commenter = #{record.commenter,jdbcType=VARCHAR},
+      replyer = #{record.replyer,jdbcType=VARCHAR},
+      commenter_avatar = #{record.commenterAvatar,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="LCXMB.pojo.Pro_comment">
+    update pro_comment
+    <set>
+      <if test="proId != null">
+        pro_id = #{proId,jdbcType=INTEGER},
+      </if>
+      <if test="commenter != null">
+        commenter = #{commenter,jdbcType=VARCHAR},
+      </if>
+      <if test="replyer != null">
+        replyer = #{replyer,jdbcType=VARCHAR},
+      </if>
+      <if test="commenterAvatar != null">
+        commenter_avatar = #{commenterAvatar,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="LCXMB.pojo.Pro_comment">
+    update pro_comment
+    set pro_id = #{proId,jdbcType=INTEGER},
+      commenter = #{commenter,jdbcType=VARCHAR},
+      replyer = #{replyer,jdbcType=VARCHAR},
+      commenter_avatar = #{commenterAvatar,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
