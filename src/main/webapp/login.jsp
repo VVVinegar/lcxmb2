@@ -7,14 +7,14 @@
     <title>兰村小卖部登录</title>
     <link rel="stylesheet" href="static/css/lib/bootstrap.min.css">
     <link rel="stylesheet" href="static/css/style.css">
+    <script src="static/js/lib/qs.js"></script>
+    <script src="static/js/lib/js.cookie.js"></script>
     <script src="static/js/lib/jquery.min.js"></script>
 </head>
 <body class="page-login-register">
 <div class="main">
     <div class="login-panel">
-        <h3 class="no-m" style="font-weight: normal;margin-bottom: 15px;">
-            登录
-        </h3>
+        <h3 class="no-m" style="font-weight: normal;margin-bottom: 15px;">登录</h3>
         <form>
             <div class="form-group">
                 <label for="username" class="pull-left">用户名</label>
@@ -28,10 +28,11 @@
             </div>
             <div class="checkbox">
                 <label>
-                    <input type="checkbox"> 记住登陆状态
+                    <input type="checkbox" id="checked"> 记住密码
                 </label>
                 <a href="#" class="pull-right text-link">忘记密码？</a>
             </div>
+            <p class="text-danger" id="login-warn"></p>
             <button type="button" class="btn btn-success btn-block" id="submit">登录</button>
         </form>
         <button class="btn btn-warning btn-block" style="margin-top: 15px">还没有账号？立即注册</button>
@@ -53,6 +54,17 @@
 </div>
 <script>
     $(function () {
+        // 得到从哪个页面来
+        function getFromPage(querystring) {
+            var qsObj = Qs.parse(querystring)
+            if ($.isEmptyObject(qsObj)) {
+                return null
+            } else {
+                return qsObj.from
+            }
+        }
+
+        // 移除验证提示
         function removeValid() {
             var $user = $('#username')
             var $pass = $('#password')
@@ -62,6 +74,7 @@
             $pass.parent().removeClass('has-error')
         }
 
+        // 验证是否已填
         function validate(user, pass) {
             removeValid()
 
@@ -84,18 +97,71 @@
             return true
         }
 
+        // 记住登录信息
+        function rememberLogin(username, password, checked) {
+            Cookies.set('loginStatus', {
+                username: username,
+                password: password,
+                checked: checked
+            }, {expires: 30, path: ''})
+        }
+
+        // 若选择记住登录信息，则进入页面时设置登录信息
+        function setLoginStatus() {
+            var loginStatusText = Cookies.get('loginStatus')
+            if (loginStatusText) {
+                var loginStatus
+                try {
+                    loginStatus = JSON.parse(loginStatusText)
+                    $('#username').val(loginStatus.username)
+                    $('#password').val(loginStatus.password)
+                    $('#checked').prop('checked', true)
+                } catch (__) {}
+            }
+        }
+
+        // 设置登录信息
+        setLoginStatus()
+
+        // 登录
         $("#submit").on("click", function () {
+            var checked = $('#checked').prop("checked")
             var username = $("#username").val()
             var password = $("#password").val()
-            if(validate(username, password)) {
-                $(this).text('正在登录')
+            if (validate(username, password)) {
+                var $t = $(this)
+                $t.text('正在登录')
                 $.post('/login', {
                     username: username,
                     password: password
                 }).done(function (data) {
-                    console.log(data)
+                    var status = data.data.status
+                    if (status === 0) {
+                        var fromPage = getFromPage(location.search.substr(1))
+                        $('#login-warn').text('登录成功，正在返回...')
+                        // 记住登录信息
+                        if(checked) {
+                            rememberLogin(username, password)
+                        } else {
+                            Cookies.remove('loginStatus')
+                        }
+
+                        setTimeout(function () {
+                            location.href = fromPage || '/'
+                        }, 1000)
+                    } else {
+                        var msg = data.msg
+                        $('#login-warn').text(msg)
+                        $t.text('登录失败').addClass('btn-danger')
+                    }
                 })
             }
+        })
+
+
+        $('.login-input').on('focus', function () {
+            $("#submit").text('登录').removeClass('btn-danger')
+            $('#login-warn').text('')
         })
     })
 </script>
