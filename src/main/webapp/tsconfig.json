@@ -4,6 +4,6 @@
     "sourceMap": true
   },
   "exclude": [
-    "node_modules"
+    "./static/node_modules"
   ]
 }

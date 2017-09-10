@@ -8,10 +8,10 @@
       margin-top: 10px;
       cursor: pointer;
 
-      &.active{
+      &.active a{
         color: @theme-color;
       }
-      &:hover{
+      &:hover a{
         color: @theme-color;
       }
     }
@@ -56,7 +56,7 @@
       border: 1px solid @border-color;
       background-color: #f8f8f9;
       &-item{
-        width: 80px;
+        width: 90px;
         height: 40px;
         line-height: 40px;
         float: left;
@@ -73,6 +73,13 @@
           color: @theme-color;
           font-weight: bold;
         }
+      }
+    }
+
+    .i-tabs-panel-item{
+      display: none;
+      &.active{
+        display: block;
       }
     }
   }
@@ -118,6 +125,45 @@
     .order-list-top{
       background-color: #f1f1f1;
       border-color: #ECECEC;
+    }
+  }
+
+  .message-manager, .collect-manager{
+    border: 1px solid @border-color;
+    .i-tabs{
+      border: none;
+      border-bottom: 1px solid @border-color;
+    }
+  }
+
+  .i-tabs-panel .message-list{
+    padding: 5px 10px;
+    border-bottom: 1px solid @border-color;
+    &:last-of-type{
+      border-bottom: none;
+    }
+  }
+
+  .collect-list{
+    @img-width: 60px;
+    padding: 0 7px;
+    margin-top: 15px;
+    &:nth-of-type(1), &:nth-of-type(2), &:nth-of-type(3){
+      margin-top: 0;
+    }
+    img{
+      width: @img-width;
+      height: @img-width;
+      background-color: @place-color;
+    }
+    p{
+      padding-left: @img-width+10;
+    }
+    .has-down{
+      padding: 1px 5px;
+      background-color: #b8b8b8;
+      color: #fff;
+      border-radius: 2px;
     }
   }
 }

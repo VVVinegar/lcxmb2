@@ -1,4 +1,9 @@
+interface JQ extends JQuery {
+  tooltipster?(options: any): void
+}
+
 $(function () {
+  let appRank
   if ($('#app-rank').length) {
     appRank = new Vue({
       el: '#app-rank',
@@ -9,13 +14,13 @@ $(function () {
         toggleSelectPanel(): void {
           this.showSelectPanel = !this.showSelectPanel
         }
-      }
+      },
     })
   }
   
   
   // 主页排行榜 hover
-  const $rankItems = $('.rank-item:gt(0)')
+  const $rankItems: JQ = $('.rank-item:gt(0)')
   $rankItems.hover(function () {
     $(this).find('.rank-item-hidden').stop().slideDown(300)
   }, function () {
@@ -25,8 +30,8 @@ $(function () {
   
   // 主页排行榜吸盘
   $(window).on('scroll', function () {
-    const scrollTop = $(this).scrollTop()
-    const $rankWrap = $('#rank-wrap')
+    const scrollTop: number = $(this).scrollTop()
+    const $rankWrap: JQ = $('#rank-wrap')
     if (scrollTop > 100) {
       $rankWrap.addClass('fixed')
     } else {
@@ -36,21 +41,21 @@ $(function () {
   
   
   // 查询结果页价格区间搜索，确定按钮的隐藏切换
-  const $controlPriceInput = $('.control-price-input')
+  const $controlPriceInput: JQ = $('.control-price-input')
   $controlPriceInput.on('focus', function () {
-    const $t_p = $(this).parent()
+    const $t_p: JQ = $(this).parent()
     $t_p.addClass('active')
     $t_p.siblings('.control-price-confirm').css('display', 'inline-block')
   })
   $controlPriceInput.on('blur', function () {
-    const $t_p = $(this).parent()
+    const $t_p: JQ = $(this).parent()
     $t_p.removeClass('active')
     $t_p.siblings('.control-price-confirm').css('display', 'none')
   })
   
   
   // 初始化tooltip
-  const $htmlTooltip = $('.html-tooltip')
+  const $htmlTooltip: JQ = $('.html-tooltip')
   if ($htmlTooltip.length) {
     $htmlTooltip.tooltipster({
       theme: 'tooltipster-light',
@@ -60,7 +65,7 @@ $(function () {
     })
   }
   
-  const $htmlTooltipBtmRight = $('.html-tooltip-btm-right')
+  const $htmlTooltipBtmRight: JQ = $('.html-tooltip-btm-right')
   if ($htmlTooltipBtmRight.length) {
     $htmlTooltipBtmRight.tooltipster({
       theme: 'tooltipster-light',
@@ -77,8 +82,8 @@ $(function () {
   }
   
   // 商品详情页 tabs 切换
-  const $proTabsItem = $('.pro-tabs .tabs-item')
-  const $proTabsPanelItem = $('.pro-tabs .tabs-panel-item')
+  const $proTabsItem: JQ = $('.pro-tabs .tabs-item')
+  const $proTabsPanelItem: JQ = $('.pro-tabs .tabs-panel-item')
   $proTabsItem.on('click', function () {
     const $t = $(this)
     const index = $t.index()
@@ -90,14 +95,15 @@ $(function () {
   
   
   // 商品页评论字数控制
-  const $cmtTextarea = $('.comment-tr textarea')
-  const $countEle = $('.comment-tr-btm .count')
+  const $cmtTextarea: JQ = $('.comment-tr textarea')
+  const $countEle: JQ = $('.comment-tr-btm .count')
   $cmtTextarea.on('input', function () {
-    const textLength = ( <string> $(this).val() ).length
+    const textLength: number = ( <string> $(this).val() ).length
     $countEle.text(textLength)
   })
   
   // 发布商品页
+  let appPublish
   if ($('#app-publish').length) {
     appPublish = new Vue({
       el: '#app-publish',
@@ -160,7 +166,7 @@ $(function () {
           })
         },
         handleBeforeUpload() {
-          const check = this.publishForm.imgList.length < 5
+          const check: boolean = this.publishForm.imgList.length < 5
           if (!check) {
             this.$Notice.warning({
               title: '最多只能上传 5 张图片。'
@@ -173,15 +179,15 @@ $(function () {
   }
   
   
-  // 个人中心页 订单管理
-  if ($('#manager-body').length) {
-    managerBody = new Vue({
-      el: '#manager-body',
-      data: {
-        list: [{
-        
-        }]
-      }
-    })
-  }
+  // 个人中心页 tabs 切换
+  const $iTabsItem: JQ = $('.i-tabs-toggle .i-tabs-item')
+  $iTabsItem.on('click', function () {
+    const $t: JQ = $(this)
+    const index: number = $t.index()
+    const $iTabsPanelItem: JQ = $t.parent().next().children('.i-tabs-panel-item')
+    $t.siblings().removeClass('active')
+    $t.addClass('active')
+    $iTabsPanelItem.removeClass('active')
+    $iTabsPanelItem.eq(index).addClass('active')
+  })
 })

@@ -1,4 +1,5 @@
 $(function () {
+    var appRank;
     if ($('#app-rank').length) {
         appRank = new Vue({
             el: '#app-rank',
@@ -9,7 +10,7 @@ $(function () {
                 toggleSelectPanel: function () {
                     this.showSelectPanel = !this.showSelectPanel;
                 }
-            }
+            },
         });
     }
     // 主页排行榜 hover
@@ -86,6 +87,7 @@ $(function () {
         $countEle.text(textLength);
     });
     // 发布商品页
+    var appPublish;
     if ($('#app-publish').length) {
         appPublish = new Vue({
             el: '#app-publish',
@@ -159,14 +161,16 @@ $(function () {
             }
         });
     }
-    // 个人中心页 订单管理
-    if ($('#manager-body').length) {
-        managerBody = new Vue({
-            el: '#manager-body',
-            data: {
-                list: [{}]
-            }
-        });
-    }
+    // 个人中心页 tabs 切换
+    var $iTabsItem = $('.i-tabs-toggle .i-tabs-item');
+    $iTabsItem.on('click', function () {
+        var $t = $(this);
+        var index = $t.index();
+        var $iTabsPanelItem = $t.parent().next().children('.i-tabs-panel-item');
+        $t.siblings().removeClass('active');
+        $t.addClass('active');
+        $iTabsPanelItem.removeClass('active');
+        $iTabsPanelItem.eq(index).addClass('active');
+    });
 });
 //# sourceMappingURL=app.js.map
