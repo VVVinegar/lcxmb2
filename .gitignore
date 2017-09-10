@@ -1,3 +1,4 @@
 ./src/main/webapp/static/node_modules/
 ./.idea/
 ./src/main/resources/jdbc.properties
+./target
