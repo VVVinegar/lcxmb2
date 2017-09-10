@@ -22,9 +22,9 @@
             <div class="row">
                 <div class="col-xs-4">欢迎来到兰村小卖部！</div>
                 <div class="col-xs-8 text-right header-console-links">
-                    您还为登录
+                    您还未登录
                     <a href="/login.jsp" class="text-link theme-color">请登录</a>
-                    <a href="/register" class="text-link">免费注册</a>
+                    <a href="/register.jsp" class="text-link">免费注册</a>
                 </div>
             </div>
             <div class="row">

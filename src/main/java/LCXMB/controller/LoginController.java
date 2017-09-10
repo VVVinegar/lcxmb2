@@ -30,9 +30,9 @@ public class LoginController {
         if(result){
             user_login.setUsername(username);
             user_login.setPassword(password);
-            return Msg.success("登陆成功").add("user_info", user_login);
+            return Msg.success("登陆成功").add("status", 0);
         }else{
-            return Msg.fail("登录失败 ");
+            return Msg.fail("登录失败 ").add("status", 1);
         }
     }
 }
