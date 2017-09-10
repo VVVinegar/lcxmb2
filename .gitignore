@@ -1,5 +1,8 @@
-src/main/webapp/static/node_modules/
-src/main/resources/jdbc.properties
+*/node_modules/
+
+# properties
+
+*.properties
 
 # idea ignore
 .idea/
