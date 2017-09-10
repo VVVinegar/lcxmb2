@@ -1,4 +1,20 @@
-./src/main/webapp/static/node_modules/
+src/main/webapp/static/node_modules/
+src/main/resources/jdbc.properties
+
+# idea ignore
 .idea/
-./src/main/resources/jdbc.properties
-./target/
+*.ipr
+*.iml
+*.iws
+
+# maven ignore
+target/
+*.jar
+*.war
+*.zip
+*.tar
+*.tar.gz
+
+# system ignore
+.DS_Store
+Thumbs.db
