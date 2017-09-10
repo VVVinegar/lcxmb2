@@ -1,4 +1,4 @@
 ./src/main/webapp/static/node_modules/
-./.idea/
+.idea/
 ./src/main/resources/jdbc.properties
-./target
+./target/

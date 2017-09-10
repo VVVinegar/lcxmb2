@@ -1,0 +1,123 @@
+.page-me{
+  .main{
+    margin-top: 15px;
+  }
+
+  .menu{
+    &-item{
+      margin-top: 10px;
+      cursor: pointer;
+
+      &.active{
+        color: @theme-color;
+      }
+      &:hover{
+        color: @theme-color;
+      }
+    }
+  }
+
+  .detail-top{
+    width: 100%;
+    border: 1px solid @border-color;  padding: 12px;
+    background-color: #f8f8f9;
+
+    .avatar{
+      @a_w: 60px;
+      width: @a_w + 40;
+      img{
+        width: @a_w;
+        height: @a_w;
+        border-radius: @a_w;
+        background-color: @place-color;
+      }
+    }
+
+    .info{
+      width: 180px;
+      .balance{
+        color: red;
+        font-size: 14px;
+        font-weight: bold;
+      }
+
+      .credits{
+        padding: 1px 5px;
+        color: #fff;
+      }
+
+      p{margin-bottom: 3px;}
+    }
+  }
+
+  .detail-body{
+    margin-top: 20px;
+    .i-tabs{
+      border: 1px solid @border-color;
+      background-color: #f8f8f9;
+      &-item{
+        width: 80px;
+        height: 40px;
+        line-height: 40px;
+        float: left;
+        text-align: center;
+        color: #686868;
+        cursor: pointer;
+
+        &:hover{
+          color: @theme-color;
+        }
+
+        &.active{
+          border-bottom: 3px solid @theme-color;
+          color: @theme-color;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  .order-list{
+    margin-top: 10px;
+    border: 1px solid #DAF3FF;
+    &:hover{
+      border-color: #aed8ff;
+    }
+    &-top{
+      padding: 10px;
+      background-color: #EAF8FF;
+      border-bottom: 1px solid #DAF3FF;
+    }
+    .is-sale-text{
+      color: limegreen;
+    }
+    .is-buy-text{
+      color: orange;
+    }
+    .is-finish-text{
+      color: #595959;
+    }
+
+    &-body{
+      padding: 10px;
+      .img_link{
+        img{
+          width: 60px;
+          height: 60px;
+        }
+        p{
+          margin-left: 70px;
+        }
+      }
+    }
+  }
+
+  .order-list.is-finish{
+    border-color: #ECECEC;
+
+    .order-list-top{
+      background-color: #f1f1f1;
+      border-color: #ECECEC;
+    }
+  }
+}
