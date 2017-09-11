@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -28,11 +29,11 @@ public class RegisterController {
 
         if (isExist(username)){
             return Msg.success("用户名存在 ").add("status", 1);
-        }else if (isStandardUsername(username)){
+        }else if (!isStandardUsername(username)){
             return Msg.success("用户名格式错误 ").add("status", 1);
-        }else if (isStandardPassword(password)){
+        }else if (!isStandardPassword(password)){
             return Msg.success("密码格式错误 ").add("status", 1);
-        }else if(isSame(password, password1)){
+        }else if(!isSame(password, password1)){
             return Msg.success("两次输入密码不一致 ").add("status", 1);
         }else{
             if (registerService.register(username, password)){
@@ -45,24 +46,23 @@ public class RegisterController {
     }
 
     public boolean isExist(String username){
-        if (registerService.isExist(username)) return true;
-        return false;
+        return registerService.isExist(username);
     }
 
     public boolean isStandardUsername(String username){
-        Pattern usernamePattern = Pattern.compile("^[A-Za-z0-9]{6,16}$");
-        if(usernamePattern.matcher(username).matches()) return true;
-        return false;
+        System.out.println(username);
+        Pattern p = Pattern.compile("[A-Za-z0-9]{6,16}");
+        Matcher m = p.matcher(username);
+        return m.matches();
     }
 
     public boolean isStandardPassword(String password){
-        Pattern passwordPattern = Pattern.compile("^\\w{6,16}$");
-        if(passwordPattern.matcher(password).matches()) return true;
-        return false;
+        Pattern p = Pattern.compile("\\w{6,16}");
+        Matcher m = p.matcher(password);
+        return m.matches();
     }
 
     public boolean isSame(String password, String password1){
-        if (password.equals(password1)) return true;
-        return false;
+        return password.equals(password1);
     }
 }
