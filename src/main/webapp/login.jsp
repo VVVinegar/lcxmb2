@@ -131,7 +131,7 @@
             if (validate(username, password)) {
                 var $t = $(this)
                 $t.text('正在登录')
-                $.post('/login', {
+                $.post('/api/login', {
                     username: username,
                     password: password
                 }).done(function (data) {

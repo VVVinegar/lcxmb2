@@ -28,7 +28,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-4">欢迎来到兰村小卖部！</div>
+                <div class="col-xs-4">欢迎${sessionScope.name}来到兰村小卖部！</div>
                 <div class="col-xs-8 text-right header-console-links">
                     <a href="#" class="text-link">我的收藏</a>
                     <a href="#" class="text-link">发布闲置</a>

@@ -2,7 +2,6 @@ package LCXMB.controller;
 
 import LCXMB.pojo.Msg;
 import LCXMB.pojo.User_login;
-import LCXMB.service.LoginService;
 import LCXMB.service.RegisterService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.util.regex.Pattern;
 
 /**
@@ -24,7 +24,7 @@ public class RegisterController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    public Msg login(String username, String password, String password1){
+    public Msg login(String username, String password, String password1, HttpSession session){
 
         if (isExist(username)){
             return Msg.success("用户名存在 ").add("status", 1);
@@ -37,6 +37,7 @@ public class RegisterController {
         }else{
             User_login user_login = new User_login(username, password);
             if (registerService.register(user_login)){
+                session.setAttribute("user", user_login);
                 return Msg.success("注册成功 ").add("status", 0);
             }else{
                 return Msg.fail("服务器错误 ");
