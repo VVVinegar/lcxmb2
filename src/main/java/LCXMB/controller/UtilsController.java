@@ -10,10 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.UUID;
 
 /**
@@ -27,23 +24,26 @@ public class UtilsController {
     UploadService uploadService;
     QiNiuImageStyleService qiNiuImageStyleService;
 
-    @RequestMapping(value = "/upload/{width}", method = RequestMethod.POST)
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
-    public Msg Upload(@RequestParam("file") MultipartFile file, HttpServletRequest request, @PathVariable String width) throws IOException {
+    public Msg Upload(@RequestParam("file") MultipartFile file,
+                      @RequestParam String width,
+                      HttpServletRequest request) throws IOException {
 
         // 获得原始文件名
         String fileOriginalName = file.getOriginalFilename();
-        String fileExt = fileOriginalName.substring(fileOriginalName.lastIndexOf(".")+1);
-        String fileName =  UUID.randomUUID().toString().replaceAll("-", "") + "." + fileExt;
-        System.out.println("原始文件名:" + fileName);
+        String fileExt = fileOriginalName.substring(fileOriginalName.lastIndexOf(".") + 1);
+        String fileName = UUID.randomUUID().toString().replaceAll("-", "") + "." + fileExt;
 
         // 获得项目的路径
         ServletContext sc = request.getSession().getServletContext();
-        // 上传位置
-        String realPath = sc.getRealPath("/static/imgUpload") + '/'; // 设定文件保存的目录
+
+        // 设定文件保存的目录
+        String realPath = sc.getRealPath("/static/imgUpload") + '/';
 
         String localFilePath = uploadService.uploadToLocal(file, realPath, fileName);
-        //上传至骑七牛
+
+        //上传至七牛
         String QiNiuKey = uploadService.uploadToQINiu(localFilePath, fileName);
 
         width = width == null ? "200" : width;
