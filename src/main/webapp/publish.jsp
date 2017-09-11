@@ -112,6 +112,7 @@
                         :default-file-list="defaultList"
                         :on-success="handleSuccess"
                         :format="['jpg','jpeg','png']"
+                        :data="{width: width}"
                         :max-size="2048"
                         :on-format-error="handleFormatError"
                         :on-exceeded-size="handleMaxSize"

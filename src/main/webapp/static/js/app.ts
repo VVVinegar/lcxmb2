@@ -132,6 +132,7 @@ $(function () {
     appPublish = new Vue({
       el: '#app-publish',
       data: {
+        width: '200',
         publishForm: {
           cate: [],
           title: '',
@@ -209,7 +210,7 @@ $(function () {
             if (valid) {
               const form = this.publishForm
               const imgUrls = form.imgList.join(',')
-              $.post('/api/publish?width=', {
+              $.post('/api/publish', {
                 title: form.title,
                 cate1: form.cate[0],
                 cate2: form.cate[1] || null,
