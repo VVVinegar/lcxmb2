@@ -119,6 +119,14 @@ $(function () {
     }
   }
 
+  const validateQuality = (rule, value, callback): void => {
+    if(value) {
+      callback()
+    } else {
+      callback(new Error('请输入宝贝成新'))
+    }
+  }
+
   let appPublish
   if ($('#app-publish').length) {
     appPublish = new Vue({
@@ -129,14 +137,16 @@ $(function () {
           title: '',
           contact: '',
           imgList: [],
-          content: ''
+          content: '',
+          quality: 10
         },
         publishRules: {
           title: [{required: true, message: '请输入标题', trigger: 'blur'}],
           cate: [{validator: validateCate, trigger: 'change'}],
           contact: [{required: true, message: '请输入联系方式', trigger: 'blur'}],
           imgList: [{validator: validateImgList}],
-          content: [{required: true, message: '请输入宝贝详情', trigger: 'blur'}]
+          content: [{required: true, message: '请输入宝贝详情', trigger: 'blur'}],
+          quality: [{validator: validateQuality, trigger: 'change'}]
         },
         categoryData: [{
           value: '数码产品',
@@ -156,10 +166,6 @@ $(function () {
           {
             'name': 'a42bdcc1178e62b4694c830f028db5c0',
             'url': 'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar'
-          },
-          {
-            'name': 'bc7521e033abdd1e92222d733590f104',
-            'url': 'https://o5wwk8baw.qnssl.com/bc7521e033abdd1e92222d733590f104/avatar'
           }
         ]
       },
@@ -201,9 +207,36 @@ $(function () {
         handleSubmit() {
           this.$refs.publish.validate((valid) => {
             if (valid) {
-              console.log(1)
-            } else {
-              console.log(2)
+              const form = this.publishForm
+              const imgUrls = form.imgList.join(',')
+              $.post('/api/publish?width=', {
+                title: form.title,
+                cate1: form.cate[0],
+                cate2: form.cate[1] || null,
+                quality: form.quality,
+                imgUrls: imgUrls,
+                telNum: form.contact,
+                description: form.content
+              }).done(function (data) {
+                const code = data.code
+                const msg = data.msg
+                if(code === 0){
+                  const id = data.data.id
+                  this.$Modal.success({
+                    title: '提示',
+                    content: '发布成功',
+                    okText: '查看详情',
+                    onOk: () => {
+                      location.href = ''
+                    }
+                  })
+                } else {
+                  this.$Modal.error({
+                    title: "发生错误",
+                    content: msg
+                  })
+                }
+              })
             }
           })
         }

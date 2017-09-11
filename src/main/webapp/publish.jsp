@@ -65,20 +65,30 @@
     </div>
 
     <div id="app-publish" v-cloak>
+        <Alert type="warning" show-icon>提示
+            <span slot="desc">
+            您还未登录，登录后可发布商品。<a href="/login">点此登录</a>
+        </span>
+        </Alert>
         <i-form :model="publishForm" :rules="publishRules" ref="publish">
             <form-item prop="title">
                 <i-input v-model="publishForm.title" placeholder="请输入标题" :maxlength="40"></i-input>
             </form-item>
             <row :gutter="12">
-                <i-col :span="12">
+                <i-col :span="8">
                     <form-item prop="cate">
                         <Cascader :data="categoryData" v-model="publishForm.cate"
                                   placeholder="请选择分类" trigger="hover"></Cascader>
                     </form-item>
                 </i-col>
-                <i-col :span="12">
+                <i-col :span="8">
                     <form-item prop="contact">
                         <i-input v-model="publishForm.contact" placeholder="请输入联系电话"></i-input>
+                    </form-item>
+                </i-col>
+                <i-col :span="8">
+                    <form-item prop="quality">
+                        <input-number v-model="publishForm.quality" :max="10" :min="1" :step="0.5"></input-number>&nbsp;&nbsp;&nbsp;成新
                     </form-item>
                 </i-col>
             </row>
