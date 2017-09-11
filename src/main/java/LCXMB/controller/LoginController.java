@@ -27,7 +27,7 @@ public class LoginController {
         boolean result = loginService.verify(username, password);
         if(result){
             User_login user_login = new User_login(username, password);
-            session.setAttribute("user_login", user_login);
+            session.setAttribute("username", user_login.getUsername());
             return Msg.success("登陆成功").add("status", 0);
         }else{
             return Msg.success("登录失败 ").add("status", 1);

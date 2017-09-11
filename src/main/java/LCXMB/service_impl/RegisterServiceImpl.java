@@ -3,6 +3,7 @@ package LCXMB.service_impl;
 import LCXMB.dao.User_loginMapper;
 import LCXMB.pojo.User_login;
 import LCXMB.service.RegisterService;
+import org.springframework.util.DigestUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -16,8 +17,10 @@ public class RegisterServiceImpl implements RegisterService{
     @Resource
     User_loginMapper user_loginMapper;
 
-    public boolean register(User_login user_login) {
+    public boolean register(String username, String password) {
         try {
+            String md5_password = DigestUtils.md5DigestAsHex(password.getBytes());
+            User_login user_login = new User_login(username, md5_password);
             user_loginMapper.insert(user_login);
             return true;
         }catch (Exception e){

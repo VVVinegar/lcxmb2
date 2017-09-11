@@ -35,9 +35,8 @@ public class RegisterController {
         }else if(isSame(password, password1)){
             return Msg.success("两次输入密码不一致 ").add("status", 1);
         }else{
-            User_login user_login = new User_login(username, password);
-            if (registerService.register(user_login)){
-                session.setAttribute("user", user_login);
+            if (registerService.register(username, password)){
+                session.setAttribute("username", username);
                 return Msg.success("注册成功 ").add("status", 0);
             }else{
                 return Msg.fail("服务器错误 ");

@@ -7,5 +7,5 @@ import LCXMB.pojo.User_login;
  */
 public interface RegisterService {
     public boolean isExist(String username);
-    public boolean register(User_login user_login);
+    public boolean register(String username, String password);
 }
