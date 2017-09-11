@@ -1,12 +1,13 @@
 package LCXMB.service_impl;
 
+import LCXMB.service.QiNiuImageStyleService;
 import org.springframework.stereotype.Service;
 
 /**
  * Created by 759517209@qq.com on 2017/9/11.
  */
 @Service("QiNiuImageStyleService")
-public class QiNiuImageStyleServiceImpl {
+public class QiNiuImageStyleServiceImpl implements QiNiuImageStyleService{
     private String url = "http://ow408mv5t.bkt.clouddn.com";
     private String style;
 
