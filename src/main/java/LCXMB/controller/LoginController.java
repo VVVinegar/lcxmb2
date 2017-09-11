@@ -5,7 +5,6 @@ import LCXMB.pojo.User_login;
 import LCXMB.service.LoginService;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -14,7 +13,7 @@ import javax.annotation.Resource;
  * Created by 759517209@qq.com on 2017/9/8.
  */
 @Controller
-@RequestMapping("")
+@RequestMapping("/api")
 @Scope("prototype")
 public class LoginController {
 
@@ -22,7 +21,6 @@ public class LoginController {
     LoginService loginService;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    @ResponseBody
     public Msg login(String username, String password){
         User_login user_login = new User_login();
 
@@ -32,7 +30,7 @@ public class LoginController {
             user_login.setPassword(password);
             return Msg.success("登陆成功").add("status", 0);
         }else{
-            return Msg.fail("登录失败 ").add("status", 1);
+            return Msg.success("登录失败 ").add("status", 1);
         }
     }
 }
