@@ -19,4 +19,9 @@ public class PageController {
     public String register(){
         return "register";
     }
+
+    @RequestMapping(value = "/publish")
+    public String publish(){
+        return "publish";
+    }
 }

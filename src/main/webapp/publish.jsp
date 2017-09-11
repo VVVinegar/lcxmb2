@@ -1,15 +1,16 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="css/lib/bootstrap.min.css">
-    <link rel="stylesheet" href="css/lib/iview.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <script src="js/lib/vue.js"></script>
-    <script src="js/lib/iview.min.js"></script>
-    <script src="js/lib/jquery.min.js"></script>
-    <script src="js/app.js"></script>
+    <link rel="stylesheet" href="static/css/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="static/css/lib/iview.min.css">
+    <link rel="stylesheet" href="static/css/style.css">
+    <script src="static/js/lib/vue.js"></script>
+    <script src="static/js/lib/iview.min.js"></script>
+    <script src="static/js/lib/jquery.min.js"></script>
+    <script src="static/js/app.js"></script>
 </head>
 <body class="page-publish">
 <div class="header">
@@ -64,27 +65,27 @@
     </div>
 
     <div id="app-publish" v-cloak>
-        <i-form :model="publishForm">
-            <form-item>
+        <i-form :model="publishForm" :rules="publishRules" ref="publish">
+            <form-item prop="title">
                 <i-input v-model="publishForm.title" placeholder="请输入标题" :maxlength="40"></i-input>
             </form-item>
             <row :gutter="12">
                 <i-col :span="12">
-                    <form-item>
+                    <form-item prop="cate">
                         <Cascader :data="categoryData" v-model="publishForm.cate"
                                   placeholder="请选择分类" trigger="hover"></Cascader>
                     </form-item>
                 </i-col>
                 <i-col :span="12">
-                    <form-item>
+                    <form-item prop="contact">
                         <i-input v-model="publishForm.contact" placeholder="请输入联系电话"></i-input>
                     </form-item>
                 </i-col>
             </row>
-            <form-item>
-                <i-input type="textarea" :autosize="{minRows: 4,maxRows: 8}" placeholder="请输入宝贝描述" :maxlength="500"></i-input>
+            <form-item prop="content">
+                <i-input type="textarea" v-model="publishForm.content" :autosize="{minRows: 4,maxRows: 8}" placeholder="请输入宝贝描述" :maxlength="500"></i-input>
             </form-item>
-            <form-item>
+            <form-item prop="imgList" class="img-form-item">
                 <div class="upload-list" v-for="item in publishForm.imgList">
                     <template v-if="item.status === 'finished'">
                         <img :src="item.url">
@@ -107,7 +108,7 @@
                         :before-upload="handleBeforeUpload"
                         multiple
                         type="drag"
-                        action="//jsonplaceholder.typicode.com/posts/"
+                        action="/utils/upload"
                         class="upload-panel">
                             <div class="upload-panel-body">
                                 <Icon type="camera" size="28"></Icon>
@@ -115,7 +116,7 @@
                 </Upload>
             </form-item>
             <form-item style="margin-top: -10px;">
-                <i-button type="primary">发布</i-button>
+                <i-button type="primary" @click="handleSubmit">发布</i-button>
             </form-item>
         </i-form>
     </div>

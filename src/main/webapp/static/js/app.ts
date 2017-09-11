@@ -14,7 +14,7 @@ $(function () {
         toggleSelectPanel(): void {
           this.showSelectPanel = !this.showSelectPanel
         }
-      },
+      }
     })
   }
   
@@ -103,6 +103,22 @@ $(function () {
   })
   
   // 发布商品页
+  const validateCate = (rule, value, callback): void => {
+    if (value.length === 0) {
+      callback(new Error('请选择分类'))
+    } else {
+      callback()
+    }
+  }
+
+  const validateImgList = (rule, value, callback): void => {
+    if(value.length) {
+      callback()
+    } else {
+      callback(new Error('请上传描述图片'))
+    }
+  }
+
   let appPublish
   if ($('#app-publish').length) {
     appPublish = new Vue({
@@ -112,7 +128,15 @@ $(function () {
           cate: [],
           title: '',
           contact: '',
-          imgList: []
+          imgList: [],
+          content: ''
+        },
+        publishRules: {
+          title: [{required: true, message: '请输入标题', trigger: 'blur'}],
+          cate: [{validator: validateCate, trigger: 'change'}],
+          contact: [{required: true, message: '请输入联系方式', trigger: 'blur'}],
+          imgList: [{validator: validateImgList}],
+          content: [{required: true, message: '请输入宝贝详情', trigger: 'blur'}]
         },
         categoryData: [{
           value: '数码产品',
@@ -173,6 +197,15 @@ $(function () {
             })
           }
           return check
+        },
+        handleSubmit() {
+          this.$refs.publish.validate((valid) => {
+            if (valid) {
+              console.log(1)
+            } else {
+              console.log(2)
+            }
+          })
         }
       }
     })

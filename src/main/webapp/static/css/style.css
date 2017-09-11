@@ -1136,6 +1136,9 @@ body {
 .page-publish .upload-panel .ivu-upload {
   border: none;
 }
+.page-publish .img-form-item .ivu-form-item-error-tip {
+  margin-top: -10px;
+}
 .page-me .main {
   margin-top: 15px;
 }
@@ -1143,10 +1146,10 @@ body {
   margin-top: 10px;
   cursor: pointer;
 }
-.page-me .menu-item.active {
+.page-me .menu-item.active a {
   color: #ff4545;
 }
-.page-me .menu-item:hover {
+.page-me .menu-item:hover a {
   color: #ff4545;
 }
 .page-me .detail-top {
@@ -1187,7 +1190,7 @@ body {
   background-color: #f8f8f9;
 }
 .page-me .detail-body .i-tabs-item {
-  width: 80px;
+  width: 90px;
   height: 40px;
   line-height: 40px;
   float: left;
@@ -1202,6 +1205,12 @@ body {
   border-bottom: 3px solid #ff4545;
   color: #ff4545;
   font-weight: bold;
+}
+.page-me .detail-body .i-tabs-panel-item {
+  display: none;
+}
+.page-me .detail-body .i-tabs-panel-item.active {
+  display: block;
 }
 .page-me .order-list {
   margin-top: 10px;
@@ -1240,6 +1249,45 @@ body {
 .page-me .order-list.is-finish .order-list-top {
   background-color: #f1f1f1;
   border-color: #ECECEC;
+}
+.page-me .message-manager,
+.page-me .collect-manager {
+  border: 1px solid #e4e4e4;
+}
+.page-me .message-manager .i-tabs,
+.page-me .collect-manager .i-tabs {
+  border: none;
+  border-bottom: 1px solid #e4e4e4;
+}
+.page-me .i-tabs-panel .message-list {
+  padding: 5px 10px;
+  border-bottom: 1px solid #e4e4e4;
+}
+.page-me .i-tabs-panel .message-list:last-of-type {
+  border-bottom: none;
+}
+.page-me .collect-list {
+  padding: 0 7px;
+  margin-top: 15px;
+}
+.page-me .collect-list:nth-of-type(1),
+.page-me .collect-list:nth-of-type(2),
+.page-me .collect-list:nth-of-type(3) {
+  margin-top: 0;
+}
+.page-me .collect-list img {
+  width: 60px;
+  height: 60px;
+  background-color: #c9c9c9;
+}
+.page-me .collect-list p {
+  padding-left: 70px;
+}
+.page-me .collect-list .has-down {
+  padding: 1px 5px;
+  background-color: #b8b8b8;
+  color: #fff;
+  border-radius: 2px;
 }
 /* 模块功能：重写库样式 */
 body {
