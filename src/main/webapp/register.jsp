@@ -4,9 +4,9 @@
 <html lang="en">
 <head>
     <title>兰村小卖部注册</title>
-    <link rel="stylesheet" href="static/css/lib/bootstrap.min.css">
-    <link rel="stylesheet" href="static/css/style.css">
-    <script src="static/js/lib/jquery.min.js"></script>
+    <link rel="stylesheet" href="/static/css/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="/static/js/lib/jquery.min.js"></script>
 </head>
 <body class="page-login-register">
 <div class="main">

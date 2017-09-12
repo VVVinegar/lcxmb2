@@ -56,7 +56,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-3">
-                    <p class="no-m"><img src="static/images/logo.png" class="logo"></p>
+                    <p class="no-m"><img src="/static/images/logo.png" class="logo"></p>
                     <p class="no-m logo-title">中北人自己的网络二手市场</p>
                 </div>
                 <div class="col-xs-6 no-p">

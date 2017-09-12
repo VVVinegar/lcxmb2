@@ -5,11 +5,11 @@
 <head>
     <meta charset="UTF-8">
     <title>兰村小卖部登录</title>
-    <link rel="stylesheet" href="static/css/lib/bootstrap.min.css">
-    <link rel="stylesheet" href="static/css/style.css">
-    <script src="static/js/lib/qs.js"></script>
-    <script src="static/js/lib/js.cookie.js"></script>
-    <script src="static/js/lib/jquery.min.js"></script>
+    <link rel="stylesheet" href="/static/css/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="/static/js/lib/qs.js"></script>
+    <script src="/static/js/lib/js.cookie.js"></script>
+    <script src="/static/js/lib/jquery.min.js"></script>
 </head>
 <body class="page-login-register">
 <div class="main">
