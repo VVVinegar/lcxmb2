@@ -50,7 +50,6 @@ public class RegisterController {
     }
 
     public boolean isStandardUsername(String username){
-        System.out.println(username);
         Pattern p = Pattern.compile("[A-Za-z0-9]{6,16}");
         Matcher m = p.matcher(username);
         return m.matches();

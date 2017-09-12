@@ -4,7 +4,9 @@ import LCXMB.pojo.User_info;
 import LCXMB.pojo.User_infoExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface User_infoMapper {
     long countByExample(User_infoExample example);
 
