@@ -29,7 +29,15 @@ public class PublishController {
     @ResponseBody
     public Msg publish(@RequestBody Product product, HttpSession session){
 
-        product.setSalerUser(session.getAttribute("username").toString());
+        String username = null;
+
+        if (session.getAttribute("username") != null){
+            username = session.getAttribute("username").toString();
+        }else{
+            return Msg.success("请先登录").add("status", 1);
+        }
+
+        product.setSalerUser(username);
 
         product.setPriceChanged(0);
         product.setWatchCount(0);
