@@ -111,6 +111,19 @@ $(function () {
             callback(new Error('请输入宝贝成新'));
         }
     };
+    var validatePrice = function (rule, value, callback) {
+        if (value) {
+            if (!$.isNumeric(Number(value))) {
+                callback(new Error('输入不符合格式'));
+            }
+            else {
+                callback();
+            }
+        }
+        else {
+            callback(new Error('请输入价格'));
+        }
+    };
     var appPublish;
     if ($('#app-publish').length) {
         appPublish = new Vue({
@@ -123,15 +136,17 @@ $(function () {
                     contact: '15835134145',
                     imgList: [],
                     content: 'content',
-                    quality: 10
+                    quality: 10,
+                    price: 30
                 },
                 publishRules: {
                     title: [{ required: true, message: '请输入标题', trigger: 'blur' }],
-                    cate: [{ validator: validateCate, trigger: 'change' }],
                     contact: [{ required: true, message: '请输入联系方式', trigger: 'blur' }],
-                    imgList: [{ validator: validateImgList }],
+                    price: [{ validator: validatePrice, trigger: 'change' }],
                     content: [{ required: true, message: '请输入宝贝详情', trigger: 'blur' }],
-                    quality: [{ validator: validateQuality, trigger: 'change' }]
+                    cate: [{ validator: validateCate, trigger: 'change' }],
+                    imgList: [{ validator: validateImgList, trigger: 'change' }],
+                    quality: [{ validator: validateQuality, trigger: 'change' }],
                 },
                 categoryData: [{
                         value: '数码产品',
@@ -195,14 +210,6 @@ $(function () {
                         if (valid) {
                             var form = _this.publishForm;
                             var imgUrls = form.imgList.map(function (v) { return v.url; }).join(',');
-                            // const fd = new FormData()
-                            // fd.append('title', form.title)
-                            // fd.append('cate1', form.cate[0])
-                            // fd.append('cate2', form.cate[1] || null)
-                            // fd.append('quality', form.quality)
-                            // fd.append('imgUrls', imgUrls)
-                            // fd.append('telNum', form.contact)
-                            // fd.append('description', form.content)
                             var data = {
                                 title: form.title,
                                 category1: form.cate[0],
@@ -210,12 +217,13 @@ $(function () {
                                 quality: form.quality,
                                 imgUrls: imgUrls,
                                 telNum: form.contact,
+                                price: form.price,
                                 desciption: form.content
                             };
                             $.ajax({
                                 url: '/api/publish',
                                 type: 'post',
-                                data: JSON.stringify(data),
+                                data: data,
                                 headers: {
                                     'Content-Type': "application/json"
                                 },
