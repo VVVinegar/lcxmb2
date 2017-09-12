@@ -210,14 +210,29 @@ $(function () {
             if (valid) {
               const form = this.publishForm
               const imgUrls = form.imgList.map(v => v.url).join(',')
-              $.post('/api/publish', {
-                title: form.title,
-                cate1: form.cate[0],
-                cate2: form.cate[1] || null,
-                quality: form.quality,
-                imgUrls: imgUrls,
-                telNum: form.contact,
-                description: form.content
+              const fd = new FormData()
+              fd.append('title', form.title)
+              fd.append('cate1', form.cate[0])
+              fd.append('cate2', form.cate[1] || null)
+              fd.append('quality', form.quality)
+              fd.append('imgUrls', imgUrls)
+              fd.append('telNum', form.contact)
+              fd.append('description', form.content)
+
+              // var data = {
+              //   title: form.title,
+              //   cate1: form.cate[0],
+              //   cate2: form.cate[1] || null,
+              //   quality: form.quality,
+              //   imgUrls: imgUrls,
+              //   telNum: form.contact,
+              //   description: form.content
+              // }
+
+              $.ajax({
+                url: '/api/publish',
+                type: 'post',
+                data: fd
               }).done(function (data) {
                 const code = data.code
                 const msg = data.msg
