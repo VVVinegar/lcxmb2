@@ -223,7 +223,7 @@ $(function () {
                             $.ajax({
                                 url: '/api/publish',
                                 type: 'post',
-                                data: data,
+                                data: JSON.stringify(data),
                                 headers: {
                                     'Content-Type': "application/json"
                                 },

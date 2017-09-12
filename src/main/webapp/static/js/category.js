@@ -41,10 +41,10 @@ const category = [{
         keywords: ['死飞', '捷安特', '山地自行车']
     }, {
         value: '宿舍神器',
-        keywords: []
+        keywords: ['小型变压器', '床头挂篮', 'USB灯管', '床上桌', '手机支架']
     }, {
         value: '日用日化',
-        keywords: []
+        keywords: ['洗发水', '沐浴露', '护肤', '护发', '洗衣粉']
     }, {
         value: '其他',
         isOther: true
@@ -53,16 +53,16 @@ const category = [{
     value: '鞋服配饰',
     children: [{
         value: '女装',
-        keywords: []
+        keywords: ['连衣裙', '打底衫', '羽绒服', '毛呢外套', '睡衣']
     }, {
         value: '女鞋',
-        keywords: []
+        keywords: ['休闲女鞋', '高跟鞋', '运动女鞋']
     }, {
         value: '箱包',
-        keywords: []
+        keywords: ['手提包', '单肩包', '书包', '行李箱', '双肩包']
     }, {
         value: '配饰',
-        keywords: []
+        keywords: ['手镯', '吊坠', '项链', '耳环']
     }, {
         value: '其他',
         isOther: true
@@ -71,10 +71,10 @@ const category = [{
     value: '美容美颜',
     children: [{
         value: '化妆品',
-        keywords: []
+        keywords: ['粉底', '美瞳', '口红', '彩妆']
     }, {
         value: '护肤品',
-        keywords: []
+        keywords: ['防晒霜', '面膜', '保湿乳']
     }, {
         value: '其他',
         isOther: true
@@ -83,13 +83,13 @@ const category = [{
     value: '虚拟商品',
     children: [{
         value: '账号/装备',
-        keywords: []
+        keywords: ['王者荣耀', '英雄联盟', '绝地求生', '']
     }, {
         value: '点卡/点券',
-        keywords: []
+        keywords: ['腾讯', '网易', '音乐', '直播']
     }, {
         value: '网站会员',
-        keywords: []
+        keywords: ['优酷', '爱奇艺', '腾讯']
     }, {
         value: '其他',
         isOther: true
