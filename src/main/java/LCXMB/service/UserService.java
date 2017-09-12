@@ -9,5 +9,6 @@ public interface UserService {
     public List<User_info> findAll(int limit);
     public int update(String username);
     public int delete(String username);
-    public int add(String username, String password);
+
+    int initUser_info(User_info user_info);
 }

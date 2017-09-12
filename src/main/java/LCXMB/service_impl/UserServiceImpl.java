@@ -31,7 +31,8 @@ public class UserServiceImpl implements UserService{
         return 0;
     }
 
-    public int add(String username, String password) {
-        return 0;
+    public int initUser_info(User_info user_info) {
+        return user_infoMapper.insert(user_info);
     }
+
 }
