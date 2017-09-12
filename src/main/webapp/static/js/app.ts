@@ -223,12 +223,12 @@ $(function () {
 
               const data = {
                 title: form.title,
-                cate1: form.cate[0],
-                cate2: form.cate[1] || null,
+                category1: form.cate[0],
+                category2: form.cate[1] || null,
                 quality: form.quality,
                 imgUrls: imgUrls,
                 telNum: form.contact,
-                description: form.content
+                desciption: form.content
               }
 
               $.ajax({

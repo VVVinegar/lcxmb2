@@ -205,17 +205,17 @@ $(function () {
                             // fd.append('description', form.content)
                             var data = {
                                 title: form.title,
-                                cate1: form.cate[0],
-                                cate2: form.cate[1] || null,
+                                category1: form.cate[0],
+                                category2: form.cate[1] || null,
                                 quality: form.quality,
                                 imgUrls: imgUrls,
                                 telNum: form.contact,
-                                description: form.content
+                                desciption: form.content
                             };
                             $.ajax({
                                 url: '/api/publish',
                                 type: 'post',
-                                data: data,
+                                data: JSON.stringify(data),
                                 headers: {
                                     'Content-Type': "application/json"
                                 },

@@ -1,5 +1,7 @@
 package LCXMB.pojo;
 
+import org.springframework.stereotype.Repository;
+
 import java.util.Date;
 
 public class Product {
