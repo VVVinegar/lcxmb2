@@ -35,8 +35,6 @@ public class PublishController {
         product.setWatchCount(0);
         product.setStatus(0);
 
-        product.setPrice(999);
-
         Date date = new Date();
         Timestamp timeStamp = new Timestamp(date.getTime());
         product.setCreateTime(timeStamp);
