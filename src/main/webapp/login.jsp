@@ -35,7 +35,7 @@
             <p class="text-danger" id="login-warn"></p>
             <button type="button" class="btn btn-success btn-block" id="submit">登录</button>
         </form>
-        <button class="btn btn-warning btn-block" style="margin-top: 15px">还没有账号？立即注册</button>
+        <a class="btn btn-warning btn-block" href="/register" style="margin-top: 15px">还没有账号？立即注册</a>
         <p class="no-m" style="margin-top: 15px;">
             登录即表示同意本站的<a href="#">使用条件</a>及<a href="#">隐私申明</a>
         </p>
