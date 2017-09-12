@@ -119,10 +119,10 @@ $(function () {
                 width: '200',
                 publishForm: {
                     cate: [],
-                    title: '',
-                    contact: '',
+                    title: 'title',
+                    contact: '15835134145',
                     imgList: [],
-                    content: '',
+                    content: 'content',
                     quality: 10
                 },
                 publishRules: {
@@ -164,9 +164,9 @@ $(function () {
                     this.$refs.upload.fileList.splice(fileList.indexOf(file), 1);
                 },
                 handleSuccess: function (res, file) {
-                    // 因为上传过程为实例，这里模拟添加 url
-                    file.url = 'https://o5wwk8baw.qnssl.com/7eb99afb9d5f317c912f08b5212fd69a/avatar';
-                    file.name = '7eb99afb9d5f317c912f08b5212fd69a';
+                    var imgUrl = res.data.imageUrl;
+                    file.url = imgUrl;
+                    file.name = imgUrl;
                 },
                 handleFormatError: function (file) {
                     this.$Notice.warning({
@@ -194,7 +194,7 @@ $(function () {
                     this.$refs.publish.validate(function (valid) {
                         if (valid) {
                             var form = _this.publishForm;
-                            var imgUrls = form.imgList.join(',');
+                            var imgUrls = form.imgList.map(function (v) { return v.url; }).join(',');
                             $.post('/api/publish', {
                                 title: form.title,
                                 cate1: form.cate[0],

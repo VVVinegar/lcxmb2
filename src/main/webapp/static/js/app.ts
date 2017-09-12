@@ -17,8 +17,8 @@ $(function () {
       }
     })
   }
-  
-  
+
+
   // 主页排行榜 hover
   const $rankItems: JQ = $('.rank-item:gt(0)')
   $rankItems.hover(function () {
@@ -26,8 +26,8 @@ $(function () {
   }, function () {
     $(this).find('.rank-item-hidden').stop().slideUp(300)
   })
-  
-  
+
+
   // 主页排行榜吸盘
   $(window).on('scroll', function () {
     const scrollTop: number = $(this).scrollTop()
@@ -38,8 +38,8 @@ $(function () {
       $rankWrap.removeClass('fixed')
     }
   })
-  
-  
+
+
   // 查询结果页价格区间搜索，确定按钮的隐藏切换
   const $controlPriceInput: JQ = $('.control-price-input')
   $controlPriceInput.on('focus', function () {
@@ -52,8 +52,8 @@ $(function () {
     $t_p.removeClass('active')
     $t_p.siblings('.control-price-confirm').css('display', 'none')
   })
-  
-  
+
+
   // 初始化tooltip
   const $htmlTooltip: JQ = $('.html-tooltip')
   if ($htmlTooltip.length) {
@@ -64,7 +64,7 @@ $(function () {
       animation: 'grow'
     })
   }
-  
+
   const $htmlTooltipBtmRight: JQ = $('.html-tooltip-btm-right')
   if ($htmlTooltipBtmRight.length) {
     $htmlTooltipBtmRight.tooltipster({
@@ -80,7 +80,7 @@ $(function () {
       }
     })
   }
-  
+
   // 商品详情页 tabs 切换
   const $proTabsItem: JQ = $('.pro-tabs .tabs-item')
   const $proTabsPanelItem: JQ = $('.pro-tabs .tabs-panel-item')
@@ -92,8 +92,8 @@ $(function () {
     $proTabsPanelItem.removeClass('active')
     $proTabsPanelItem.eq(index).addClass('active')
   })
-  
-  
+
+
   // 商品页评论字数控制
   const $cmtTextarea: JQ = $('.comment-tr textarea')
   const $countEle: JQ = $('.comment-tr-btm .count')
@@ -101,7 +101,7 @@ $(function () {
     const textLength: number = ( <string> $(this).val() ).length
     $countEle.text(textLength)
   })
-  
+
   // 发布商品页
   const validateCate = (rule, value, callback): void => {
     if (value.length === 0) {
@@ -112,7 +112,7 @@ $(function () {
   }
 
   const validateImgList = (rule, value, callback): void => {
-    if(value.length) {
+    if (value.length) {
       callback()
     } else {
       callback(new Error('请上传描述图片'))
@@ -120,7 +120,7 @@ $(function () {
   }
 
   const validateQuality = (rule, value, callback): void => {
-    if(value) {
+    if (value) {
       callback()
     } else {
       callback(new Error('请输入宝贝成新'))
@@ -135,10 +135,10 @@ $(function () {
         width: '200',
         publishForm: {
           cate: [],
-          title: '',
-          contact: '',
+          title: 'title',
+          contact: '15835134145',
           imgList: [],
-          content: '',
+          content: 'content',
           quality: 10
         },
         publishRules: {
@@ -180,9 +180,9 @@ $(function () {
           this.$refs.upload.fileList.splice(fileList.indexOf(file), 1)
         },
         handleSuccess(res, file) {
-          // 因为上传过程为实例，这里模拟添加 url
-          file.url = 'https://o5wwk8baw.qnssl.com/7eb99afb9d5f317c912f08b5212fd69a/avatar'
-          file.name = '7eb99afb9d5f317c912f08b5212fd69a'
+          const imgUrl = res.data.imageUrl
+          file.url = imgUrl
+          file.name = imgUrl
         },
         handleFormatError(file) {
           this.$Notice.warning({
@@ -209,7 +209,7 @@ $(function () {
           this.$refs.publish.validate((valid) => {
             if (valid) {
               const form = this.publishForm
-              const imgUrls = form.imgList.join(',')
+              const imgUrls = form.imgList.map(v => v.url).join(',')
               $.post('/api/publish', {
                 title: form.title,
                 cate1: form.cate[0],
@@ -221,7 +221,7 @@ $(function () {
               }).done(function (data) {
                 const code = data.code
                 const msg = data.msg
-                if(code === 0){
+                if (code === 0) {
                   const id = data.data.id
                   this.$Modal.success({
                     title: '提示',
@@ -244,8 +244,8 @@ $(function () {
       }
     })
   }
-  
-  
+
+
   // 个人中心页 tabs 切换
   const $iTabsItem: JQ = $('.i-tabs-toggle .i-tabs-item')
   $iTabsItem.on('click', function () {
