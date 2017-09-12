@@ -61,10 +61,14 @@
                 </div>
                 <div class="col-xs-6 no-p">
                     <ul class="header-links-ul clearfix">
-                        <li class="active"><a href="#">首页</a></li>
-                        <li><a href="/publish">发布商品</a></li>
-                        <li><a href="/category">商品分类</a></li>
-                        <li><a href="/me">个人中心</a></li>
+                        <li class="${param.nav == 'index' ? 'active' : ''}"><a href="/">首页</a></li>
+                        <li class="${param.nav == 'publish' ? 'active' : ''}"><a href="/publish">发布商品</a></li>
+                        <li class="${param.nav == 'search' ? 'active' : ''}"><a href="/search">全部商品</a></li>
+                        <c:if test="${sessionScope.username != null}">
+                            <li class="${param.nav == 'me' ? 'active' : ''}">
+                                <a href="/me">个人中心</a>
+                            </li>
+                        </c:if>
                     </ul>
                 </div>
                 <div class="col-xs-3 h_100">

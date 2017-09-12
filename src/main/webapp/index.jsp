@@ -1,11 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>主页</title>
+    <title>首页</title>
     <link rel="stylesheet" href="static/css/lib/tooltipster.bundle.min.css">
     <link rel="stylesheet" href="static/css/lib/bootstrap.min.css">
     <link rel="stylesheet" href="static/css/lib/swiper-3.4.2.min.css">
@@ -19,7 +19,7 @@
 <body class="page-index">
 
 <c:import url="./header.jsp">
-
+    <c:param name="nav" value="index"/>
 </c:import>
 
 <div class="main">
@@ -595,19 +595,19 @@
     </div>
 </div>
 <script>
-	var mySwiper = new Swiper('.swiper-container', {
-		loop: true,
-		autoplay: 4000,
-		paginationClickable: true,
+    var mySwiper = new Swiper('.swiper-container', {
+        loop: true,
+        autoplay: 4000,
+        paginationClickable: true,
 
-		// 如果需要分页器
-		pagination: '.swiper-pagination',
+        // 如果需要分页器
+        pagination: '.swiper-pagination',
 
-		// 如果需要前进后退按钮
-		nextButton: '.swiper-button-next',
-		prevButton: '.swiper-button-prev'
+        // 如果需要前进后退按钮
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev'
 
-	})
+    })
 </script>
 </body>
 </html>

@@ -130,6 +130,8 @@ $(function () {
             el: '#app-publish',
             data: {
                 width: '200',
+                showSuccess: false,
+                successUrl: '',
                 publishForm: {
                     cate: [],
                     title: 'title',
@@ -148,20 +150,7 @@ $(function () {
                     imgList: [{ validator: validateImgList, trigger: 'change' }],
                     quality: [{ validator: validateQuality, trigger: 'change' }],
                 },
-                categoryData: [{
-                        value: '数码产品',
-                        label: '数码产品',
-                        children: [{
-                                value: '手机',
-                                label: '手机'
-                            }, {
-                                value: '电脑',
-                                label: '电脑'
-                            }]
-                    }, {
-                        value: '其他',
-                        label: '其他'
-                    }],
+                categoryData: [],
                 defaultList: [
                     {
                         'name': 'a42bdcc1178e62b4694c830f028db5c0',
@@ -172,7 +161,29 @@ $(function () {
             mounted: function () {
                 this.publishForm.imgList = this.$refs.upload.fileList;
             },
+            created: function () {
+                this.getCategory();
+            },
             methods: {
+                getCategory: function () {
+                    var _this = this;
+                    $.get('/static/json/category.json')
+                        .done(function (list) {
+                        var list1 = list.map(function (v) {
+                            v.label = v.value;
+                            return v;
+                        });
+                        for (var _i = 0, list1_1 = list1; _i < list1_1.length; _i++) {
+                            var item = list1_1[_i];
+                            if (item.children)
+                                item.children = item.children.map(function (v) {
+                                    v.label = v.value;
+                                    return v;
+                                });
+                        }
+                        _this.categoryData = list1;
+                    });
+                },
                 handleRemove: function (file) {
                     // 从 upload 实例删除数据
                     var fileList = this.$refs.upload.fileList;
@@ -208,6 +219,7 @@ $(function () {
                     var _this = this;
                     this.$refs.publish.validate(function (valid) {
                         if (valid) {
+                            var _self_1 = _this;
                             var form = _this.publishForm;
                             var imgUrls = form.imgList.map(function (v) { return v.url; }).join(',');
                             var data = {
@@ -232,17 +244,11 @@ $(function () {
                                 var msg = data.msg;
                                 if (code === 0) {
                                     var id = data.data.id;
-                                    this.$Modal.success({
-                                        title: '提示',
-                                        content: '发布成功',
-                                        okText: '查看详情',
-                                        onOk: function () {
-                                            location.href = '';
-                                        }
-                                    });
+                                    _self_1.showSuccess = true;
+                                    _self_1.successUrl = '';
                                 }
                                 else {
-                                    this.$Modal.error({
+                                    _self_1.$Modal.error({
                                         title: "发生错误",
                                         content: msg
                                     });
@@ -250,6 +256,9 @@ $(function () {
                             });
                         }
                     });
+                },
+                goDetail: function () {
+                    location.href = this.successUrl;
                 }
             }
         });

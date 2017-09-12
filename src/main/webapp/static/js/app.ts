@@ -3,7 +3,6 @@ interface JQ extends JQuery {
 }
 
 
-
 $(function () {
   let appRank
   if ($('#app-rank').length) {
@@ -130,8 +129,8 @@ $(function () {
   }
 
   const validatePrice = (rule, value, callback): void => {
-    if(value) {
-      if(!$.isNumeric(Number(value))) {
+    if (value) {
+      if (!$.isNumeric(Number(value))) {
         callback(new Error('输入不符合格式'))
       } else {
         callback()
@@ -147,6 +146,8 @@ $(function () {
       el: '#app-publish',
       data: {
         width: '200',
+        showSuccess: false,
+        successUrl: '',
         publishForm: {
           cate: [],
           title: 'title',
@@ -165,20 +166,7 @@ $(function () {
           imgList: [{validator: validateImgList, trigger: 'change'}],
           quality: [{validator: validateQuality, trigger: 'change'}],
         },
-        categoryData: [{
-          value: '数码产品',
-          label: '数码产品',
-          children: [{
-            value: '手机',
-            label: '手机'
-          }, {
-            value: '电脑',
-            label: '电脑'
-          }]
-        }, {
-          value: '其他',
-          label: '其他'
-        }],
+        categoryData: [],
         defaultList: [
           {
             'name': 'a42bdcc1178e62b4694c830f028db5c0',
@@ -189,7 +177,29 @@ $(function () {
       mounted() {
         this.publishForm.imgList = this.$refs.upload.fileList
       },
+      created() {
+        this.getCategory()
+      },
       methods: {
+        getCategory() {
+          const _this = this
+          $.get('/static/json/category.json')
+            .done(function (list) {
+              const list1 = list.map(v => {
+                v.label = v.value
+                return v
+              })
+
+              for (let item of list1) {
+                if(item.children)
+                item.children = item.children.map(v => {
+                  v.label = v.value
+                  return v
+                })
+              }
+              _this.categoryData = list1
+            })
+        },
         handleRemove(file) {
           // 从 upload 实例删除数据
           const fileList = this.$refs.upload.fileList
@@ -224,6 +234,7 @@ $(function () {
         handleSubmit() {
           this.$refs.publish.validate((valid) => {
             if (valid) {
+              const _self = this
               const form = this.publishForm
               const imgUrls = form.imgList.map(v => v.url).join(',')
 
@@ -250,16 +261,11 @@ $(function () {
                 const msg = data.msg
                 if (code === 0) {
                   const id = data.data.id
-                  this.$Modal.success({
-                    title: '提示',
-                    content: '发布成功',
-                    okText: '查看详情',
-                    onOk: () => {
-                      location.href = ''
-                    }
-                  })
+                  _self.showSuccess = true
+                  _self.successUrl = ''
+
                 } else {
-                  this.$Modal.error({
+                  _self.$Modal.error({
                     title: "发生错误",
                     content: msg
                   })
@@ -267,6 +273,9 @@ $(function () {
               })
             }
           })
+        },
+        goDetail(){
+          location.href = this.successUrl
         }
       }
     })
