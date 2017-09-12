@@ -29,4 +29,7 @@ public interface ProductMapper {
     int updateByPrimaryKeySelective(Product record);
 
     int updateByPrimaryKey(Product record);
+
+    //用于首页
+    List<Product> selectByCategoryOrderAndLimit(String category_1);
 }
