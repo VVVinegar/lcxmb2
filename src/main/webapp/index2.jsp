@@ -29,150 +29,32 @@
                 <div class="row">
                     <div class="col-xs-4">
                         <ul class="category">
-                            <li class="clearfix">
-                                <span class="category-icon pull-left"
-                                      style="background-image: url(http://placehold.it/40x40)"></span>
-                                <span class="pull-left category-title">数码产品</span>
-                                <a href="#" class="pull-left text-link">手机</a>
-                                <a href="#" class="pull-left text-link">电脑</a>
-                                <a href="#" class="pull-left text-link">彩电</a>
-                                <div class="category-detail">
-                                    <div class="row">
-                                        <div class="col-xs-6">
-                                            <p class="category-detail-title">手机</p>
-                                            <a href="#" class="text-link">手机壳</a>
-                                            <a href="#" class="text-link">充电器</a>
-                                            <a href="#" class="text-link">xxxx</a>
+                            <c:forEach items="${category}" var="cate">
+                                <c:if test="${cate.children != null}">
+                                    <li class="clearfix">
+                                        <span class="category-icon pull-left"
+                                            style="background-image: url(http://placehold.it/40x40)"></span>
+                                        <span class="pull-left category-title">${cate.value}</span>
+                                        <c:forEach items="${cate.children}" var="cate2" end="${1}">
+                                            <a href="#" class="pull-left text-link">${cate2.value}</a>
+                                        </c:forEach>
+                                        <div class="category-detail">
+                                            <div class="row">
+                                                <c:forEach items="${cate.children}" var="cate3">
+                                                    <c:if test="${cate3.keywords != null}">
+                                                        <div class="col-xs-6">
+                                                            <p class="category-detail-title">${cate3.value}</p>
+                                                            <c:forEach items="${cate3.keywords}" var="cate4">
+                                                                <a href="#" class="text-link">${cate4}</a>
+                                                            </c:forEach>
+                                                        </div>
+                                                    </c:if>
+                                                </c:forEach>
+                                            </div>
                                         </div>
-                                        <div class="col-xs-6">
-                                            <p class="category-detail-title">电脑</p>
-                                            <a href="#" class="text-link">笔记本</a>
-                                            <a href="#" class="text-link">macbook</a>
-                                            <a href="#" class="text-link">鼠标</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="clearfix">
-                                <span class="category-icon pull-left"
-                                      style="background-image: url(http://placehold.it/40x40)"></span>
-                                <span class="pull-left category-title">数码产品</span>
-                                <a href="#" class="pull-left text-link">手机</a>
-                                <a href="#" class="pull-left text-link">电脑</a>
-                                <a href="#" class="pull-left text-link">彩电</a>
-                                <div class="category-detail">
-                                    <div class="row">
-                                        <div class="col-xs-6">
-                                            <p class="category-detail-title">手机</p>
-                                            <a href="#" class="text-link">手机壳</a>
-                                            <a href="#" class="text-link">充电器</a>
-                                            <a href="#" class="text-link">xxxx</a>
-                                        </div>
-                                        <div class="col-xs-6">
-                                            <p class="category-detail-title">电脑</p>
-                                            <a href="#" class="text-link">笔记本</a>
-                                            <a href="#" class="text-link">macbook</a>
-                                            <a href="#" class="text-link">鼠标</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="clearfix">
-                                <span class="category-icon pull-left"
-                                      style="background-image: url(http://placehold.it/40x40)"></span>
-                                <span class="pull-left category-title">数码产品</span>
-                                <a href="#" class="pull-left text-link">手机</a>
-                                <a href="#" class="pull-left text-link">电脑</a>
-                                <a href="#" class="pull-left text-link">彩电</a>
-                                <div class="category-detail">
-                                    <div class="row">
-                                        <div class="col-xs-6">
-                                            <p class="category-detail-title">手机</p>
-                                            <a href="#" class="text-link">手机壳</a>
-                                            <a href="#" class="text-link">充电器</a>
-                                            <a href="#" class="text-link">xxxx</a>
-                                        </div>
-                                        <div class="col-xs-6">
-                                            <p class="category-detail-title">电脑</p>
-                                            <a href="#" class="text-link">笔记本</a>
-                                            <a href="#" class="text-link">macbook</a>
-                                            <a href="#" class="text-link">鼠标</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="clearfix">
-                                <span class="category-icon pull-left"
-                                      style="background-image: url(http://placehold.it/40x40)"></span>
-                                <span class="pull-left category-title">数码产品</span>
-                                <a href="#" class="pull-left text-link">手机</a>
-                                <a href="#" class="pull-left text-link">电脑</a>
-                                <a href="#" class="pull-left text-link">彩电</a>
-                                <div class="category-detail">
-                                    <div class="row">
-                                        <div class="col-xs-6">
-                                            <p class="category-detail-title">手机</p>
-                                            <a href="#" class="text-link">手机壳</a>
-                                            <a href="#" class="text-link">充电器</a>
-                                            <a href="#" class="text-link">xxxx</a>
-                                        </div>
-                                        <div class="col-xs-6">
-                                            <p class="category-detail-title">电脑</p>
-                                            <a href="#" class="text-link">笔记本</a>
-                                            <a href="#" class="text-link">macbook</a>
-                                            <a href="#" class="text-link">鼠标</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="clearfix">
-                                <span class="category-icon pull-left"
-                                      style="background-image: url(http://placehold.it/40x40)"></span>
-                                <span class="pull-left category-title">数码产品</span>
-                                <a href="#" class="pull-left text-link">手机</a>
-                                <a href="#" class="pull-left text-link">电脑</a>
-                                <a href="#" class="pull-left text-link">彩电</a>
-                                <div class="category-detail">
-                                    <div class="row">
-                                        <div class="col-xs-6">
-                                            <p class="category-detail-title">手机</p>
-                                            <a href="#" class="text-link">手机壳</a>
-                                            <a href="#" class="text-link">充电器</a>
-                                            <a href="#" class="text-link">xxxx</a>
-                                        </div>
-                                        <div class="col-xs-6">
-                                            <p class="category-detail-title">电脑</p>
-                                            <a href="#" class="text-link">笔记本</a>
-                                            <a href="#" class="text-link">macbook</a>
-                                            <a href="#" class="text-link">鼠标</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="clearfix">
-                                <span class="category-icon pull-left"
-                                      style="background-image: url(http://placehold.it/40x40)"></span>
-                                <span class="pull-left category-title">数码产品</span>
-                                <a href="#" class="pull-left text-link">手机</a>
-                                <a href="#" class="pull-left text-link">电脑</a>
-                                <a href="#" class="pull-left text-link">彩电</a>
-                                <div class="category-detail">
-                                    <div class="row">
-                                        <div class="col-xs-6">
-                                            <p class="category-detail-title">手机</p>
-                                            <a href="#" class="text-link">手机壳</a>
-                                            <a href="#" class="text-link">充电器</a>
-                                            <a href="#" class="text-link">xxxx</a>
-                                        </div>
-                                        <div class="col-xs-6">
-                                            <p class="category-detail-title">电脑</p>
-                                            <a href="#" class="text-link">笔记本</a>
-                                            <a href="#" class="text-link">macbook</a>
-                                            <a href="#" class="text-link">鼠标</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
+                                    </li>
+                                </c:if>
+                            </c:forEach>
                         </ul>
                     </div>
                     <div class="col-xs-8 no-pl" style="height: 242px;">
@@ -214,52 +96,52 @@
                         <div class="pro-img">
                             <!--只有五条-->
                             <%--<c:forEach items="${数码产品}" var="item">--%>
-                                <div class="pro-img-item">
-                                    <a href="#">
-                                        <img src="${item.imgUrl}">
-                                    </a>
-                                    <p class="no-m text-right pro-item-title">
-                                        <a href="#" class="text-link">${item.title}</a>
-                                    </p>
-                                    <h5 class="no-m text-right pro-item-price">${item.price}</h5>
-                                </div>
+                            <div class="pro-img-item">
+                                <a href="#">
+                                    <img src="${item.imgUrl}">
+                                </a>
+                                <p class="no-m text-right pro-item-title">
+                                    <a href="#" class="text-link">${item.title}</a>
+                                </p>
+                                <h5 class="no-m text-right pro-item-price">${item.price}</h5>
+                            </div>
                             <%--</c:forEach>--%>
-                                <div class="pro-img-item">
-                                    <a href="#">
-                                        <img src="http://placehold.it/200x200">
-                                    </a>
-                                    <p class="no-m text-right pro-item-title">
-                                        <a href="#" class="text-link">商品商品商品商品</a>
-                                    </p>
-                                    <h5 class="no-m text-right pro-item-price">￥25.00</h5>
-                                </div>
-                                <div class="pro-img-item">
-                                    <a href="#">
-                                        <img src="http://placehold.it/200x200">
-                                    </a>
-                                    <p class="no-m text-right pro-item-title">
-                                        <a href="#" class="text-link">商品商品商品商品</a>
-                                    </p>
-                                    <h5 class="no-m text-right pro-item-price">￥25.00</h5>
-                                </div>
-                                <div class="pro-img-item">
-                                    <a href="#">
-                                        <img src="http://placehold.it/200x200">
-                                    </a>
-                                    <p class="no-m text-right pro-item-title">
-                                        <a href="#" class="text-link">商品商品商品商品</a>
-                                    </p>
-                                    <h5 class="no-m text-right pro-item-price">￥25.00</h5>
-                                </div>
-                                <div class="pro-img-item">
-                                    <a href="#">
-                                        <img src="http://placehold.it/200x200">
-                                    </a>
-                                    <p class="no-m text-right pro-item-title">
-                                        <a href="#" class="text-link">商品商品商品商品</a>
-                                    </p>
-                                    <h5 class="no-m text-right pro-item-price">￥25.00</h5>
-                                </div>
+                            <div class="pro-img-item">
+                                <a href="#">
+                                    <img src="http://placehold.it/200x200">
+                                </a>
+                                <p class="no-m text-right pro-item-title">
+                                    <a href="#" class="text-link">商品商品商品商品</a>
+                                </p>
+                                <h5 class="no-m text-right pro-item-price">￥25.00</h5>
+                            </div>
+                            <div class="pro-img-item">
+                                <a href="#">
+                                    <img src="http://placehold.it/200x200">
+                                </a>
+                                <p class="no-m text-right pro-item-title">
+                                    <a href="#" class="text-link">商品商品商品商品</a>
+                                </p>
+                                <h5 class="no-m text-right pro-item-price">￥25.00</h5>
+                            </div>
+                            <div class="pro-img-item">
+                                <a href="#">
+                                    <img src="http://placehold.it/200x200">
+                                </a>
+                                <p class="no-m text-right pro-item-title">
+                                    <a href="#" class="text-link">商品商品商品商品</a>
+                                </p>
+                                <h5 class="no-m text-right pro-item-price">￥25.00</h5>
+                            </div>
+                            <div class="pro-img-item">
+                                <a href="#">
+                                    <img src="http://placehold.it/200x200">
+                                </a>
+                                <p class="no-m text-right pro-item-title">
+                                    <a href="#" class="text-link">商品商品商品商品</a>
+                                </p>
+                                <h5 class="no-m text-right pro-item-price">￥25.00</h5>
+                            </div>
                         </div>
                     </div>
                     <div class="pro-cate-item">

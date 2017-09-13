@@ -306,6 +306,13 @@ body {
 .page-index .category-detail a {
   margin-right: 10px;
 }
+.page-index .category-detail .col-xs-6 {
+  margin-top: 20px;
+}
+.page-index .category-detail .col-xs-6:nth-of-type(1),
+.page-index .category-detail .col-xs-6:nth-of-type(2) {
+  margin-top: 0;
+}
 .page-index .swiper-slide {
   background-color: #ffffff;
   background-position: center;
