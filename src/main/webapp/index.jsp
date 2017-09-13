@@ -218,7 +218,7 @@
                                     <img src="http://placehold.it/200x200">
                                 </a>
                                 <p class="no-m text-right pro-item-title">
-                                    <a href="#" class="text-link">商品商品商品商品</a>
+                                    <a href="#" class="text-link">${test}</a>
                                 </p>
                                 <h5 class="no-m text-right pro-item-price">￥25.00</h5>
                             </div>
