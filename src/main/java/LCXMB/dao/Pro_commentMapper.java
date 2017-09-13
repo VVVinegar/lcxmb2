@@ -4,7 +4,9 @@ import LCXMB.pojo.Pro_comment;
 import LCXMB.pojo.Pro_commentExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface Pro_commentMapper {
     long countByExample(Pro_commentExample example);
 
@@ -27,4 +29,6 @@ public interface Pro_commentMapper {
     int updateByPrimaryKeySelective(Pro_comment record);
 
     int updateByPrimaryKey(Pro_comment record);
+
+    List<Pro_comment> selectByProId(Integer id);
 }
