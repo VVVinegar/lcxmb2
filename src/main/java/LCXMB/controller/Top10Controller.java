@@ -30,6 +30,6 @@ public class Top10Controller {
     @ResponseBody
     @RequestMapping(value = "/top10/new", method = RequestMethod.GET)
     public Msg top10() {
-
+        return Msg.success("");
     }
 }

@@ -37,4 +37,8 @@ public interface ProductMapper {
 
     // TOP10
     List<Product> selectTop10(@Param("field") String field);
+
+    List<Product> selectByCate(@Param("minPrice") float minPrice,@Param("maxPrice") float maxPrice,
+                                    @Param("category_2") String category_2, @Param("style") int style,
+                                    @Param("sort") boolean sort, @Param("begin") int begin);
 }

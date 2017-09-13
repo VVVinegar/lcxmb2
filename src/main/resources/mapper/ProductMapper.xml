@@ -385,20 +385,21 @@
     order by update_time desc
     limit 5
   </select>
-  <!--按条件查，按更新时间或热度排序，取价格区间-->
-  <select id="selectByCate" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <!--按条件查，按更新时间或热度排序，取价格区间,分页-->
+  <select id="selectByCate" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
     from product
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
+    where category_2 = #{category_2}
+    and between #{minPrice} and #{maxPrice}
+    order by #{orderType}
+    <if test="isDesc">
+      desc
     </if>
-    and
-    order by update_time
-    limit 5
+    limit #{begin},5
   </select>
   <!--个人中心中的展示-->
   <select id="PageMeShowed" parameterType="java.lang.String" resultMap="PageMeShowedMap">
@@ -412,6 +413,6 @@
 
   <!--TOP10-->
   <select id="selectTop10" resultMap="BaseResultMap">
-    select * from product order by #{field} desc
+    select * from product order by #{field} desc limit 10
   </select>
 </mapper>
