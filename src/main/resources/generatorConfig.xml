@@ -42,7 +42,7 @@
         <table tableName="admin" domainObjectName="Admin"></table>
         <table tableName="collections" domainObjectName="Collections"></table>
         <table tableName="messages" domainObjectName="Messages"></table>
-        <table tableName="order" domainObjectName="Order"></table>
+        <table tableName="orders" domainObjectName="Order"></table>
         <table tableName="pro_comment" domainObjectName="Pro_comment"></table>
         <table tableName="product" domainObjectName="Product"></table>
         <table tableName="shipping_address" domainObjectName="Shipping_address"></table>

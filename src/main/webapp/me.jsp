@@ -29,7 +29,7 @@
         <span>个人中心</span> &gt;
         <c:choose>
             <c:when test="${subsite == 'product'}">已发布商品</c:when>
-            <c:when test="${subsite == 'order'}">订单管理</c:when>
+            <c:when test="${subsite == 'orders'}">订单管理</c:when>
             <c:when test="${subsite == 'message'}">我的消息</c:when>
             <c:when test="${subsite == 'collect'}">我的收藏</c:when>
             <c:when test="${subsite == 'setting'}">个人资料设置</c:when>
@@ -42,8 +42,8 @@
             <p class="menu-item ${subsite == 'product' ? 'active' : ''}">
                 <a href="/me/product" class="text-link">上架中商品</a>
             </p>
-            <p class="menu-item ${subsite == 'order' ? 'active' : ''}">
-                <a href="/me/order" class="text-link">订单管理</a>
+            <p class="menu-item ${subsite == 'orders' ? 'active' : ''}">
+                <a href="/me/orders" class="text-link">订单管理</a>
             </p>
             <p class="menu-item ${subsite == 'message' ? 'active' : ''}">
                 <a href="/me/message" class="text-link">我的消息</a>
@@ -150,7 +150,7 @@
                     </div>
                 </c:if>
 
-                <c:if test="${subsite == 'order'}">
+                <c:if test="${subsite == 'orders'}">
                     <div class="i-tabs clearfix">
                         <div class="i-tabs-item active">全部交易</div>
                         <div class="i-tabs-item">正在出售</div>
@@ -158,8 +158,8 @@
                         <div class="i-tabs-item">已出售</div>
                         <div class="i-tabs-item">已购入</div>
                     </div>
-                    <div class="order-list">
-                        <div class="order-list-top">
+                    <div class="orders-list">
+                        <div class="orders-list-top">
                             <div class="row">
                                 <div class="col-xs-4">
                                     <strong style="margin-right: 20px;">2017-06-08</strong>
@@ -173,7 +173,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="order-list-body">
+                        <div class="orders-list-body">
                             <div class="row">
                                 <div class="col-xs-4 img_link">
                                     <img src="http://placehold.it/100x100" class="pull-left">
@@ -197,8 +197,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="order-list is-finish">
-                        <div class="order-list-top">
+                    <div class="orders-list is-finish">
+                        <div class="orders-list-top">
                             <div class="row">
                                 <div class="col-xs-4">
                                     <strong style="margin-right: 20px;">2017-06-08</strong>
@@ -212,7 +212,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="order-list-body">
+                        <div class="orders-list-body">
                             <div class="row">
                                 <div class="col-xs-4 img_link">
                                     <img src="http://placehold.it/100x100" class="pull-left">

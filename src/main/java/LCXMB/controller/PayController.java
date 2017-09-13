@@ -25,7 +25,7 @@ public class PayController {
     @Resource
     ProductService productService;
     @Resource
-    OrderService orderService;
+    OrdersService ordersService;
     @Resource
     LoginService loginService;
     @Resource
@@ -39,12 +39,14 @@ public class PayController {
         boolean result = loginService.verify(username, password);
         if(result){
             float virtualCurrencyBefore = userService.findById(username).getVirtualCurrency();
-            if(virtualCurrencyBefore < price){
+            if(virtualCurrencyBefore < price)
                 return Msg.success("余额不足").add("status",1);
-            }else{
+            if(getProductStatus(id) == 0){
                 if(change(id, username, saler_user, price, virtualCurrencyBefore, address_id))
                     return Msg.success("支付成功").add("status",0);
                 return Msg.fail("服务器出错");
+            }else {
+                return Msg.success("商品已被购买").add("status",1);
             }
         }else{
             return Msg.success("请重新登录 ").add("status", 1);
@@ -63,22 +65,26 @@ public class PayController {
 
             userService.updateByPrimaryKeySelective(user_info);
 
+            System.out.println("扣钱完成");
             //更新产品状态
             Product product = new Product();
             product.setId(pro_id);
             product.setStatus(1);
             productService.updateStatus(product);
 
+            System.out.println("产品状态完成");
+
             //order表插入数据
-            Order order = new Order();
-            order.setBuyerName(buyer_name);
-            order.setSalerName(saler_user);
-            order.setProId(pro_id);
-            order.setAddrId(addr_id);
+            Orders orders = new Orders();
+            orders.setBuyerName(buyer_name);
+            orders.setSalerName(saler_user);
+            orders.setProId(pro_id);
+            orders.setAddrId(addr_id);
             Date date = new Date();
             Timestamp timeStamp = new Timestamp(date.getTime());
-            order.setTime(timeStamp);
-            orderService.add(order);
+            orders.setCreateTime(timeStamp);
+            ordersService.add(orders);
+            System.out.println("订单生成成功");
 
             return true;
         }catch (Exception e){
@@ -86,13 +92,13 @@ public class PayController {
         }
     }
 
-//    public String getAddress(int addr_id){
-//        try {
-//            Shipping_address shipping_address = addressService.findById(addr_id);
-//            String address = shipping_address.getAddress();
-//            return address;
-//        }catch (Exception e){
-//            return null;
-//        }
-//    }
+    //获得商品状态
+    public int getProductStatus(int pro_id){
+        try {
+            Product product = productService.findById(pro_id);
+            return product.getStatus();
+        }catch (Exception e){
+            return -1;
+        }
+    }
 }

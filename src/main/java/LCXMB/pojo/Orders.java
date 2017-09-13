@@ -2,7 +2,7 @@ package LCXMB.pojo;
 
 import java.util.Date;
 
-public class Order {
+public class Orders {
     private Integer id;
 
     private String buyerName;
@@ -11,7 +11,9 @@ public class Order {
 
     private Integer proId;
 
-    private Date time;
+    private Date createTime;
+
+    private Integer addrId;
 
     public Integer getAddrId() {
         return addrId;
@@ -20,8 +22,6 @@ public class Order {
     public void setAddrId(Integer addrId) {
         this.addrId = addrId;
     }
-
-    private Integer addrId;
 
     public Integer getId() {
         return id;
@@ -55,11 +55,11 @@ public class Order {
         this.proId = proId;
     }
 
-    public Date getTime() {
-        return time;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setTime(Date time) {
-        this.time = time;
+    public void setCreateTime(Date time) {
+        this.createTime = time;
     }
 }

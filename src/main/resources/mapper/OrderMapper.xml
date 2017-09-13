@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="LCXMB.dao.OrderMapper">
-  <resultMap id="BaseResultMap" type="LCXMB.pojo.Order">
+<mapper namespace="LCXMB.dao.OrdersMapper">
+  <resultMap id="BaseResultMap" type="LCXMB.pojo.Orders">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="buyer_name" jdbcType="VARCHAR" property="buyerName" />
     <result column="saler_name" jdbcType="VARCHAR" property="salerName" />
     <result column="pro_id" jdbcType="INTEGER" property="proId" />
-    <result column="time" jdbcType="TIMESTAMP" property="time" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="addr_id" jdbcType="INTEGER" property="addrId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, buyer_name, saler_name, pro_id, time
+    id, buyer_name, saler_name, pro_id, create_time, addr_id
   </sql>
   <select id="selectByExample" parameterType="LCXMB.pojo.OrderExample" resultMap="BaseResultMap">
     select
@@ -75,7 +76,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from order
+    from orders
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -86,27 +87,27 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from order
+    from orders
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from order
+    delete from orders
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="LCXMB.pojo.OrderExample">
-    delete from order
+    delete from orders
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="LCXMB.pojo.Order">
-    insert into order (id, buyer_name, saler_name, 
-      pro_id, time)
+  <insert id="insert" parameterType="LCXMB.pojo.Orders">
+    insert into orders (id, buyer_name, saler_name,
+      pro_id, create_time, addr_id)
     values (#{id,jdbcType=INTEGER}, #{buyerName,jdbcType=VARCHAR}, #{salerName,jdbcType=VARCHAR}, 
-      #{proId,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP})
+      #{proId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{addrId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="LCXMB.pojo.Order">
-    insert into order
+  <insert id="insertSelective" parameterType="LCXMB.pojo.Orders">
+    insert into orders
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -122,6 +123,9 @@
       </if>
       <if test="time != null">
         time,
+      </if>
+      <if test="addrId != null">
+        addr_id,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -140,16 +144,19 @@
       <if test="time != null">
         #{time,jdbcType=TIMESTAMP},
       </if>
+      <if test="addrId != null">
+        #{addrId,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="LCXMB.pojo.OrderExample" resultType="java.lang.Long">
-    select count(*) from order
+    select count(*) from orders
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update order
+    update orders
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
@@ -172,7 +179,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update order
+    update orders
     set id = #{record.id,jdbcType=INTEGER},
       buyer_name = #{record.buyerName,jdbcType=VARCHAR},
       saler_name = #{record.salerName,jdbcType=VARCHAR},
@@ -182,8 +189,8 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="LCXMB.pojo.Order">
-    update order
+  <update id="updateByPrimaryKeySelective" parameterType="LCXMB.pojo.Orders">
+    update orders
     <set>
       <if test="buyerName != null">
         buyer_name = #{buyerName,jdbcType=VARCHAR},
@@ -200,8 +207,8 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="LCXMB.pojo.Order">
-    update order
+  <update id="updateByPrimaryKey" parameterType="LCXMB.pojo.Orders">
+    update orders
     set buyer_name = #{buyerName,jdbcType=VARCHAR},
       saler_name = #{salerName,jdbcType=VARCHAR},
       pro_id = #{proId,jdbcType=INTEGER},
