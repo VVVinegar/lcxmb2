@@ -34,4 +34,7 @@ public interface ProductMapper {
     List<Product> selectByCategoryOrderAndLimit(String category1);
 
     List PageMeShowed(String username);
+
+    // TOP10
+    List<Product> selectTop10(@Param("field") String field);
 }

@@ -409,4 +409,9 @@
     where product.saler_user = #{username} and product.status = 0
     group by product.id
   </select>
+
+  <!--TOP10-->
+  <select id="selectTop10" resultMap="BaseResultMap">
+    select * from product order by #{field} desc
+  </select>
 </mapper>
