@@ -13,6 +13,16 @@ public class Order {
 
     private Date time;
 
+    public Integer getAddrId() {
+        return addrId;
+    }
+
+    public void setAddrId(Integer addrId) {
+        this.addrId = addrId;
+    }
+
+    private Integer addrId;
+
     public Integer getId() {
         return id;
     }

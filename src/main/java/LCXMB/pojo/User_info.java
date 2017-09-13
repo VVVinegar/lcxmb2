@@ -7,7 +7,7 @@ public class User_info {
 
     private Integer credits;
 
-    private Integer virtualCurrency;
+    private Float virtualCurrency;
 
     private String avatarUrl;
 
@@ -31,11 +31,11 @@ public class User_info {
         this.credits = credits;
     }
 
-    public Integer getVirtualCurrency() {
+    public Float getVirtualCurrency() {
         return virtualCurrency;
     }
 
-    public void setVirtualCurrency(Integer virtualCurrency) {
+    public void setVirtualCurrency(Float virtualCurrency) {
         this.virtualCurrency = virtualCurrency;
     }
 
