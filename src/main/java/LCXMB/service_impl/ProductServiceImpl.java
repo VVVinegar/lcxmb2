@@ -25,4 +25,8 @@ public class ProductServiceImpl implements ProductService{
     public Product findById(int id) {
         return productMapper.selectByPrimaryKey(id);
     }
+
+    public int updateStatus(Product record) {
+        return productMapper.updateByPrimaryKeySelective(record);
+    }
 }
