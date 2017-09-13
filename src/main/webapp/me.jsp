@@ -109,7 +109,7 @@
                                             <img src="${productsImgUrlsArr[0]}" class="pull-left">
                                             <p style="margin-bottom: 5px;">
                                                 <c:set var="productTitle" value="${item.title}" />
-                                                <a href="#" class="text-link">${fn:substring(productTitle, 0, 20)}...</a>
+                                                <a href="/product/${item.id}" class="text-link">${fn:substring(productTitle, 0, 20)}...</a>
                                             </p>
                                             <p class="no-m">
                                                 <span style="color: red;font-size: 14px;">¥

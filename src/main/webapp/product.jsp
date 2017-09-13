@@ -1,68 +1,36 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="css/lib/swiper-3.4.2.min.css">
-    <link rel="stylesheet" href="css/lib/tooltipster.bundle.min.css">
-    <link rel="stylesheet" href="css/lib/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <script src="js/lib/vue.js"></script>
-    <script src="js/lib/jquery.min.js"></script>
-    <script src="js/lib/swiper-3.4.2.jquery.min.js"></script>
-    <script src="js/lib/tooltipster.bundle.min.js"></script>
-    <script src="js/app.js"></script>
+    <title>${product.title}</title>
+    <link rel="stylesheet" href="/static/css/lib/swiper-3.4.2.min.css">
+    <link rel="stylesheet" href="/static/css/lib/tooltipster.bundle.min.css">
+    <link rel="stylesheet" href="/static/css/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="/static/js/lib/vue.js"></script>
+    <script src="/static/js/lib/jquery.min.js"></script>
+    <script src="/static/js/lib/swiper-3.4.2.jquery.min.js"></script>
+    <script src="/static/js/lib/tooltipster.bundle.min.js"></script>
+    <script src="/static/js/app.js"></script>
 </head>
 <body class="page-product">
-<div class="header">
-    <div class="header-console">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-4">欢迎来到xxxxx</div>
-                <div class="col-xs-8 text-right header-console-links">
-                    您还为登录
-                    <a href="/login" class="text-link theme-color">请登录</a>
-                    <a href="/register" class="text-link">免费注册</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="header-links">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-3">
-                    <p class="no-m"><img src="./images/logo.png" class="logo"></p>
-                    <p class="no-m logo-title">中北人自己的网络二手市场</p>
-                </div>
-                <div class="col-xs-6 no-p">
-                    <ul class="header-links-ul clearfix">
-                        <li class="active"><a href="#">首页</a></li>
-                        <li><a href="#">发布商品</a></li>
-                        <li><a href="#">商品分类</a></li>
-                        <li><a href="#">个人中心</a></li>
-                    </ul>
-                </div>
-                <div class="col-xs-3 h_100">
-                    <div class="search">
-                        <div class="search-input">
-                            <span class="icon"></span>
-                            <input type="text" placeholder="输入商品名称搜索">
-                        </div>
-                        <div class="search-detail">
 
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<c:import url="./header.jsp">
+    <c:param name="from" value="/product/${product.id}"/>
+    <c:param name="nav" value="search" />
+</c:import>
+
 <div class="main container-s">
     <div class="bread-nav">
         您的位置：
         <a href="#" class="text-link">首页</a> &gt;
         <span>闲置详情</span> &gt;
-        <span>xxx</span>
+        <span>${product.title}</span>
     </div>
     <div class="pro-top">
         <div class="pro-top-line"></div>
@@ -70,7 +38,7 @@
             <div class="user-info html-tooltip" data-tooltip-content="#user-info-tooltiptpl">
                 <img src="http://placehold.it/100/100" class="back-place">
                 <p>
-                    <a href="#" class="text-link">买家卖家卖家卖家</a>
+                    <a href="#" class="text-link">${product.salerUser}</a>
                     <span class="arrow_b"></span>
                 </p>
             </div>
@@ -80,18 +48,15 @@
                 <div class="line" style="margin: 8px 0"></div>
                 <p class="no-m">出售过 <strong>0</strong> 笔</p>
                 <p class="no-m">信誉度：<span class="credits eq-100">100</span></p>
-                <p class="no-m">信誉度：<span class="credits gt-80">80</span></p>
-                <p class="no-m">信誉度：<span class="credits gt-60">60</span></p>
-                <p class="no-m">信誉度：<span class="credits lt-60">59</span></p>
             </div>
             <div class="pro-info clearfix">
                 <div class="visited-count text-center pro-info-item">
                     <p class="text-color">宝贝浏览次数</p>
-                    <p>666666</p>
+                    <p>${product.watchCount}</p>
                 </div>
                 <div class="update-time text-center pro-info-item">
                     <p class="text-color">上次更新时间</p>
-                    <p>xxxxxxxxxxxx</p>
+                    <p>${product.updateTime}</p>
                 </div>
             </div>
         </div>
@@ -99,26 +64,24 @@
     <div class="pro-middle">
         <div class="row">
             <div class="col-xs-7">
+                <c:set var="productsImgUrls" value="${product.imgUrls}" />
+                <c:set var="productsImgUrlsArr" value="${fn:split(productsImgUrls, ',')}" />
                 <div class="swiper-container gallery-top">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <img src="http://lorempixel.com/1200/1200/nature/1">
-                        </div>
-                        <div class="swiper-slide">
-                            <img src="http://lorempixel.com/1200/1200/nature/2">
-                        </div>
-                        <div class="swiper-slide">
-                            <img src="http://lorempixel.com/1200/1200/nature/3">
-                        </div>
+                        <c:forEach items="${productsImgUrlsArr}" var="img">
+                            <div class="swiper-slide">
+                                <img src="${img}">
+                            </div>
+                        </c:forEach>
                     </div>
                 </div>
                 <div style="padding: 0 50px">
                     <div class="gallery-thumbs-wrapper">
                         <div class="swiper-container gallery-thumbs">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide" style="background-image:url(http://lorempixel.com/1200/1200/nature/1)"></div>
-                                <div class="swiper-slide" style="background-image:url(http://lorempixel.com/1200/1200/nature/2)"></div>
-                                <div class="swiper-slide" style="background-image:url(http://lorempixel.com/1200/1200/nature/3)"></div>
+                                <c:forEach items="${productsImgUrlsArr}" var="img">
+                                    <div class="swiper-slide" style="background-image:url(${img})"></div>
+                                </c:forEach>
                             </div>
                         </div>
 
@@ -185,18 +148,18 @@
             </div>
             <div class="col-xs-5 no-pl pro-buy">
                 <div class="pro-buy-top">
-                    <h3 class="no-m" style="margin-bottom: 5px">标题标题标题</h3>
+                    <h3 class="no-m" style="margin-bottom: 5px">${product.title}</h3>
                     <p class="pro-buy-p">
                         <span class="p-label" style="vertical-align: text-bottom">价&nbsp;格：</span>
                         <span class="p-value" style="font-size: 24px;font-weight: bold;color: red;vertical-align: inherit">
-                            ¥156.00
+                            ¥<fmt:formatNumber type="number" value="${product.price}" pattern="0.00" maxFractionDigits="2"/>
                             <i class="pull-right collect-btn">加入收藏</i>
                         </span>
                     </p>
                     <div class="line" style="margin-bottom: 10px;"></div>
                     <p class="pro-buy-p">
                         <span class="p-label">成色：</span>
-                        <span>9成新</span>
+                        <span>${product.quality} 成新</span>
                     </p>
                     <p class="pro-buy-p">
                         <span class="p-label">联系方式：</span>
@@ -204,7 +167,8 @@
                     </p>
                     <p class="pro-buy-p">
                         <span class="p-label">宝贝描述：</span>
-                        <span class="p-value">描述描述描述描述描述描xxxxx描述描述描述描述描nhjdosaj述描述描述描述描述描述gdgfgfg描述描述描述描述</span>
+                        <c:set var="descriptionSub" value="${fn:substring(product.desciption, 0, 50)}"/>
+                        <span class="p-value"></span>
                     </p>
                     <div class="confirm-btn">立即购买</div>
                     <p class="pro-warn">
