@@ -18,6 +18,15 @@
     <result column="category_1" jdbcType="VARCHAR" property="category1" />
     <result column="category_2" jdbcType="VARCHAR" property="category2" />
   </resultMap>
+
+  <resultMap id="PageMeShowedMap" type="LCXMB.pojo.PageMeProducts">
+    <result property="id" column="id" jdbcType="INTEGER"></result>
+    <result property="title" column="title" jdbcType="VARCHAR"/>
+    <result column="img_urls" jdbcType="VARCHAR" property="imgUrls" />
+    <result column="price" jdbcType="INTEGER" property="price" />
+    <result column="commentsNum" property="commentsNum" jdbcType="INTEGER"></result>
+  </resultMap>
+
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -375,5 +384,14 @@
     where category_1 = #{category_1}
     order by update_time
     limit 5
+  </select>
+  <!--个人中心中的展示-->
+  <select id="PageMeShowed" parameterType="java.lang.String" resultMap="PageMeShowedMap">
+    select product.id, product.title, product.img_urls, product.price, count(pro_comment.pro_id) as commentsNum
+    from product
+    left outer join pro_comment
+    on (product.id = pro_comment.pro_id)
+    where product.saler_user = #{username}
+    group by product.id
   </select>
 </mapper>
