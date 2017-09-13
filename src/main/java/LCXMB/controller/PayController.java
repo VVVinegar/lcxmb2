@@ -29,18 +29,26 @@ public class PayController {
     ProductService productService;
     @Resource
     OrderService orderService;
+    @Resource
+    LoginService loginService;
 
     @ResponseBody
     @RequestMapping(value = "/pay", method = RequestMethod.POST)
-    public Msg login(int id, String title, String saler_user, int price, HttpSession session){
+    public Msg login(int id, String saler_user, int price, HttpSession session, String password, int address){
         String username = session.getAttribute("username").toString();
-        int virtualCurrencyBefore = userService.findById(username).getVirtualCurrency();
-        if(virtualCurrencyBefore < price){
-            return Msg.success("余额不足").add("status",1);
+
+        boolean result = loginService.verify(username, password);
+        if(result){
+            int virtualCurrencyBefore = userService.findById(username).getVirtualCurrency();
+            if(virtualCurrencyBefore < price){
+                return Msg.success("余额不足").add("status",1);
+            }else{
+                if(change(id, username, saler_user, price, virtualCurrencyBefore))
+                    return Msg.success("支付成功").add("status",0);
+                return Msg.fail("服务器出错");
+            }
         }else{
-            if(change(id, username, saler_user, price, virtualCurrencyBefore))
-                return Msg.success("支付成功").add("status",0);
-            return Msg.fail("服务器出错");
+            return Msg.success("请重新登录 ").add("status", 1);
         }
     }
 

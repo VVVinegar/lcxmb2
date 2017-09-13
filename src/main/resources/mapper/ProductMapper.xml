@@ -133,7 +133,7 @@
       #{quality,jdbcType=INTEGER}, #{category1,jdbcType=VARCHAR}, #{category2,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="LCXMB.pojo.Product">
+  <insert id="insertSelective" parameterType="LCXMB.pojo.Product" useGeneratedKeys="true" keyProperty="id">
     insert into product
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -376,12 +376,32 @@
       category_2 = #{category2,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <!--自定义-->
+  <!--按条件查，按更新时间排序，查5个-->
   <select id="selectByCategoryOrderAndLimit" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
+    <if test="distinct">
+      distinct
+    </if>
     <include refid="Base_Column_List" />
     from product
-    where category_1 = #{category_1}
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    order by update_time
+    limit 5
+  </select>
+  <!--按条件查，按更新时间或热度排序，取价格区间-->
+  <select id="selectByCate" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    and
     order by update_time
     limit 5
   </select>

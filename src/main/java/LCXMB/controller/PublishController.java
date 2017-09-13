@@ -48,8 +48,10 @@ public class PublishController {
         product.setCreateTime(timeStamp);
         product.setUpdateTime(timeStamp);
 
-        if (publishService.publish(product))
-            return Msg.success("上架成功").add("id", product.getId());
+        if (publishService.publish(product)){
+            int pro_id = product.getId();
+            return Msg.success("上架成功").add("id", pro_id);
+        }
 
         return Msg.fail("上架失败");
 

@@ -17,6 +17,7 @@ public class ProductServiceImpl implements ProductService{
     @Resource
     ProductMapper productMapper;
 
+    //按一级分类查询
     public List<Product> getProducts(String category_1) {
         List<Product> list = productMapper.selectByCategoryOrderAndLimit(category_1);
         return list;
