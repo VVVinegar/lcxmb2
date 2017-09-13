@@ -92,7 +92,7 @@ $(function () {
                         });
                     }
                     $.ajax('/api/comment', {
-                        method: 'post',
+                        type: 'post',
                         data: {
                             replyer: _self.replyer,
                             content: _self.content,
@@ -321,36 +321,5 @@ $(function () {
         $iTabsPanelItem.removeClass('active');
         $iTabsPanelItem.eq(index).addClass('active');
     });
-    // 支付页面
-    var appPay;
-    if ($('#app-pay').length) {
-        appPay = new Vue({
-            el: '#app-pay',
-            data: {
-                min: 30,
-                inter: null,
-            },
-            mounted: function () {
-                this.countDown();
-            },
-            methods: {
-                countDown: function () {
-                    var d = new Date("1111/1/1,0:" + this.min + ":0");
-                    this.inter = setInterval(function () {
-                        var m = d.getMinutes();
-                        var s = d.getSeconds();
-                        m = m < 10 ? "0" + m : m;
-                        s = s < 10 ? "0" + s : s;
-                        $("#cd_text").text(m + "分" + s + '秒');
-                        if (m == 0 && s == 0) {
-                            clearInterval(this.inter);
-                            return;
-                        }
-                        d.setSeconds(s - 1);
-                    }, 1000);
-                }
-            }
-        });
-    }
 });
 //# sourceMappingURL=app.js.map

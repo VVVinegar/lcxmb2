@@ -190,7 +190,14 @@
                         <span class="p-label">宝贝描述：</span>
                         <span class="p-value">${fn:substring(product.desciption, 0, 50)}</span>
                     </p>
-                    <div class="confirm-btn">立即购买</div>
+                    <c:if test="${sessionScope.username != null}">
+                        <a href="/pay?p_id=${product.id}" class="confirm-btn">立即购买</a>
+                    </c:if>
+
+                    <c:if test="${sessionScope.username == null}">
+                        <a href="/login?from=/product/${product.id}" class="confirm-btn">立即购买</a>
+                    </c:if>
+
                     <p class="pro-warn">
                         如遇到以下情况可能是诈骗行为：
                         <span style="color: red">1.宝贝价格异常低；2.卖家要求QQ沟通；3.卖家要求直接汇款；</span>谨防上当受骗。

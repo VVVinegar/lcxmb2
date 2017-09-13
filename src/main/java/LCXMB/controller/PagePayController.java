@@ -11,6 +11,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 /**
  * Created by 759517209@qq.com on 2017/9/10.
@@ -27,15 +28,20 @@ public class PagePayController {
     AddressService addressService;
 
     @RequestMapping(value = "/pay")
-    public String pay(int p_id, ModelMap model){
+    public String pay(int p_id, ModelMap model, HttpSession session){
 
-        Product product = productService.findById(p_id);
-        User_info saler = userService.findById(product.getSalerUser());
-        Shipping_address address = addressService.findById(saler.getDefaultAddress());
+        Object username = session.getAttribute("username");
+        if(username == null) {
+            return "/login";
+        } else {
+            Product product = productService.findById(p_id);
+            User_info me = userService.findById(username.toString());
+            Shipping_address address = addressService.findById(me.getDefaultAddress());
 
-        model.addAttribute("saler", saler);
-        model.addAttribute("product", product);
-        model.addAttribute("address", address);
+            model.addAttribute("me", me);
+            model.addAttribute("product", product);
+            model.addAttribute("address", address);
+        }
 
         return "/pay";
     }
