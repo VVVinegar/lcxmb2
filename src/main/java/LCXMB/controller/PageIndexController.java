@@ -1,6 +1,7 @@
 package LCXMB.controller;
 
 import LCXMB.beans.PCate;
+import LCXMB.pojo.Product;
 import LCXMB.service.ProductService;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.annotation.Resource;
 import javax.servlet.ServletRequest;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -49,12 +51,15 @@ public class PageIndexController {
 
         model.addAttribute("category", category);
 
-//        String[] categories = {"数码产品","二手书籍","生活用品","鞋服配饰","美容美颜","虚拟商品"};
-//        for (String category:categories
-//                ) {
-//            List<Product> productList= productService.getProducts(category);
-//            modelMap.addAttribute(category, productList);
-//        }
+        String[] categories = {"数码产品","二手书籍","生活用品","鞋服配饰","美容美颜","虚拟商品"};
+        List newCates = new ArrayList<List<Product>>();
+
+        for (String word:categories) {
+            List<Product> productList= productService.getProducts(word);
+            newCates.add(productList);
+        }
+
+        model.addAttribute("newCates", newCates);
         return "/index2";
     }
 

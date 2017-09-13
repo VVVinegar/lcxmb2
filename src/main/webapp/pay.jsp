@@ -42,7 +42,7 @@
                 <row :gutter="12">
                     <i-col :span="3">
                         <p class="no-m"></p>
-                        <c:set var="productImg" value="${fn:split(product.imgUrls, ',')}"></c:set>
+                        <c:set var="productImg" value="${fn:split(product.imgUrls, ',')}"/>
                         <img src="${productImg[0]}" style="background-color: #c4c4c4; width: 100%">
                     </i-col>
                     <i-col :span="21">

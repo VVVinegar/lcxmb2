@@ -20,7 +20,7 @@ import java.util.Date;
  */
 @Controller
 @RequestMapping(value = "/api")
-public class ApiController {
+public class CommentController {
     @Resource
     UserService userService;
 
@@ -49,7 +49,7 @@ public class ApiController {
             int status = commentService.insert(comment);
             System.out.println(status);
 
-            return Msg.success("评论").add("status", status);
+            return Msg.success("评论成功").add("status", status);
         }
     }
 }

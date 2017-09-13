@@ -379,15 +379,10 @@
   <!--按条件查，按更新时间排序，查5个-->
   <select id="selectByCategoryOrderAndLimit" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
-    <if test="distinct">
-      distinct
-    </if>
     <include refid="Base_Column_List" />
     from product
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    order by update_time
+    where category_1 = #{category1} and status = 0
+    order by update_time desc
     limit 5
   </select>
   <!--按条件查，按更新时间或热度排序，取价格区间-->

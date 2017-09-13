@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -85,350 +87,34 @@
                 </div>
 
                 <div class="pro-list">
-                    <div class="pro-cate-item">
-                        <div class="title">
-                            <span class="title-text">数码产品</span>
-                            <a href="#" class="link-btn">手机</a>
-                            <a href="#" class="link-btn">平板</a>
-                            <a href="#" class="link-btn">电脑</a>
-                            <a href="#" class="link-btn">查看更多</a>
-                        </div>
-                        <div class="pro-img">
-                            <!--只有五条-->
-                            <%--<c:forEach items="${数码产品}" var="item">--%>
-                            <div class="pro-img-item">
-                                <a href="#">
-                                    <img src="${item.imgUrl}">
-                                </a>
-                                <p class="no-m text-right pro-item-title">
-                                    <a href="#" class="text-link">${item.title}</a>
-                                </p>
-                                <h5 class="no-m text-right pro-item-price">${item.price}</h5>
+                    <c:forEach items="${newCates}" var="n_cate" varStatus="st">
+                        <div class="pro-cate-item">
+                            <div class="title">
+                                <span class="title-text">${category[st.index].value}</span>
+                                <c:forEach items="${category[st.index].children}" var="item">
+                                    <c:if test="${item.value != '其他'}">
+                                        <a href="#" class="link-btn">${item.value}</a>
+                                    </c:if>
+                                </c:forEach>
                             </div>
-                            <%--</c:forEach>--%>
-                            <div class="pro-img-item">
-                                <a href="#">
-                                    <img src="http://placehold.it/200x200">
-                                </a>
-                                <p class="no-m text-right pro-item-title">
-                                    <a href="#" class="text-link">商品商品商品商品</a>
-                                </p>
-                                <h5 class="no-m text-right pro-item-price">￥25.00</h5>
-                            </div>
-                            <div class="pro-img-item">
-                                <a href="#">
-                                    <img src="http://placehold.it/200x200">
-                                </a>
-                                <p class="no-m text-right pro-item-title">
-                                    <a href="#" class="text-link">商品商品商品商品</a>
-                                </p>
-                                <h5 class="no-m text-right pro-item-price">￥25.00</h5>
-                            </div>
-                            <div class="pro-img-item">
-                                <a href="#">
-                                    <img src="http://placehold.it/200x200">
-                                </a>
-                                <p class="no-m text-right pro-item-title">
-                                    <a href="#" class="text-link">商品商品商品商品</a>
-                                </p>
-                                <h5 class="no-m text-right pro-item-price">￥25.00</h5>
-                            </div>
-                            <div class="pro-img-item">
-                                <a href="#">
-                                    <img src="http://placehold.it/200x200">
-                                </a>
-                                <p class="no-m text-right pro-item-title">
-                                    <a href="#" class="text-link">商品商品商品商品</a>
-                                </p>
-                                <h5 class="no-m text-right pro-item-price">￥25.00</h5>
+                            <div class="pro-img">
+                                <c:forEach items="${n_cate}" var="n_cate_1">
+                                    <div class="pro-img-item">
+                                        <a href="#">
+                                            <c:set var="imgurl" value="${fn:split(n_cate_1.imgUrls, ',')}" />
+                                            <img src="${imgurl[0]}">
+                                        </a>
+                                        <p class="no-m text-right pro-item-title">
+                                            <a href="#" class="text-link">${fn:substring(n_cate_1.title, 0, 12)}</a>
+                                        </p>
+                                        <h5 class="no-m text-right pro-item-price">
+                                            <fmt:formatNumber type="number" value="${n_cate_1.price}" pattern="0.00" maxFractionDigits="2"/>
+                                        </h5>
+                                    </div>
+                                </c:forEach>
                             </div>
                         </div>
-                    </div>
-                    <div class="pro-cate-item">
-                        <div class="title">
-                            <span class="title-text">数码产品</span>
-                            <a href="#" class="link-btn">手机</a>
-                            <a href="#" class="link-btn">平板</a>
-                            <a href="#" class="link-btn">电脑</a>
-                            <a href="#" class="link-btn">查看更多</a>
-                        </div>
-                        <div class="pro-img">
-                            <!--只有五条-->
-                            <div class="pro-img-item">
-                                <a href="#">
-                                    <img src="http://placehold.it/200x200">
-                                </a>
-                                <p class="no-m text-right pro-item-title">
-                                    <a href="#" class="text-link">商品商品商品商品</a>
-                                </p>
-                                <h5 class="no-m text-right pro-item-price">￥25.00</h5>
-                            </div>
-                            <div class="pro-img-item">
-                                <a href="#">
-                                    <img src="http://placehold.it/200x200">
-                                </a>
-                                <p class="no-m text-right pro-item-title">
-                                    <a href="#" class="text-link">商品商品商品商品</a>
-                                </p>
-                                <h5 class="no-m text-right pro-item-price">￥25.00</h5>
-                            </div>
-                            <div class="pro-img-item">
-                                <a href="#">
-                                    <img src="http://placehold.it/200x200">
-                                </a>
-                                <p class="no-m text-right pro-item-title">
-                                    <a href="#" class="text-link">商品商品商品商品</a>
-                                </p>
-                                <h5 class="no-m text-right pro-item-price">￥25.00</h5>
-                            </div>
-                            <div class="pro-img-item">
-                                <a href="#">
-                                    <img src="http://placehold.it/200x200">
-                                </a>
-                                <p class="no-m text-right pro-item-title">
-                                    <a href="#" class="text-link">商品商品商品商品</a>
-                                </p>
-                                <h5 class="no-m text-right pro-item-price">￥25.00</h5>
-                            </div>
-                            <div class="pro-img-item">
-                                <a href="#">
-                                    <img src="http://placehold.it/200x200">
-                                </a>
-                                <p class="no-m text-right pro-item-title">
-                                    <a href="#" class="text-link">商品商品商品商品</a>
-                                </p>
-                                <h5 class="no-m text-right pro-item-price">￥25.00</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="pro-cate-item">
-                        <div class="title">
-                            <span class="title-text">数码产品</span>
-                            <a href="#" class="link-btn">手机</a>
-                            <a href="#" class="link-btn">平板</a>
-                            <a href="#" class="link-btn">电脑</a>
-                            <a href="#" class="link-btn">查看更多</a>
-                        </div>
-                        <div class="pro-img">
-                            <!--只有五条-->
-                            <div class="pro-img-item">
-                                <a href="#">
-                                    <img src="http://placehold.it/200x200">
-                                </a>
-                                <p class="no-m text-right pro-item-title">
-                                    <a href="#" class="text-link">商品商品商品商品</a>
-                                </p>
-                                <h5 class="no-m text-right pro-item-price">￥25.00</h5>
-                            </div>
-                            <div class="pro-img-item">
-                                <a href="#">
-                                    <img src="http://placehold.it/200x200">
-                                </a>
-                                <p class="no-m text-right pro-item-title">
-                                    <a href="#" class="text-link">商品商品商品商品</a>
-                                </p>
-                                <h5 class="no-m text-right pro-item-price">￥25.00</h5>
-                            </div>
-                            <div class="pro-img-item">
-                                <a href="#">
-                                    <img src="http://placehold.it/200x200">
-                                </a>
-                                <p class="no-m text-right pro-item-title">
-                                    <a href="#" class="text-link">商品商品商品商品</a>
-                                </p>
-                                <h5 class="no-m text-right pro-item-price">￥25.00</h5>
-                            </div>
-                            <div class="pro-img-item">
-                                <a href="#">
-                                    <img src="http://placehold.it/200x200">
-                                </a>
-                                <p class="no-m text-right pro-item-title">
-                                    <a href="#" class="text-link">商品商品商品商品</a>
-                                </p>
-                                <h5 class="no-m text-right pro-item-price">￥25.00</h5>
-                            </div>
-                            <div class="pro-img-item">
-                                <a href="#">
-                                    <img src="http://placehold.it/200x200">
-                                </a>
-                                <p class="no-m text-right pro-item-title">
-                                    <a href="#" class="text-link">商品商品商品商品</a>
-                                </p>
-                                <h5 class="no-m text-right pro-item-price">￥25.00</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="pro-cate-item">
-                        <div class="title">
-                            <span class="title-text">数码产品</span>
-                            <a href="#" class="link-btn">手机</a>
-                            <a href="#" class="link-btn">平板</a>
-                            <a href="#" class="link-btn">电脑</a>
-                            <a href="#" class="link-btn">查看更多</a>
-                        </div>
-                        <div class="pro-img">
-                            <!--只有五条-->
-                            <div class="pro-img-item">
-                                <a href="#">
-                                    <img src="http://placehold.it/200x200">
-                                </a>
-                                <p class="no-m text-right pro-item-title">
-                                    <a href="#" class="text-link">商品商品商品商品</a>
-                                </p>
-                                <h5 class="no-m text-right pro-item-price">￥25.00</h5>
-                            </div>
-                            <div class="pro-img-item">
-                                <a href="#">
-                                    <img src="http://placehold.it/200x200">
-                                </a>
-                                <p class="no-m text-right pro-item-title">
-                                    <a href="#" class="text-link">商品商品商品商品</a>
-                                </p>
-                                <h5 class="no-m text-right pro-item-price">￥25.00</h5>
-                            </div>
-                            <div class="pro-img-item">
-                                <a href="#">
-                                    <img src="http://placehold.it/200x200">
-                                </a>
-                                <p class="no-m text-right pro-item-title">
-                                    <a href="#" class="text-link">商品商品商品商品</a>
-                                </p>
-                                <h5 class="no-m text-right pro-item-price">￥25.00</h5>
-                            </div>
-                            <div class="pro-img-item">
-                                <a href="#">
-                                    <img src="http://placehold.it/200x200">
-                                </a>
-                                <p class="no-m text-right pro-item-title">
-                                    <a href="#" class="text-link">商品商品商品商品</a>
-                                </p>
-                                <h5 class="no-m text-right pro-item-price">￥25.00</h5>
-                            </div>
-                            <div class="pro-img-item">
-                                <a href="#">
-                                    <img src="http://placehold.it/200x200">
-                                </a>
-                                <p class="no-m text-right pro-item-title">
-                                    <a href="#" class="text-link">商品商品商品商品</a>
-                                </p>
-                                <h5 class="no-m text-right pro-item-price">￥25.00</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="pro-cate-item">
-                        <div class="title">
-                            <span class="title-text">数码产品</span>
-                            <a href="#" class="link-btn">手机</a>
-                            <a href="#" class="link-btn">平板</a>
-                            <a href="#" class="link-btn">电脑</a>
-                            <a href="#" class="link-btn">查看更多</a>
-                        </div>
-                        <div class="pro-img">
-                            <!--只有五条-->
-                            <div class="pro-img-item">
-                                <a href="#">
-                                    <img src="http://placehold.it/200x200">
-                                </a>
-                                <p class="no-m text-right pro-item-title">
-                                    <a href="#" class="text-link">商品商品商品商品</a>
-                                </p>
-                                <h5 class="no-m text-right pro-item-price">￥25.00</h5>
-                            </div>
-                            <div class="pro-img-item">
-                                <a href="#">
-                                    <img src="http://placehold.it/200x200">
-                                </a>
-                                <p class="no-m text-right pro-item-title">
-                                    <a href="#" class="text-link">商品商品商品商品</a>
-                                </p>
-                                <h5 class="no-m text-right pro-item-price">￥25.00</h5>
-                            </div>
-                            <div class="pro-img-item">
-                                <a href="#">
-                                    <img src="http://placehold.it/200x200">
-                                </a>
-                                <p class="no-m text-right pro-item-title">
-                                    <a href="#" class="text-link">商品商品商品商品</a>
-                                </p>
-                                <h5 class="no-m text-right pro-item-price">￥25.00</h5>
-                            </div>
-                            <div class="pro-img-item">
-                                <a href="#">
-                                    <img src="http://placehold.it/200x200">
-                                </a>
-                                <p class="no-m text-right pro-item-title">
-                                    <a href="#" class="text-link">商品商品商品商品</a>
-                                </p>
-                                <h5 class="no-m text-right pro-item-price">￥25.00</h5>
-                            </div>
-                            <div class="pro-img-item">
-                                <a href="#">
-                                    <img src="http://placehold.it/200x200">
-                                </a>
-                                <p class="no-m text-right pro-item-title">
-                                    <a href="#" class="text-link">商品商品商品商品</a>
-                                </p>
-                                <h5 class="no-m text-right pro-item-price">￥25.00</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="pro-cate-item">
-                        <div class="title">
-                            <span class="title-text">数码产品</span>
-                            <a href="#" class="link-btn">手机</a>
-                            <a href="#" class="link-btn">平板</a>
-                            <a href="#" class="link-btn">电脑</a>
-                            <a href="#" class="link-btn">查看更多</a>
-                        </div>
-                        <div class="pro-img">
-                            <!--只有五条-->
-                            <div class="pro-img-item">
-                                <a href="#">
-                                    <img src="http://placehold.it/200x200">
-                                </a>
-                                <p class="no-m text-right pro-item-title">
-                                    <a href="#" class="text-link">商品商品商品商品</a>
-                                </p>
-                                <h5 class="no-m text-right pro-item-price">￥25.00</h5>
-                            </div>
-                            <div class="pro-img-item">
-                                <a href="#">
-                                    <img src="http://placehold.it/200x200">
-                                </a>
-                                <p class="no-m text-right pro-item-title">
-                                    <a href="#" class="text-link">商品商品商品商品</a>
-                                </p>
-                                <h5 class="no-m text-right pro-item-price">￥25.00</h5>
-                            </div>
-                            <div class="pro-img-item">
-                                <a href="#">
-                                    <img src="http://placehold.it/200x200">
-                                </a>
-                                <p class="no-m text-right pro-item-title">
-                                    <a href="#" class="text-link">商品商品商品商品</a>
-                                </p>
-                                <h5 class="no-m text-right pro-item-price">￥25.00</h5>
-                            </div>
-                            <div class="pro-img-item">
-                                <a href="#">
-                                    <img src="http://placehold.it/200x200">
-                                </a>
-                                <p class="no-m text-right pro-item-title">
-                                    <a href="#" class="text-link">商品商品商品商品</a>
-                                </p>
-                                <h5 class="no-m text-right pro-item-price">￥25.00</h5>
-                            </div>
-                            <div class="pro-img-item">
-                                <a href="#">
-                                    <img src="http://placehold.it/200x200">
-                                </a>
-                                <p class="no-m text-right pro-item-title">
-                                    <a href="#" class="text-link">商品商品商品商品</a>
-                                </p>
-                                <h5 class="no-m text-right pro-item-price">￥25.00</h5>
-                            </div>
-                        </div>
-                    </div>
+                    </c:forEach>
                 </div>
             </div>
             <div class="col-xs-3" id="app-rank" v-cloak>

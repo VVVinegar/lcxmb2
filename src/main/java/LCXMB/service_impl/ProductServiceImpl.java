@@ -19,8 +19,7 @@ public class ProductServiceImpl implements ProductService{
 
     //按一级分类查询
     public List<Product> getProducts(String category_1) {
-        List<Product> list = productMapper.selectByCategoryOrderAndLimit(category_1);
-        return list;
+        return  productMapper.selectByCategoryOrderAndLimit(category_1);
     }
 
     public Product findById(int id) {
