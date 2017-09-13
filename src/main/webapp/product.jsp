@@ -28,7 +28,7 @@
 <div class="main container-s">
     <div class="bread-nav">
         您的位置：
-        <a href="#" class="text-link">首页</a> &gt;
+        <a href="/" class="text-link">首页</a> &gt;
         <span>闲置详情</span> &gt;
         <span>${product.title}</span>
     </div>
@@ -36,7 +36,7 @@
         <div class="pro-top-line"></div>
         <div class="pro-top-main clearfix">
             <div class="user-info html-tooltip" data-tooltip-content="#user-info-tooltiptpl">
-                <img src="http://placehold.it/100/100" class="back-place">
+                <img src="${saler.avatarUrl}" class="back-place">
                 <p>
                     <a href="#" class="text-link">${product.salerUser}</a>
                     <span class="arrow_b"></span>
@@ -44,10 +44,25 @@
             </div>
             <div id="user-info-tooltiptpl" class="tooltip-content user-info-tooltip">
                 <p class="no-m">男</p>
-                <p class="no-m">注册时间：2017-01-31</p>
+                <p class="no-m">注册时间：
+                    <fmt:formatDate value="${saler.createTime}" type="both"/>
+                </p>
                 <div class="line" style="margin: 8px 0"></div>
-                <p class="no-m">出售过 <strong>0</strong> 笔</p>
-                <p class="no-m">信誉度：<span class="credits eq-100">100</span></p>
+
+                <c:if test="${saler.credits == 100}">
+                    <c:set var="credits_class" value="eq-100" />
+                </c:if>
+                <c:if test="${saler.credits > 80}">
+                    <c:set var="credits_class" value="gt-80" />
+                </c:if>
+                <c:if test="${saler.credits > 60}">
+                    <c:set var="credits_class" value="gt-60" />
+                </c:if>
+                <c:if test="${saler.credits <= 60}">
+                    <c:set var="credits_class" value="lt-60" />
+                </c:if>
+
+                <p class="no-m">信誉度：<span class="credits ${credits_class}">${saler.credits}</span></p>
             </div>
             <div class="pro-info clearfix">
                 <div class="visited-count text-center pro-info-item">
@@ -56,7 +71,8 @@
                 </div>
                 <div class="update-time text-center pro-info-item">
                     <p class="text-color">上次更新时间</p>
-                    <p>${product.updateTime}</p>
+                    <p><fmt:formatDate type="both"
+                                       value="${product.updateTime}" /></p>
                 </div>
             </div>
         </div>
@@ -102,31 +118,23 @@
                     <div class="tabs-panel">
                         <div class="tabs-panel-item active">
                             <ul class="comment-panel">
-                                <li>
-                                    <img src="http://placehold.it/40x40">
-                                    <p class="no-m">
-                                        <a href="#" class="text-link">卖家</a>：
-                                        宝贝不错
-                                    </p>
-                                    <p class="no-m text-color">
-                                        2017-01-23 11:34:45
-                                        <a href="javascript:;" class="text-link" style="margin-left: 10px;">回复</a>
-                                    </p>
-                                </li>
-                                <li>
-                                    <img src="http://placehold.it/40x40">
-                                    <p class="no-m">
-                                        <a href="#" class="text-link">卖家1</a>
-                                        <span>
-                                            回复 <a href="#" class="text-link">卖家2</a>
-                                        </span>：
-                                        宝贝不错
-                                    </p>
-                                    <p class="no-m text-color">
-                                        2017-01-23 11:34:45
-                                        <a href="javascript:;" class="text-link" style="margin-left: 10px;">回复</a>
-                                    </p>
-                                </li>
+                                <c:forEach items="${comments}" var="item">
+                                    <li>
+                                        <img src="${item.commenterAvatar}">
+                                        <p class="no-m">
+                                            <a href="#" class="text-link">${item.commenter}</a>
+                                            <c:if test="${item.replyer != null}">
+                                                回复 <a href="#" class="text-link">${item.replyer}</a>
+                                            </c:if>
+                                            ：
+                                            ${item.content}
+                                        </p>
+                                        <p class="no-m text-color">
+                                            <fmt:formatDate type="both" value="${item.createTime}" />
+                                            <a href="javascript:;" class="text-link" style="margin-left: 10px;">回复</a>
+                                        </p>
+                                    </li>
+                                </c:forEach>
                             </ul>
                             <div class="comment-control">
                                 <div class="comment-tr">
@@ -141,7 +149,7 @@
                             </div>
                         </div>
                         <div class="tabs-panel-item" style="font-size: 14px;text-align: justify">
-                            宝贝详情：详情详情详情详情详情详情详情
+                            宝贝详情：${product.desciption}
                         </div>
                     </div>
                 </div>
@@ -163,12 +171,11 @@
                     </p>
                     <p class="pro-buy-p">
                         <span class="p-label">联系方式：</span>
-                        <button class="btn btn-success" style="font-size: 12px;">获取联系方式</button>
+                        <span class="p-value">${product.telNum}</span>
                     </p>
                     <p class="pro-buy-p">
                         <span class="p-label">宝贝描述：</span>
-                        <c:set var="descriptionSub" value="${fn:substring(product.desciption, 0, 50)}"/>
-                        <span class="p-value"></span>
+                        <span class="p-value">${fn:substring(product.desciption, 0, 50)}</span>
                     </p>
                     <div class="confirm-btn">立即购买</div>
                     <p class="pro-warn">
