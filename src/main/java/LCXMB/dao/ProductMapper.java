@@ -38,7 +38,10 @@ public interface ProductMapper {
     // TOP10
     List<Product> selectTop10(@Param("field") String field);
 
+    //按分类查询
     List<Product> selectByCate(@Param("minPrice") float minPrice,@Param("maxPrice") float maxPrice,
-                                    @Param("category_2") String category_2, @Param("style") int style,
-                                    @Param("sort") boolean sort, @Param("begin") int begin);
+                                    @Param("category_2") String category_2, @Param("newOrHot") int newOrHot,
+                                    @Param("lowOrHigh") int lowOrHigh, @Param("begin") int begin);
+    //按title模糊查询
+    List<Product> selectByTitle(@Param("keywords") String keywords,@Param("page") int page);
 }

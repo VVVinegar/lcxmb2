@@ -385,7 +385,7 @@
     order by update_time desc
     limit 5
   </select>
-  <!--按条件查，按更新时间或热度排序，取价格区间,分页-->
+  <!--按分类查，按更新时间或热度排序，取价格区间,分页-->
   <select id="selectByCate" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -395,10 +395,32 @@
     from product
     where category_2 = #{category_2}
     and between #{minPrice} and #{maxPrice}
-    order by #{orderType}
-    <if test="isDesc">
+    order by
+    <if test="newOrHot == 0">
+      update_time;
+    </if>
+    <if test="newOrHot == 1">
+      watch_count;
+    </if>
+    desc,
+    price
+    <if test="lowOrHigh == 0">
+      asc
+    </if>
+    <if test="lowOrHigh == 1">
       desc
     </if>
+    limit #{begin},5
+  </select>
+  <!--按照关键字(title)模糊查询-->
+  <select id="selectByTitle" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from product
+    where title like "%"#{keywords}"%";
     limit #{begin},5
   </select>
   <!--个人中心中的展示-->
