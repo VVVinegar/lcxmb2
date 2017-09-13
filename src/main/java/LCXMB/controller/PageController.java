@@ -20,17 +20,6 @@ public class PageController {
     @Resource
     ProductService productService;
 
-    @RequestMapping("/")
-    public String index(ModelMap modelMap, Model model) {
-
-        String[] categories = {"数码产品","二手书籍","生活用品","鞋服配饰","美容美颜","虚拟商品"};
-        for (String category:categories
-             ) {
-            List<Product> productList= productService.getProducts(category);
-            modelMap.addAttribute(category, productList);
-        }
-        return "/index2";
-    }
 
     @RequestMapping(value = "/login")
     public String login(){
