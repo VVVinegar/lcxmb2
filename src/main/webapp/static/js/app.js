@@ -4,22 +4,38 @@ $(function () {
         appRank = new Vue({
             el: '#app-rank',
             data: {
-                showSelectPanel: false
+                list: [],
+                type: 'new',
+                loading: false,
+            },
+            mounted: function () {
+                this.requestData('new');
             },
             methods: {
-                toggleSelectPanel: function () {
-                    this.showSelectPanel = !this.showSelectPanel;
+                requestData: function (type) {
+                    this.type = type;
+                    this.loading = true;
+                    var _self = this;
+                    $.get("/api/top10/" + type).done(function (data) {
+                        _self.loading = false;
+                        _self.list = data.data.list;
+                        _self.$nextTick(function () {
+                            _self.setHover();
+                        });
+                    });
+                },
+                setHover: function () {
+                    // 主页排行榜 hover
+                    var $rankItems = $('.rank-item:gt(0)');
+                    $rankItems.hover(function () {
+                        $(this).find('.rank-item-hidden').stop().slideDown(300);
+                    }, function () {
+                        $(this).find('.rank-item-hidden').stop().slideUp(300);
+                    });
                 }
             }
         });
     }
-    // 主页排行榜 hover
-    var $rankItems = $('.rank-item:gt(0)');
-    $rankItems.hover(function () {
-        $(this).find('.rank-item-hidden').stop().slideDown(300);
-    }, function () {
-        $(this).find('.rank-item-hidden').stop().slideUp(300);
-    });
     // 主页排行榜吸盘
     $(window).on('scroll', function () {
         var scrollTop = $(this).scrollTop();

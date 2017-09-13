@@ -9,24 +9,38 @@ $(function () {
     appRank = new Vue({
       el: '#app-rank',
       data: {
-        showSelectPanel: false
+        list: [],
+        type: 'new',
+        loading: false,
+      },
+      mounted(){
+        this.requestData('new');
       },
       methods: {
-        toggleSelectPanel(): void {
-          this.showSelectPanel = !this.showSelectPanel
+        requestData(type: string) {
+          this.type = type
+          this.loading = true
+          const _self = this
+          $.get(`/api/top10/${type}`).done(function (data) {
+            _self.loading = false
+            _self.list = data.data.list
+            _self.$nextTick(()=>{
+              _self.setHover()
+            })
+          })
+        },
+        setHover(){
+          // 主页排行榜 hover
+          const $rankItems: JQ = $('.rank-item:gt(0)')
+          $rankItems.hover(function () {
+            $(this).find('.rank-item-hidden').stop().slideDown(300)
+          }, function () {
+            $(this).find('.rank-item-hidden').stop().slideUp(300)
+          })
         }
       }
     })
   }
-
-
-  // 主页排行榜 hover
-  const $rankItems: JQ = $('.rank-item:gt(0)')
-  $rankItems.hover(function () {
-    $(this).find('.rank-item-hidden').stop().slideDown(300)
-  }, function () {
-    $(this).find('.rank-item-hidden').stop().slideUp(300)
-  })
 
 
   // 主页排行榜吸盘
@@ -304,7 +318,7 @@ $(function () {
                   _self.showSuccess = true
                   const url = `/product/${id}`
                   _self.successUrl = url
-                  setTimeout(()=>{
+                  setTimeout(() => {
                     location.href = url
                   }, 3000)
                 } else {

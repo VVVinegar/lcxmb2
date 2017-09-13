@@ -1220,41 +1220,41 @@ body {
 .page-me .detail-body .i-tabs-panel-item.active {
   display: block;
 }
-.page-me .order-list {
+.page-me .orders-list {
   margin-top: 10px;
   border: 1px solid #DAF3FF;
 }
-.page-me .order-list:hover {
+.page-me .orders-list:hover {
   border-color: #aed8ff;
 }
-.page-me .order-list-top {
+.page-me .orders-list-top {
   padding: 10px;
   background-color: #EAF8FF;
   border-bottom: 1px solid #DAF3FF;
 }
-.page-me .order-list .is-sale-text {
+.page-me .orders-list .is-sale-text {
   color: limegreen;
 }
-.page-me .order-list .is-buy-text {
+.page-me .orders-list .is-buy-text {
   color: orange;
 }
-.page-me .order-list .is-finish-text {
+.page-me .orders-list .is-finish-text {
   color: #595959;
 }
-.page-me .order-list-body {
+.page-me .orders-list-body {
   padding: 10px;
 }
-.page-me .order-list-body .img_link img {
+.page-me .orders-list-body .img_link img {
   width: 60px;
   height: 60px;
 }
-.page-me .order-list-body .img_link p {
+.page-me .orders-list-body .img_link p {
   margin-left: 70px;
 }
-.page-me .order-list.is-finish {
+.page-me .orders-list.is-finish {
   border-color: #ECECEC;
 }
-.page-me .order-list.is-finish .order-list-top {
+.page-me .orders-list.is-finish .orders-list-top {
   background-color: #f1f1f1;
   border-color: #ECECEC;
 }

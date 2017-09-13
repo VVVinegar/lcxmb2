@@ -132,20 +132,23 @@
                         </div>
                     </div>
                     <div class="rank">
-                        <div class="rank-item" v-for="i in 10">
+                        <div class="rank-item" v-for="(item, index) in list" :key="item.title + index">
                             <div class="rank-item-visible">
-                                <span class="rank-item-index">{{i}}</span>
+                                <span class="rank-item-index">{{index}}</span>
                                 <div class="rank-item-link">
                                     <p class="text-ellipsis">
-                                        <a href="#" class="text-link" title="全名">商品商品商品商品商品商品商品商品</a>
+                                        <a href="#" class="text-link" title="全名">{{item.title}}</a>
                                     </p>
                                 </div>
-                                <div class="rank-item-price">￥125767.00</div>
+                                <div class="rank-item-price">￥{{item.price.toFixed(2)}}</div>
                             </div>
                             <div class="rank-item-hidden clearfix">
-                                <div class="rank-item-img pull-left"
-                                     style="background-image: url(http://placehold.it/60x60)"></div>
-                                <div class="rank-item-desc">述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述</div>
+                                <div class="rank-item-img pull-left">
+                                    <a :href="'/product/'+item.id">
+                                        <img :src="item.imgUrls.split(',')[0]" style="width: 100%">
+                                    </a>
+                                </div>
+                                <div class="rank-item-desc">{{item.desciption}}</div>
                             </div>
                         </div>
                     </div>
