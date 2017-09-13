@@ -35,4 +35,7 @@ public class UserServiceImpl implements UserService{
         return user_infoMapper.insert(user_info);
     }
 
+    public int updateByPrimaryKeySelective(User_info record) {
+        return user_infoMapper.updateByPrimaryKeySelective(record);
+    }
 }
