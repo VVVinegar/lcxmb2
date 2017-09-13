@@ -21,4 +21,8 @@ public class ProductServiceImpl implements ProductService{
         List<Product> list = productMapper.selectByCategoryOrderAndLimit(category_1);
         return list;
     }
+
+    public Product findById(int id) {
+        return productMapper.selectByPrimaryKey(id);
+    }
 }

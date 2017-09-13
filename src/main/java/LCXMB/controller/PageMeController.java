@@ -1,5 +1,6 @@
 package LCXMB.controller;
 
+import LCXMB.dao.ProductMapper;
 import LCXMB.pojo.User_info;
 import LCXMB.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * Created by 759517209@qq.com on 2017/9/10.
@@ -18,15 +20,34 @@ public class PageMeController {
 
     @Resource
     UserService userService;
+    @Resource
+    ProductMapper productMapper;
 
     public User_info getUserinfo(String username){
-        System.out.print(username);
         return userService.findById(username);
     }
 
     @RequestMapping(value = "/me")
     public String index(){
-        return "redirect:/me/order";
+        return "redirect:/me/product";
+    }
+
+    @RequestMapping(value = "/me/product")
+    public String product(HttpSession httpSession, ModelMap model){
+        Object username = httpSession.getAttribute("username");
+        if(username != null) {
+            User_info user = getUserinfo(username.toString());
+            model.addAttribute("user", user);
+        } else {
+            return "/login";
+        }
+
+        List products = productMapper.PageMeShowed(username.toString());
+
+        model.addAttribute("subsite", "product");
+        model.addAttribute("products", products);
+
+        return "/me";
     }
 
     @RequestMapping(value = "/me/order")
@@ -34,8 +55,7 @@ public class PageMeController {
         Object username = httpSession.getAttribute("username");
         if(username != null) {
             User_info user = getUserinfo(username.toString());
-//            model.addAttribute("user", user);
-            model.addAttribute("username1", user.getUsername());
+            model.addAttribute("user", user);
         } else {
             return "/login";
         }

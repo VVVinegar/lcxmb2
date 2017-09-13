@@ -32,4 +32,6 @@ public interface ProductMapper {
 
     //用于首页
     List<Product> selectByCategoryOrderAndLimit(String category_1);
+
+    List PageMeShowed(String username);
 }

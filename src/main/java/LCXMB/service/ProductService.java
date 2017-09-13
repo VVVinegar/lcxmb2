@@ -9,4 +9,5 @@ import java.util.List;
  */
 public interface ProductService {
     public List<Product> getProducts(String category_1);
+    public Product findById(int id);
 }
