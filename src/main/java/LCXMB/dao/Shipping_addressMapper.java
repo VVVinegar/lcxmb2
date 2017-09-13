@@ -4,7 +4,9 @@ import LCXMB.pojo.Shipping_address;
 import LCXMB.pojo.Shipping_addressExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface Shipping_addressMapper {
     long countByExample(Shipping_addressExample example);
 

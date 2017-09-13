@@ -59,6 +59,7 @@ public class RegisterController {
         user_info.setCredits(100);
         user_info.setVirtualCurrency(0);
         user_info.setAvatarUrl("/static/images/default_avatar.png");
+        user_info.setDefaultAddress(-1);
 
         Date date = new Date();
         Timestamp timeStamp = new Timestamp(date.getTime());

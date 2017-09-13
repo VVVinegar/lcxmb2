@@ -39,7 +39,7 @@ public class PublishController {
 
         product.setSalerUser(username);
 
-        product.setPriceChanged(0);
+        product.setPriceChanged((float) 0);
         product.setWatchCount(0);
         product.setStatus(0);
 
@@ -49,7 +49,7 @@ public class PublishController {
         product.setUpdateTime(timeStamp);
 
         if (publishService.publish(product))
-            return Msg.success("上架成功").add("status", 0);
+            return Msg.success("上架成功").add("id", product.getId());
 
         return Msg.fail("上架失败");
 

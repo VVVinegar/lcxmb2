@@ -8,11 +8,13 @@
 <head>
     <meta charset="UTF-8">
     <title>${product.title}</title>
+    <link rel="stylesheet" href="/static/css/lib/iview.min.css">
     <link rel="stylesheet" href="/static/css/lib/swiper-3.4.2.min.css">
     <link rel="stylesheet" href="/static/css/lib/tooltipster.bundle.min.css">
     <link rel="stylesheet" href="/static/css/lib/bootstrap.min.css">
     <link rel="stylesheet" href="/static/css/style.css">
     <script src="/static/js/lib/vue.js"></script>
+    <script src="/static/js/lib/iview.min.js"></script>
     <script src="/static/js/lib/jquery.min.js"></script>
     <script src="/static/js/lib/swiper-3.4.2.jquery.min.js"></script>
     <script src="/static/js/lib/tooltipster.bundle.min.js"></script>
@@ -25,6 +27,7 @@
     <c:param name="nav" value="search" />
 </c:import>
 
+<input type="hidden" id="productId" value="${product.id}">
 <div class="main container-s">
     <div class="bread-nav">
         您的位置：
@@ -110,45 +113,55 @@
                         </div>
                     </div>
                 </div>
-                <div class="pro-tabs">
+                <div class="pro-tabs" id="app-comments" v-cloak>
                     <div class="tabs-bar">
-                        <div class="tabs-item active">留言</div>
-                        <div class="tabs-item">宝贝详情</div>
+                        <div class="tabs-item" :class="{active: showPanel1 === true}" @click="togglePanel">留言</div>
+                        <div class="tabs-item" :class="{active: showPanel1 === false}" @click="togglePanel">宝贝详情</div>
                     </div>
                     <div class="tabs-panel">
-                        <div class="tabs-panel-item active">
+                        <div class="tabs-panel-item" :class="{active: showPanel1 === true}">
                             <ul class="comment-panel">
+                                <c:if test="${fn:length(comments) == 0}">
+                                    <p class="text-center no-m">暂无评论</p>
+                                </c:if>
                                 <c:forEach items="${comments}" var="item">
                                     <li>
                                         <img src="${item.commenterAvatar}">
                                         <p class="no-m">
                                             <a href="#" class="text-link">${item.commenter}</a>
-                                            <c:if test="${item.replyer != null}">
+                                            <c:if test="${item.replyer != ''}">
                                                 回复 <a href="#" class="text-link">${item.replyer}</a>
-                                            </c:if>
-                                            ：
+                                            </c:if>：
                                             ${item.content}
                                         </p>
                                         <p class="no-m text-color">
                                             <fmt:formatDate type="both" value="${item.createTime}" />
-                                            <a href="javascript:;" class="text-link" style="margin-left: 10px;">回复</a>
+                                            <a href="javascript:;" class="text-link" style="margin-left: 10px;" @click="setReplyer('${item.commenter}')">回复</a>
                                         </p>
                                     </li>
                                 </c:forEach>
                             </ul>
                             <div class="comment-control">
-                                <div class="comment-tr">
-                                    <textarea rows="4" placeholder="发表评论..." maxlength="120"></textarea>
+                                <div class="alert alert-warning alert-dismissible" role="alert" v-show="replyer">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" @click="setReplyer(null)">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <strong>正在回复</strong> {{replyer}}:
                                 </div>
+
+                                <div class="comment-tr">
+                                    <textarea v-model="content" rows="4" placeholder="发表评论..." maxlength="120" id="comment-tr"></textarea>
+                                </div>
+
                                 <div class="comment-tr-btm">
-                                    <span class="comment-submit pull-right">发表</span>
+                                    <span class="comment-submit pull-right" @click="submit">发表</span>
                                     <span class="comment-limit pull-right">
-                                        <i style="color: orange" class="count">0</i> / <i>120</i>
+                                        <i style="color: orange" class="count">{{content.length}}</i> / <i>120</i>
                                     </span>
                                 </div>
                             </div>
                         </div>
-                        <div class="tabs-panel-item" style="font-size: 14px;text-align: justify">
+                        <div class="tabs-panel-item" style="font-size: 14px;text-align: justify" :class="{active: showPanel1 === false}" >
                             宝贝详情：${product.desciption}
                         </div>
                     </div>
@@ -159,8 +172,8 @@
                     <h3 class="no-m" style="margin-bottom: 5px">${product.title}</h3>
                     <p class="pro-buy-p">
                         <span class="p-label" style="vertical-align: text-bottom">价&nbsp;格：</span>
-                        <span class="p-value" style="font-size: 24px;font-weight: bold;color: red;vertical-align: inherit">
-                            ¥<fmt:formatNumber type="number" value="${product.price}" pattern="0.00" maxFractionDigits="2"/>
+                        <span class="p-value" style="font-size: 24px;font-weight: bold;color: red;vertical-align: inherit">¥
+                            <fmt:formatNumber type="number" value="${product.price}" pattern="0.00" maxFractionDigits="2"/>
                             <i class="pull-right collect-btn">加入收藏</i>
                         </span>
                     </p>

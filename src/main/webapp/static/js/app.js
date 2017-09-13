@@ -68,24 +68,67 @@ $(function () {
             }
         });
     }
-    // 商品详情页 tabs 切换
-    var $proTabsItem = $('.pro-tabs .tabs-item');
-    var $proTabsPanelItem = $('.pro-tabs .tabs-panel-item');
-    $proTabsItem.on('click', function () {
-        var $t = $(this);
-        var index = $t.index();
-        $t.siblings().removeClass('active');
-        $t.addClass('active');
-        $proTabsPanelItem.removeClass('active');
-        $proTabsPanelItem.eq(index).addClass('active');
-    });
-    // 商品页评论字数控制
-    var $cmtTextarea = $('.comment-tr textarea');
-    var $countEle = $('.comment-tr-btm .count');
-    $cmtTextarea.on('input', function () {
-        var textLength = $(this).val().length;
-        $countEle.text(textLength);
-    });
+    // 商品页评论
+    var appComments;
+    if ($('#app-comments').length) {
+        appComments = new Vue({
+            el: '#app-comments',
+            data: {
+                replyer: null,
+                content: '',
+                showPanel1: true
+            },
+            methods: {
+                setReplyer: function (replyer) {
+                    this.replyer = replyer;
+                },
+                submit: function () {
+                    var _self = this;
+                    if (_self.content.trim() === '') {
+                        return _self.$Modal.warning({
+                            title: '提示',
+                            content: '请检查输入',
+                            okText: '确定'
+                        });
+                    }
+                    $.ajax('/api/comment', {
+                        method: 'post',
+                        data: {
+                            replyer: _self.replyer,
+                            content: _self.content,
+                            proId: Number($('#productId').val())
+                        }
+                    }).done(function (data) {
+                        var code = data.code;
+                        var msg = data.msg;
+                        if (code === 1) {
+                            _self.$Modal.error({
+                                title: '提示',
+                                content: msg,
+                                okText: '确定',
+                                onOk: function () {
+                                    location.href = "/login?from=/product/" + $('#productId').val();
+                                }
+                            });
+                        }
+                        else {
+                            _self.$Modal.success({
+                                title: '提示',
+                                content: '评论成功',
+                                okText: '确定',
+                                onOk: function () {
+                                    location.reload();
+                                }
+                            });
+                        }
+                    });
+                },
+                togglePanel: function () {
+                    this.showPanel1 = !this.showPanel1;
+                }
+            }
+        });
+    }
     // 发布商品页
     var validateCate = function (rule, value, callback) {
         if (value.length === 0) {
@@ -245,7 +288,11 @@ $(function () {
                                 if (code === 0) {
                                     var id = data.data.id;
                                     _self_1.showSuccess = true;
-                                    _self_1.successUrl = '';
+                                    var url_1 = "/product/" + id;
+                                    _self_1.successUrl = url_1;
+                                    setTimeout(function () {
+                                        location.href = url_1;
+                                    }, 3000);
                                 }
                                 else {
                                     _self_1.$Modal.error({
@@ -274,5 +321,36 @@ $(function () {
         $iTabsPanelItem.removeClass('active');
         $iTabsPanelItem.eq(index).addClass('active');
     });
+    // 支付页面
+    var appPay;
+    if ($('#app-pay').length) {
+        appPay = new Vue({
+            el: '#app-pay',
+            data: {
+                min: 30,
+                inter: null,
+            },
+            mounted: function () {
+                this.countDown();
+            },
+            methods: {
+                countDown: function () {
+                    var d = new Date("1111/1/1,0:" + this.min + ":0");
+                    this.inter = setInterval(function () {
+                        var m = d.getMinutes();
+                        var s = d.getSeconds();
+                        m = m < 10 ? "0" + m : m;
+                        s = s < 10 ? "0" + s : s;
+                        $("#cd_text").text(m + "分" + s + '秒');
+                        if (m == 0 && s == 0) {
+                            clearInterval(this.inter);
+                            return;
+                        }
+                        d.setSeconds(s - 1);
+                    }, 1000);
+                }
+            }
+        });
+    }
 });
 //# sourceMappingURL=app.js.map

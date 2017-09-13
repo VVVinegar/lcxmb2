@@ -7,14 +7,14 @@
     <result column="desciption" jdbcType="VARCHAR" property="desciption" />
     <result column="saler_user" jdbcType="VARCHAR" property="salerUser" />
     <result column="img_urls" jdbcType="VARCHAR" property="imgUrls" />
-    <result column="price_changed" jdbcType="INTEGER" property="priceChanged" />
-    <result column="price" jdbcType="INTEGER" property="price" />
+    <result column="price_changed" jdbcType="FLOAT" property="priceChanged" />
+    <result column="price" jdbcType="FLOAT" property="price" />
     <result column="watch_count" jdbcType="INTEGER" property="watchCount" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="tel_num" jdbcType="CHAR" property="telNum" />
-    <result column="quality" jdbcType="INTEGER" property="quality" />
+    <result column="quality" jdbcType="FLOAT" property="quality" />
     <result column="category_1" jdbcType="VARCHAR" property="category1" />
     <result column="category_2" jdbcType="VARCHAR" property="category2" />
   </resultMap>
@@ -23,7 +23,7 @@
     <result property="id" column="id" jdbcType="INTEGER"></result>
     <result property="title" column="title" jdbcType="VARCHAR"/>
     <result column="img_urls" jdbcType="VARCHAR" property="imgUrls" />
-    <result column="price" jdbcType="INTEGER" property="price" />
+    <result column="price" jdbcType="FLOAT" property="price" />
     <result column="commentsNum" property="commentsNum" jdbcType="INTEGER"></result>
   </resultMap>
 
@@ -391,7 +391,7 @@
     from product
     left outer join pro_comment
     on (product.id = pro_comment.pro_id)
-    where product.saler_user = #{username}
+    where product.saler_user = #{username} and product.status = 0
     group by product.id
   </select>
 </mapper>

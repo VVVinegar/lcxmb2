@@ -16,4 +16,8 @@ public class CommentServiceImpl implements CommentService {
     public List<Pro_comment> findByProId(int id) {
         return proCommentMapper.selectByProId(id);
     }
+
+    public int insert(Pro_comment comment) {
+        return proCommentMapper.insert(comment);
+    }
 }

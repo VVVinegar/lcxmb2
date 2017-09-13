@@ -82,26 +82,66 @@ $(function () {
     })
   }
 
-  // 商品详情页 tabs 切换
-  const $proTabsItem: JQ = $('.pro-tabs .tabs-item')
-  const $proTabsPanelItem: JQ = $('.pro-tabs .tabs-panel-item')
-  $proTabsItem.on('click', function () {
-    const $t = $(this)
-    const index = $t.index()
-    $t.siblings().removeClass('active')
-    $t.addClass('active')
-    $proTabsPanelItem.removeClass('active')
-    $proTabsPanelItem.eq(index).addClass('active')
-  })
-
-
-  // 商品页评论字数控制
-  const $cmtTextarea: JQ = $('.comment-tr textarea')
-  const $countEle: JQ = $('.comment-tr-btm .count')
-  $cmtTextarea.on('input', function () {
-    const textLength: number = ( <string> $(this).val() ).length
-    $countEle.text(textLength)
-  })
+  // 商品页评论
+  let appComments
+  if ($('#app-comments').length) {
+    appComments = new Vue({
+      el: '#app-comments',
+      data: {
+        replyer: null,
+        content: '',
+        showPanel1: true
+      },
+      methods: {
+        setReplyer(replyer): void {
+          this.replyer = replyer
+        },
+        submit(): void {
+          const _self = this
+          if (_self.content.trim() === '') {
+            return _self.$Modal.warning({
+              title: '提示',
+              content: '请检查输入',
+              okText: '确定'
+            })
+          }
+          $.ajax('/api/comment', {
+            method: 'post',
+            data: {
+              replyer: _self.replyer,
+              content: _self.content,
+              proId: Number($('#productId').val())
+            }
+          }).done(function (data) {
+            const code = data.code
+            const msg = data.msg
+            if (code === 1) {
+              _self.$Modal.error({
+                title: '提示',
+                content: msg,
+                okText: '确定',
+                onOk: () => {
+                  location.href = `/login?from=/product/${$('#productId').val()}`
+                }
+              })
+            } else {
+              _self.$Modal.success({
+                title: '提示',
+                content: '评论成功',
+                okText: '确定',
+                onOk: () => {
+                  location.reload()
+                }
+              })
+            }
+          })
+        },
+        togglePanel() {
+          this.showPanel1 = !this.showPanel1
+        }
+      }
+    })
+  }
 
   // 发布商品页
   const validateCate = (rule, value, callback): void => {
@@ -191,11 +231,11 @@ $(function () {
               })
 
               for (let item of list1) {
-                if(item.children)
-                item.children = item.children.map(v => {
-                  v.label = v.value
-                  return v
-                })
+                if (item.children)
+                  item.children = item.children.map(v => {
+                    v.label = v.value
+                    return v
+                  })
               }
               _this.categoryData = list1
             })
@@ -262,8 +302,11 @@ $(function () {
                 if (code === 0) {
                   const id = data.data.id
                   _self.showSuccess = true
-                  _self.successUrl = ''
-
+                  const url = `/product/${id}`
+                  _self.successUrl = url
+                  setTimeout(()=>{
+                    location.href = url
+                  }, 3000)
                 } else {
                   _self.$Modal.error({
                     title: "发生错误",
@@ -274,7 +317,7 @@ $(function () {
             }
           })
         },
-        goDetail(){
+        goDetail() {
           location.href = this.successUrl
         }
       }
@@ -293,4 +336,38 @@ $(function () {
     $iTabsPanelItem.removeClass('active')
     $iTabsPanelItem.eq(index).addClass('active')
   })
+
+  // 支付页面
+  let appPay
+  if ($('#app-pay').length) {
+    appPay = new Vue({
+      el: '#app-pay',
+      data: {
+        min: 30,
+        inter: null,
+      },
+      mounted() {
+        this.countDown()
+      },
+      methods: {
+        countDown() {
+          const d = new Date("1111/1/1,0:" + this.min + ":0");
+          this.inter = setInterval(function () {
+            let m: any = d.getMinutes();
+            let s: any = d.getSeconds();
+            m = m < 10 ? "0" + m : m;
+            s = s < 10 ? "0" + s : s;
+            $("#cd_text").text(m + "分" + s + '秒')
+            if (m == 0 && s == 0) {
+              clearInterval(this.inter);
+              return;
+            }
+            d.setSeconds(s - 1);
+          }, 1000);
+        }
+      }
+    })
+  }
+
+
 })

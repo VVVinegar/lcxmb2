@@ -40,7 +40,7 @@
         <div class="col-xs-2 menu">
             <h4 class="no-m">全部功能</h4>
             <p class="menu-item ${subsite == 'product' ? 'active' : ''}">
-                <a href="/me/product" class="text-link">已发布商品</a>
+                <a href="/me/product" class="text-link">上架中商品</a>
             </p>
             <p class="menu-item ${subsite == 'order' ? 'active' : ''}">
                 <a href="/me/order" class="text-link">订单管理</a>
@@ -88,25 +88,48 @@
                     <div style="margin-bottom: 3px;">
                         <strong class="pull-left">【收货地址】:</strong>
                         <p style="margin-left: 80px;margin-bottom: 0">
-                            ${user.defaultAddress != null ? user.defaultAddress : '未设置'}
+                            <c:if test="${address.address != null}">
+                                ${address.address}
+                            </c:if>
+
+                            <c:if test="${address.address == null}">
+                                <a href="/me/setting" class="text-link">未设置</a>
+                            </c:if>
+                        </p>
+                    </div>
+                    <div style="margin-bottom: 3px;">
+                        <strong class="pull-left">【收货地址】:</strong>
+                        <p style="margin-left: 80px;margin-bottom: 0">
+                            <c:if test="${address.tel != null}">
+                                ${address.tel}
+                            </c:if>
+
+                            <c:if test="${address.tel == null}">
+                                <a href="/me/setting" class="text-link">未设置</a>
+                            </c:if>
                         </p>
                     </div>
                 </div>
             </div>
             <div class="detail-body">
                 <c:if test="${subsite == 'product'}">
-                    <div class="collect-manager">
-                        <div class="i-tabs clearfix i-tabs-toggle">
-                            <div class="i-tabs-item active">已发布商品</div>
+                    <div class="product-manager">
+                        <div class="i-tabs clearfix">
+                            <div class="i-tabs-item active">上架中商品</div>
                         </div>
                         <div class="i-tabs-panel">
                             <div class="i-tabs-panel-item active" style="padding: 10px;">
                                 <div class="row" style="margin: 0 -7px;">
+                                    <c:if test="${fn:length(products) == 0}">
+                                        <p class="text-center no-m">暂无上架商品</p>
+                                    </c:if>
                                     <c:forEach items="${products}" var="item">
                                         <div class="col-xs-6 collect-list">
                                             <c:set var="productsImgUrls" value="${item.imgUrls}" />
                                             <c:set var="productsImgUrlsArr" value="${fn:split(productsImgUrls, ',')}" />
-                                            <img src="${productsImgUrlsArr[0]}" class="pull-left">
+                                            <a href="/product/${item.id}">
+                                                <img src="${productsImgUrlsArr[0]}" class="pull-left">
+                                            </a>
                                             <p style="margin-bottom: 5px;">
                                                 <c:set var="productTitle" value="${item.title}" />
                                                 <a href="/product/${item.id}" class="text-link">${fn:substring(productTitle, 0, 20)}...</a>

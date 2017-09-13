@@ -128,7 +128,7 @@
     }
   }
 
-  .message-manager, .collect-manager{
+  .message-manager, .collect-manager, .product-manager{
     border: 1px solid @border-color;
     .i-tabs{
       border: none;
@@ -148,9 +148,7 @@
     @img-width: 60px;
     padding: 0 7px;
     margin-top: 15px;
-    &:nth-of-type(1), &:nth-of-type(2), &:nth-of-type(3){
-      margin-top: 0;
-    }
+
     img{
       width: @img-width;
       height: @img-width;
@@ -164,6 +162,18 @@
       background-color: #b8b8b8;
       color: #fff;
       border-radius: 2px;
+    }
+  }
+
+  .collect-manager .collect-list{
+    &:nth-of-type(1), &:nth-of-type(2), &:nth-of-type(3){
+      margin-top: 0;
+    }
+  }
+
+  .product-manager .collect-list{
+    &:nth-of-type(1), &:nth-of-type(2){
+      margin-top: 0;
     }
   }
 }

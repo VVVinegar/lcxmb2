@@ -2,6 +2,7 @@ package LCXMB.controller;
 
 import LCXMB.dao.ProductMapper;
 import LCXMB.pojo.User_info;
+import LCXMB.service.AddressService;
 import LCXMB.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -22,6 +23,8 @@ public class PageMeController {
     UserService userService;
     @Resource
     ProductMapper productMapper;
+    @Resource
+    AddressService addressService;
 
     public User_info getUserinfo(String username){
         return userService.findById(username);
@@ -37,6 +40,8 @@ public class PageMeController {
         Object username = httpSession.getAttribute("username");
         if(username != null) {
             User_info user = getUserinfo(username.toString());
+            int addressId = user.getDefaultAddress();
+            model.addAttribute("address", addressService.findById(addressId));
             model.addAttribute("user", user);
         } else {
             return "/login";

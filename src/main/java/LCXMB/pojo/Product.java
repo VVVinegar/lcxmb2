@@ -1,7 +1,5 @@
 package LCXMB.pojo;
 
-import org.springframework.stereotype.Repository;
-
 import java.util.Date;
 
 public class Product {
@@ -15,9 +13,9 @@ public class Product {
 
     private String imgUrls;
 
-    private Integer priceChanged;
+    private Float priceChanged;
 
-    private Integer price;
+    private Float price;
 
     private Integer watchCount;
 
@@ -29,7 +27,7 @@ public class Product {
 
     private String telNum;
 
-    private Integer quality;
+    private Float quality;
 
     private String category1;
 
@@ -75,19 +73,19 @@ public class Product {
         this.imgUrls = imgUrls == null ? null : imgUrls.trim();
     }
 
-    public Integer getPriceChanged() {
+    public Float getPriceChanged() {
         return priceChanged;
     }
 
-    public void setPriceChanged(Integer priceChanged) {
+    public void setPriceChanged(Float priceChanged) {
         this.priceChanged = priceChanged;
     }
 
-    public Integer getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 
@@ -131,11 +129,11 @@ public class Product {
         this.telNum = telNum == null ? null : telNum.trim();
     }
 
-    public Integer getQuality() {
+    public Float getQuality() {
         return quality;
     }
 
-    public void setQuality(Integer quality) {
+    public void setQuality(Float quality) {
         this.quality = quality;
     }
 

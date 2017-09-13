@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface CommentService {
     public List<Pro_comment> findByProId(int id);
+    public int insert(Pro_comment comment);
 }
