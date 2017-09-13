@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -24,12 +26,22 @@
     <div class="bread-nav">
         您的位置：
         <a href="/" class="text-link">首页</a> &gt;
-        <span>个人中心</span>
+        <span>个人中心</span> &gt;
+        <c:choose>
+            <c:when test="${subsite == 'product'}">已发布商品</c:when>
+            <c:when test="${subsite == 'order'}">订单管理</c:when>
+            <c:when test="${subsite == 'message'}">我的消息</c:when>
+            <c:when test="${subsite == 'collect'}">我的收藏</c:when>
+            <c:when test="${subsite == 'setting'}">个人资料设置</c:when>
+        </c:choose>
     </div>
 
     <div class="row">
         <div class="col-xs-2 menu">
             <h4 class="no-m">全部功能</h4>
+            <p class="menu-item ${subsite == 'product' ? 'active' : ''}">
+                <a href="/me/product" class="text-link">已发布商品</a>
+            </p>
             <p class="menu-item ${subsite == 'order' ? 'active' : ''}">
                 <a href="/me/order" class="text-link">订单管理</a>
             </p>
@@ -46,13 +58,15 @@
         <div class="col-xs-10">
             <div class="detail-top flex-container">
                 <div class="avatar">
-                    <img src="http://placehold.it/100x100">
+                    <img src="${user.avatarUrl}">
                 </div>
                 <div class="info">
                     <p class="no-m">
-                        账&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：${username1}</p>
+                        账&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：${user.username}</p>
                     <p class="no-m">
-                        账户余额：<span class="balance">¥${user.virtualCurrency}</span>
+                        账户余额：<span class="balance">¥
+                        <fmt:formatNumber type="number" value="${user.virtualCurrency}" pattern="0.00" maxFractionDigits="2"/>
+                        </span>
                     </p>
                     <c:if test="${user.credits == 100}">
                         <c:set var="credits_class" value="eq-100" />
@@ -80,6 +94,39 @@
                 </div>
             </div>
             <div class="detail-body">
+                <c:if test="${subsite == 'product'}">
+                    <div class="collect-manager">
+                        <div class="i-tabs clearfix i-tabs-toggle">
+                            <div class="i-tabs-item active">已发布商品</div>
+                        </div>
+                        <div class="i-tabs-panel">
+                            <div class="i-tabs-panel-item active" style="padding: 10px;">
+                                <div class="row" style="margin: 0 -7px;">
+                                    <c:forEach items="${products}" var="item">
+                                        <div class="col-xs-6 collect-list">
+                                            <c:set var="productsImgUrls" value="${item.imgUrls}" />
+                                            <c:set var="productsImgUrlsArr" value="${fn:split(productsImgUrls, ',')}" />
+                                            <img src="${productsImgUrlsArr[0]}" class="pull-left">
+                                            <p style="margin-bottom: 5px;">
+                                                <c:set var="productTitle" value="${item.title}" />
+                                                <a href="#" class="text-link">${fn:substring(productTitle, 0, 20)}...</a>
+                                            </p>
+                                            <p class="no-m">
+                                                <span style="color: red;font-size: 14px;">¥
+                                                <fmt:formatNumber type="number" value="${item.price}" pattern="0.00" maxFractionDigits="2"/>
+                                                </span>
+                                            </p>
+                                            <p class="no-m">
+                                                <span style="background-color: orange;color: #fff;padding: 1px 5px;">${item.commentsNum} 评论</span>
+                                            </p>
+                                        </div>
+                                    </c:forEach>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </c:if>
+
                 <c:if test="${subsite == 'order'}">
                     <div class="i-tabs clearfix">
                         <div class="i-tabs-item active">全部交易</div>
@@ -170,7 +217,7 @@
 
 
                 <c:if test="${subsite == 'message'}">
-                    <div class="message-manager" v-cloak="">
+                    <div class="message-manager">
                         <div class="i-tabs clearfix i-tabs-toggle">
                             <div class="i-tabs-item active">未读消息(2)</div>
                             <div class="i-tabs-item">已读消息</div>
