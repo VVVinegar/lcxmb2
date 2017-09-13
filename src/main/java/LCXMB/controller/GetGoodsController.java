@@ -29,10 +29,10 @@ public class GetGoodsController {
 
     @ResponseBody
     @RequestMapping(value = "/getGoods", method = RequestMethod.POST)
-    public Msg login(int id, int price, String saler_name, HttpSession session){
+    public Msg login(int id, float price, String saler_name, HttpSession session){
         String username = session.getAttribute("username").toString();
-        int virtualCurrencyBefore = userService.findById(saler_name).getVirtualCurrency();
-        int virtualCurrencyAfter = virtualCurrencyBefore + price;
+        float virtualCurrencyBefore = userService.findById(saler_name).getVirtualCurrency();
+        float virtualCurrencyAfter = virtualCurrencyBefore + price;
 
         if (change(id, virtualCurrencyAfter, saler_name)){
             return Msg.success("收货成功").add("status", 0);
@@ -40,7 +40,7 @@ public class GetGoodsController {
         return Msg.fail("服务器错误");
     }
 
-    public boolean change(int pro_id, int virtualCurrencyAfter, String saler_name){
+    public boolean change(int pro_id, float virtualCurrencyAfter, String saler_name){
         try{
             //product表更新商品状态
             Product product = new Product();

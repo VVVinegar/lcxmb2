@@ -57,7 +57,7 @@ public class RegisterController {
         User_info user_info = new User_info();
         user_info.setUsername(username);
         user_info.setCredits(100);
-        user_info.setVirtualCurrency(0);
+        user_info.setVirtualCurrency((float)0);
         user_info.setAvatarUrl("/static/images/default_avatar.png");
         user_info.setDefaultAddress(-1);
 
