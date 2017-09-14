@@ -52,213 +52,31 @@
         </div>
         <div class="cate-list">
             <div class="row">
+                <c:forEach items="${products}" var="product">
                 <div class="col-xs-3">
                     <div class="cate-item">
                         <div class="cate-item-top clearfix">
-                            <img src="http://placehold.it/26x26" class="pull-left">
+                            <img src="${product.avatarUrl}" class="pull-left">
                             <p class="no-m cate-item-username">
-                                <a href="#" class="text-link">用户名</a>
+                                <a href="#" class="text-link">${product.salerUser}</a>
                             </p>
                         </div>
                         <div class="cate-item-middle">
                             <a href="#">
-                                <img src="http://placehold.it/200x200">
+                                <img src="${product.imgUrls}">
                             </a>
                         </div>
                         <p style="margin-top: 8px;margin-bottom: 8px">
-                            <span class="cate-item-time">三分钟前</span>
-                            <span class="cate-item-price  pull-right">￥250.00</span>
+                            <span class="cate-item-time">${product.updateTime}</span>
+                            <span class="cate-item-price  pull-right">￥${product.price}</span>
                         </p>
                         <div class="line"></div>
                         <div class="cate-item-bottom" style="margin-top: 8px;">
-                            <a href="#" class="text-link">商品商品商品商品商品商品商品商品商品商品商品</a>
+                            <a href="#" class="text-link">${product.desciption}</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-3">
-                    <div class="cate-item">
-                        <div class="cate-item-top clearfix">
-                            <img src="http://placehold.it/26x26" class="pull-left">
-                            <p class="no-m cate-item-username">
-                                <a href="#" class="text-link">用户名</a>
-                            </p>
-                        </div>
-                        <div class="cate-item-middle">
-                            <a href="#">
-                                <img src="http://placehold.it/200x200">
-                            </a>
-                        </div>
-                        <p style="margin-top: 8px;margin-bottom: 8px">
-                            <span class="cate-item-time">三分钟前</span>
-                            <span class="cate-item-price  pull-right">￥250.00</span>
-                        </p>
-                        <div class="line"></div>
-                        <div class="cate-item-bottom" style="margin-top: 8px;">
-                            <a href="#" class="text-link">商品商品商品商品商品商品商品商品商品商品商品</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-3">
-                    <div class="cate-item">
-                        <div class="cate-item-top clearfix">
-                            <img src="http://placehold.it/26x26" class="pull-left">
-                            <p class="no-m cate-item-username">
-                                <a href="#" class="text-link">用户名</a>
-                            </p>
-                        </div>
-                        <div class="cate-item-middle">
-                            <a href="#">
-                                <img src="http://placehold.it/200x200">
-                            </a>
-                        </div>
-                        <p style="margin-top: 8px;margin-bottom: 8px">
-                            <span class="cate-item-time">三分钟前</span>
-                            <span class="cate-item-price  pull-right">￥250.00</span>
-                        </p>
-                        <div class="line"></div>
-                        <div class="cate-item-bottom" style="margin-top: 8px;">
-                            <a href="#" class="text-link">商品商品商品商品商品商品商品商品商品商品商品</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-3">
-                    <div class="cate-item">
-                        <div class="cate-item-top clearfix">
-                            <img src="http://placehold.it/26x26" class="pull-left">
-                            <p class="no-m cate-item-username">
-                                <a href="#" class="text-link">用户名</a>
-                            </p>
-                        </div>
-                        <div class="cate-item-middle">
-                            <a href="#">
-                                <img src="http://placehold.it/200x200">
-                            </a>
-                        </div>
-                        <p style="margin-top: 8px;margin-bottom: 8px">
-                            <span class="cate-item-time">三分钟前</span>
-                            <span class="cate-item-price  pull-right">￥250.00</span>
-                        </p>
-                        <div class="line"></div>
-                        <div class="cate-item-bottom" style="margin-top: 8px;">
-                            <a href="#" class="text-link">商品商品商品商品商品商品商品商品商品商品商品</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-3">
-                    <div class="cate-item">
-                        <div class="cate-item-top clearfix">
-                            <img src="http://placehold.it/26x26" class="pull-left">
-                            <p class="no-m cate-item-username">
-                                <a href="#" class="text-link">用户名</a>
-                            </p>
-                        </div>
-                        <div class="cate-item-middle">
-                            <a href="#">
-                                <img src="http://placehold.it/200x200">
-                            </a>
-                        </div>
-                        <p style="margin-top: 8px;margin-bottom: 8px">
-                            <span class="cate-item-time">三分钟前</span>
-                            <span class="cate-item-price  pull-right">￥250.00</span>
-                        </p>
-                        <div class="line"></div>
-                        <div class="cate-item-bottom" style="margin-top: 8px;">
-                            <a href="#" class="text-link">商品商品商品商品商品商品商品商品商品商品商品</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-3">
-                    <div class="cate-item">
-                        <div class="cate-item-top clearfix">
-                            <img src="http://placehold.it/26x26" class="pull-left">
-                            <p class="no-m cate-item-username">
-                                <a href="#" class="text-link">用户名</a>
-                            </p>
-                        </div>
-                        <div class="cate-item-middle">
-                            <a href="#">
-                                <img src="http://placehold.it/200x200">
-                            </a>
-                        </div>
-                        <p style="margin-top: 8px;margin-bottom: 8px">
-                            <span class="cate-item-time">三分钟前</span>
-                            <span class="cate-item-price  pull-right">￥250.00</span>
-                        </p>
-                        <div class="line"></div>
-                        <div class="cate-item-bottom" style="margin-top: 8px;">
-                            <a href="#" class="text-link">商品商品商品商品商品商品商品商品商品商品商品</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-3">
-                    <div class="cate-item">
-                        <div class="cate-item-top clearfix">
-                            <img src="http://placehold.it/26x26" class="pull-left">
-                            <p class="no-m cate-item-username">
-                                <a href="#" class="text-link">用户名</a>
-                            </p>
-                        </div>
-                        <div class="cate-item-middle">
-                            <a href="#">
-                                <img src="http://placehold.it/200x200">
-                            </a>
-                        </div>
-                        <p style="margin-top: 8px;margin-bottom: 8px">
-                            <span class="cate-item-time">三分钟前</span>
-                            <span class="cate-item-price  pull-right">￥250.00</span>
-                        </p>
-                        <div class="line"></div>
-                        <div class="cate-item-bottom" style="margin-top: 8px;">
-                            <a href="#" class="text-link">商品商品商品商品商品商品商品商品商品商品商品</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-3">
-                    <div class="cate-item">
-                        <div class="cate-item-top clearfix">
-                            <img src="http://placehold.it/26x26" class="pull-left">
-                            <p class="no-m cate-item-username">
-                                <a href="#" class="text-link">用户名</a>
-                            </p>
-                        </div>
-                        <div class="cate-item-middle">
-                            <a href="#">
-                                <img src="http://placehold.it/200x200">
-                            </a>
-                        </div>
-                        <p style="margin-top: 8px;margin-bottom: 8px">
-                            <span class="cate-item-time">三分钟前</span>
-                            <span class="cate-item-price  pull-right">￥250.00</span>
-                        </p>
-                        <div class="line"></div>
-                        <div class="cate-item-bottom" style="margin-top: 8px;">
-                            <a href="#" class="text-link">商品商品商品商品商品商品商品商品商品商品商品</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-3">
-                    <div class="cate-item">
-                        <div class="cate-item-top clearfix">
-                            <img src="http://placehold.it/26x26" class="pull-left">
-                            <p class="no-m cate-item-username">
-                                <a href="#" class="text-link">用户名</a>
-                            </p>
-                        </div>
-                        <div class="cate-item-middle">
-                            <a href="#">
-                                <img src="http://placehold.it/200x200">
-                            </a>
-                        </div>
-                        <p style="margin-top: 8px;margin-bottom: 8px">
-                            <span class="cate-item-time">三分钟前</span>
-                            <span class="cate-item-price  pull-right">￥250.00</span>
-                        </p>
-                        <div class="line"></div>
-                        <div class="cate-item-bottom" style="margin-top: 8px;">
-                            <a href="#" class="text-link">商品商品商品商品商品商品商品商品商品商品商品</a>
-                        </div>
-                    </div>
-                </div>
+                </c:forEach>
             </div>
         </div>
 

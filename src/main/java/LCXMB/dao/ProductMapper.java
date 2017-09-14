@@ -3,6 +3,8 @@ package LCXMB.dao;
 import LCXMB.pojo.Product;
 import LCXMB.pojo.ProductExample;
 import java.util.List;
+
+import LCXMB.pojo.SearchProducts;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -39,9 +41,9 @@ public interface ProductMapper {
     List<Product> selectTop10(@Param("field") String field);
 
     //按分类查询
-    List<Product> selectByCate(@Param("minPrice") float minPrice,@Param("maxPrice") float maxPrice,
+    List<SearchProducts> selectByCate(@Param("minPrice") float minPrice,@Param("maxPrice") float maxPrice,
                                     @Param("category_2") String category_2, @Param("newOrHot") int newOrHot,
-                                    @Param("lowOrHigh") int lowOrHigh, @Param("begin") int begin);
+                                    @Param("lowOrHigh") int lowOrHigh, @Param("begin") int begin, @Param("pageSize") int pageSize);
     //按title模糊查询
-    List<Product> selectByTitle(@Param("keywords") String keywords,@Param("page") int page);
+    List<SearchProducts> selectByTitle(@Param("keywords") String keywords, @Param("begin") int begin , @Param("pageSize") int pageSize);
 }

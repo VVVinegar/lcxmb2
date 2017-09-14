@@ -27,6 +27,24 @@
     <result column="commentsNum" property="commentsNum" jdbcType="INTEGER"></result>
   </resultMap>
 
+  <resultMap id="SearchResultMap" type="LCXMB.pojo.SearchProducts">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="desciption" jdbcType="VARCHAR" property="desciption" />
+    <result column="saler_user" jdbcType="VARCHAR" property="salerUser" />
+    <result column="img_urls" jdbcType="VARCHAR" property="imgUrls" />
+    <result column="price_changed" jdbcType="FLOAT" property="priceChanged" />
+    <result column="price" jdbcType="FLOAT" property="price" />
+    <result column="watch_count" jdbcType="INTEGER" property="watchCount" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="tel_num" jdbcType="CHAR" property="telNum" />
+    <result column="quality" jdbcType="FLOAT" property="quality" />
+    <result column="category_1" jdbcType="VARCHAR" property="category1" />
+    <result column="category_2" jdbcType="VARCHAR" property="category2" />
+    <result column="avatar_url" jdbcType="VARCHAR" property="avatarUrl" />
+  </resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -386,21 +404,27 @@
     limit 5
   </select>
   <!--按分类查，按更新时间或热度排序，取价格区间,分页-->
-  <select id="selectByCate" resultMap="BaseResultMap">
+  <select id="selectByCate" resultMap="SearchResultMap">
     select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
+    id, title, desciption, saler_user, img_urls, price_changed, price, watch_count,
+    status, product.create_time as create_time, update_time, tel_num, quality, category_1, category_2  ,avatar_url
     from product
-    where category_2 = #{category_2}
-    and between #{minPrice} and #{maxPrice}
+    left join user_info
+    on (product.saler_user = user_info.username)
+    where
+    <if test="category_2 != null">
+      category_2 = #{category_2}
+      and
+    </if>
+    price &gt; #{minPrice}
+    and price &lt; #{maxPrice}
+    and status = 0
     order by
     <if test="newOrHot == 0">
-      update_time;
+      update_time
     </if>
     <if test="newOrHot == 1">
-      watch_count;
+      watch_count
     </if>
     desc,
     price
@@ -410,18 +434,21 @@
     <if test="lowOrHigh == 1">
       desc
     </if>
-    limit #{begin},5
+    limit #{begin},#{pageSize}
   </select>
   <!--按照关键字(title)模糊查询-->
-  <select id="selectByTitle" resultMap="BaseResultMap">
+  <select id="selectByTitle" resultMap="SearchResultMap">
     select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
+    id, title, desciption, saler_user, img_urls, price_changed, price, watch_count,
+    status, product.create_time as create_time, update_time, tel_num, quality, category_1, category_2  ,avatar_url
     from product
-    where title like "%"#{keywords}"%";
-    limit #{begin},5
+    left join user_info
+    on (product.saler_user = user_info.username)
+    where status = 0
+    <if test="keywords != null">
+      and title like '%${keywords}%'
+    </if>
+    limit #{begin},#{pageSize}
   </select>
   <!--个人中心中的展示-->
   <select id="PageMeShowed" parameterType="java.lang.String" resultMap="PageMeShowedMap">
