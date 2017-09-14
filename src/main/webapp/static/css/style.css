@@ -635,6 +635,9 @@ body {
   color: #fff;
   background-color: #ff4545;
 }
+.page-search .control-btns a.active:hover {
+  color: #fff;
+}
 .page-search .control-btns a:hover {
   color: #ff4545;
 }

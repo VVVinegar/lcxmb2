@@ -1,6 +1,5 @@
 package LCXMB.controller;
 
-import LCXMB.pojo.Msg;
 import LCXMB.pojo.Product;
 import LCXMB.service.ProductService;
 import org.springframework.stereotype.Controller;

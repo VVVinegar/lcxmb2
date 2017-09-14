@@ -40,12 +40,14 @@ public class PageSearchController {
             modelMap.addAttribute("products", products);
             modelMap.addAttribute("newOrHot",newOrHot);
             modelMap.addAttribute("lowOrHigh",lowOrHigh);
+            modelMap.addAttribute("isCate", isCate);
             return "search";
         }else{                               //按关键字查询
             List<SearchProducts> products =  searchService.getProductsByTitle(keywords, begin, PAGE_SIZE);
             modelMap.addAttribute("products", products);
             modelMap.addAttribute("newOrHot",newOrHot);
             modelMap.addAttribute("lowOrHigh",lowOrHigh);
+            modelMap.addAttribute("isCate", isCate);
             return "search";
         }
     }

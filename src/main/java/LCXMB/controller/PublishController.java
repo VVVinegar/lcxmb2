@@ -5,11 +5,13 @@ import LCXMB.pojo.Product;
 import LCXMB.service.ProductService;
 import LCXMB.service.PublishService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-import java.io.Writer;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -83,6 +85,10 @@ public class PublishController {
         product.setDesciption(desciption);
         product.setPriceChanged(product.getPrice() - price);
         product.setPrice(price);
+        Date date = new Date();
+        Timestamp ts = new Timestamp(date.getTime());
+        product.setUpdateTime(ts);
+
 
         int status = productService.update(product);
         int pro_id = product.getId();

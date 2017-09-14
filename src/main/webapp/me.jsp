@@ -140,7 +140,11 @@
                                                 </span>
                                             </p>
                                             <p class="no-m">
-                                                <span style="background-color: orange;color: #fff;padding: 1px 5px;">${item.commentsNum} 评论</span>
+                                                <a style="background-color: orange;color: #fff;padding: 1px 5px;" href="/product/${item.id}/#app-comments">
+                                                    ${item.commentsNum} 评论
+                                                </a>
+
+                                                <a href="/publish?p_id=${item.id}" style="background-color: limegreen;color: #fff;padding: 1px 5px;margin-left: 10px;" >修改</a>
                                             </p>
                                         </div>
                                     </c:forEach>

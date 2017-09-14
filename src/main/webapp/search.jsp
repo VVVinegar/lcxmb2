@@ -23,6 +23,7 @@
     <c:param name="nav" value="search" />
 </c:import>
 
+
 <div class="main">
     <div class="container-s">
         <div class="bread-nav">
@@ -34,10 +35,15 @@
         </div>
         <div class="control clearfix">
             <div class="control-btns">
-                <a href="#" class="active">最新</a>
-                <a href="#">最热</a>
-                <a href="#">价格最低</a>
-                <a href="#">价格最高</a>
+                ${newOrHot}
+                <a href="/search?isCate=${isCate}&newOrHot=0&lowOrHigh=${lowOrHigh}"
+                   class="${newOrHot == 0 ? 'active' : ''}">最新</a>
+                <a href="/search?isCate=${isCate}&newOrHot=1&lowOrHigh=${lowOrHigh}"
+                   class="${newOrHot == 1 ? 'active' : ''}">最热</a>
+                <a href="/search?isCate=${isCate}&newOrHot=${newOrHot}&lowOrHigh=0"
+                   class="${lowOrHigh == 0 ? 'active' : ''}">价格最低</a>
+                <a href="/search?isCate=${isCate}&newOrHot=${newOrHot}&lowOrHigh=1"
+                   class="${lowOrHigh == 1 ? 'active' : ''}">价格最高</a>
             </div>
             <div class="control-price" div="app-search-price">
                 <div class="control-price-input-wrap">
