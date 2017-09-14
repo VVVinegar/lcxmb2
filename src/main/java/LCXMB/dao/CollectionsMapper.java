@@ -4,7 +4,9 @@ import LCXMB.pojo.Collections;
 import LCXMB.pojo.CollectionsExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface CollectionsMapper {
     long countByExample(CollectionsExample example);
 
@@ -27,4 +29,6 @@ public interface CollectionsMapper {
     int updateByPrimaryKeySelective(Collections record);
 
     int updateByPrimaryKey(Collections record);
+
+    Collections selectByUsernameAndProid(@Param("username") String username, @Param("pro_id") int pro_id);
 }

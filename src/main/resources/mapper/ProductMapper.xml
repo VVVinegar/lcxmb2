@@ -44,6 +44,7 @@
     <result column="category_1" jdbcType="VARCHAR" property="category1" />
     <result column="category_2" jdbcType="VARCHAR" property="category2" />
     <result column="avatar_url" jdbcType="VARCHAR" property="avatarUrl" />
+    <result column="productNumber" jdbcType="INTEGER" property="productNumber" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -407,7 +408,7 @@
   <select id="selectByCate" resultMap="SearchResultMap">
     select
     id, title, desciption, saler_user, img_urls, price_changed, price, watch_count,
-    status, product.create_time as create_time, update_time, tel_num, quality, category_1, category_2  ,avatar_url
+    status, product.create_time as create_time, update_time, tel_num, quality, category_1, category_2  ,avatar_url, count(*) as productNumber
     from product
     left join user_info
     on (product.saler_user = user_info.username)
@@ -440,7 +441,7 @@
   <select id="selectByTitle" resultMap="SearchResultMap">
     select
     id, title, desciption, saler_user, img_urls, price_changed, price, watch_count,
-    status, product.create_time as create_time, update_time, tel_num, quality, category_1, category_2  ,avatar_url
+    status, product.create_time as create_time, update_time, tel_num, quality, category_1, category_2  ,avatar_url,count(*) as productNumber
     from product
     left join user_info
     on (product.saler_user = user_info.username)

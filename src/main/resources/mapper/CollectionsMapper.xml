@@ -193,4 +193,13 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <!--判断是否有这个收藏记录-->
+  <select id="selectByUsernameAndProid"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from collections
+    where username = #{username}
+    and pro_id = #{pro_id}
+  </select>
 </mapper>

@@ -38,10 +38,14 @@ public class PageSearchController {
         if(isCate){                          //按分类查询
             List<SearchProducts> products =  searchService.getProductsByCate(minPrice, maxPrice, keywords, newOrHot, lowOrHigh, begin, PAGE_SIZE);
             modelMap.addAttribute("products", products);
+            modelMap.addAttribute("newOrHot",newOrHot);
+            modelMap.addAttribute("lowOrHigh",lowOrHigh);
             return "search";
         }else{                               //按关键字查询
             List<SearchProducts> products =  searchService.getProductsByTitle(keywords, begin, PAGE_SIZE);
             modelMap.addAttribute("products", products);
+            modelMap.addAttribute("newOrHot",newOrHot);
+            modelMap.addAttribute("lowOrHigh",lowOrHigh);
             return "search";
         }
     }

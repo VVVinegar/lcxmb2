@@ -38,6 +38,16 @@ public class SearchProducts {
 
     private String avatarUrl;
 
+    private int productNumber;
+
+    public int getProductNumber() {
+        return productNumber;
+    }
+
+    public void setProductNumber(int productNumber) {
+        this.productNumber = productNumber;
+    }
+
     public String getAvatarUrl() {
         return avatarUrl;
     }
