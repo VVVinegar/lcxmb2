@@ -29,4 +29,6 @@ public interface Shipping_addressMapper {
     int updateByPrimaryKeySelective(Shipping_address record);
 
     int updateByPrimaryKey(Shipping_address record);
+
+    List<Shipping_address> selectByUsername(@Param("username") String username);
 }
