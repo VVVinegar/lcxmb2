@@ -8,6 +8,8 @@
     <result column="pro_id" jdbcType="INTEGER" property="proId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="addr_id" jdbcType="INTEGER" property="addrId" />
+    <result column="buyer_score" jdbcType="INTEGER" property="buyerScore" />
+    <result column="saler_score" jdbcType="INTEGER" property="salerScore" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, buyer_name, saler_name, pro_id, create_time, addr_id
+    id, buyer_name, saler_name, pro_id, create_time, addr_id, buyer_score, saler_score
   </sql>
   <select id="selectByExample" parameterType="LCXMB.pojo.OrderExample" resultMap="BaseResultMap">
     select
@@ -102,9 +104,10 @@
   </delete>
   <insert id="insert" parameterType="LCXMB.pojo.Orders">
     insert into orders (id, buyer_name, saler_name,
-      pro_id, create_time, addr_id)
+      pro_id, create_time, addr_id, buyer_score, saler_score)
     values (#{id,jdbcType=INTEGER}, #{buyerName,jdbcType=VARCHAR}, #{salerName,jdbcType=VARCHAR}, 
-      #{proId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{addrId,jdbcType=INTEGER})
+      #{proId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{addrId,jdbcType=INTEGER},
+       #{buyerScore,jdbcType=INTEGER},  #{salerScore,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="LCXMB.pojo.Orders">
     insert into orders
@@ -201,8 +204,14 @@
       <if test="proId != null">
         pro_id = #{proId,jdbcType=INTEGER},
       </if>
-      <if test="time != null">
+      <if test="createTime != null">
         time = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="buyerScore != null">
+        time = #{buyercore,jdbcType=TIMESTAMP},
+      </if>
+      <if test="salerScore != null">
+        time = #{salerScore,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}

@@ -15,6 +15,26 @@ public class Orders {
 
     private Integer addrId;
 
+    private Integer buyer_score;
+
+    private Integer saler_score;
+
+    public Integer getBuyer_score() {
+        return buyer_score;
+    }
+
+    public void setBuyer_score(Integer buyer_score) {
+        this.buyer_score = buyer_score;
+    }
+
+    public Integer getSaler_score() {
+        return saler_score;
+    }
+
+    public void setSaler_score(Integer saler_score) {
+        this.saler_score = saler_score;
+    }
+
     public Integer getAddrId() {
         return addrId;
     }

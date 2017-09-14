@@ -46,6 +46,7 @@ public class PayController {
                     return Msg.success("支付成功").add("status",0);
                 return Msg.fail("服务器出错");
             }else {
+                System.out.println("已被购买");
                 return Msg.success("商品已被购买").add("status",1);
             }
         }else{
