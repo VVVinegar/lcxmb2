@@ -33,7 +33,8 @@ public class PayController {
 
     @ResponseBody
     @RequestMapping(value = "/pay", method = RequestMethod.POST)
-    public Msg login(int id, String saler_user, float price, HttpSession session, String password, int address_id){
+    public Msg login(int id, String saler_user, float price, HttpSession session, String password,
+                     int address_id){
         String username = session.getAttribute("username").toString();
 
         boolean result = loginService.verify(username, password);

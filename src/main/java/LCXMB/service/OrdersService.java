@@ -7,4 +7,6 @@ import LCXMB.pojo.Orders;
  */
 public interface OrdersService {
     public int add(Orders orders);
+
+    public int updateScore(Orders orders);
 }

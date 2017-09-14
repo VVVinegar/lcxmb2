@@ -20,4 +20,9 @@ public class OrdersServiceImpl implements OrdersService {
         int insertNumber = ordersMapper.insert(orders);
         return insertNumber;
     }
+
+    public int updateScore(Orders orders) {
+        int updateNumber = ordersMapper.updateByPrimaryKey(orders);
+        return 0;
+    }
 }
