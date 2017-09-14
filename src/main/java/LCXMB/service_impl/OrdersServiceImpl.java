@@ -33,6 +33,6 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     public Orders findById(Integer id) {
-        return null;
+        return  ordersMapper.selectByPrimaryKey(id);
     }
 }
