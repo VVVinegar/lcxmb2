@@ -158,7 +158,24 @@
                         type: 'post',
                         data: _this.request
                     }).done(function (data) {
-                        console.log(data)
+                        const code = data.code
+                        const msg = data.msg
+                        if(code === 1) {
+                            _this.$Modal.warning({
+                                title: '提示',
+                                content: msg
+                            })
+                        } else {
+                            const status = data.data.status
+                            if(status == 0) {
+                                location.href = '/pay_success'
+                            } else {
+                                _this.$Modal.warning({
+                                    title: '提示',
+                                    content: msg
+                                })
+                            }
+                        }
                     })
                 }
             },

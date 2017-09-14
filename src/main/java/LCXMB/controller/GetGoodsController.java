@@ -3,8 +3,6 @@ package LCXMB.controller;
 import LCXMB.pojo.Msg;
 import LCXMB.pojo.Product;
 import LCXMB.pojo.User_info;
-import LCXMB.pojo.User_login;
-import LCXMB.service.LoginService;
 import LCXMB.service.ProductService;
 import LCXMB.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -29,18 +27,27 @@ public class GetGoodsController {
 
     @ResponseBody
     @RequestMapping(value = "/getGoods", method = RequestMethod.POST)
-    public Msg login(int id, float price, String saler_name, HttpSession session){
-        String username = session.getAttribute("username").toString();
-        float virtualCurrencyBefore = userService.findById(saler_name).getVirtualCurrency();
-        float virtualCurrencyAfter = virtualCurrencyBefore + price;
+    public Msg getGoods(Integer id, HttpSession session){
+        Object userObj = session.getAttribute("username");
+        if(userObj != null) {
+            String username = userObj.toString();
+            Product product = productService.findById(id);
+            String saler = product.getSalerUser();
+            Float price = product.getPrice();
 
-        if (change(id, virtualCurrencyAfter, saler_name)){
-            return Msg.success("收货成功").add("status", 0);
+            User_info salerInfo = userService.findById(saler);
+            Float virtualCurrencyBefore = salerInfo.getVirtualCurrency();
+            Float virtualCurrencyAfter = virtualCurrencyBefore + price;
+
+            if (change(id, virtualCurrencyAfter, saler)){
+                return Msg.success("收货成功").add("status", 0);
+            }
+            return Msg.fail("服务器错误");
         }
-        return Msg.fail("服务器错误");
+        return Msg.fail("请重新登录");
     }
 
-    public boolean change(int pro_id, float virtualCurrencyAfter, String saler_name){
+    public boolean change(Integer pro_id, Float virtualCurrencyAfter, String saler_name){
         try{
             //product表更新商品状态
             Product product = new Product();

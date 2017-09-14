@@ -29,7 +29,7 @@
         <span>个人中心</span> &gt;
         <c:choose>
             <c:when test="${subsite == 'product'}">已发布商品</c:when>
-            <c:when test="${subsite == 'orders'}">订单管理</c:when>
+            <c:when test="${subsite == 'order'}">订单管理</c:when>
             <c:when test="${subsite == 'message'}">我的消息</c:when>
             <c:when test="${subsite == 'collect'}">我的收藏</c:when>
             <c:when test="${subsite == 'setting'}">个人资料设置</c:when>
@@ -42,8 +42,8 @@
             <p class="menu-item ${subsite == 'product' ? 'active' : ''}">
                 <a href="/me/product" class="text-link">上架中商品</a>
             </p>
-            <p class="menu-item ${subsite == 'orders' ? 'active' : ''}">
-                <a href="/me/orders" class="text-link">订单管理</a>
+            <p class="menu-item ${subsite == 'order' ? 'active' : ''}">
+                <a href="/me/order" class="text-link">订单管理</a>
             </p>
             <p class="menu-item ${subsite == 'message' ? 'active' : ''}">
                 <a href="/me/message" class="text-link">我的消息</a>
@@ -154,92 +154,90 @@
                     </div>
                 </c:if>
 
-                <c:if test="${subsite == 'orders'}">
+                <c:if test="${subsite == 'order'}">
                     <div class="i-tabs clearfix">
-                        <div class="i-tabs-item active">全部交易</div>
-                        <div class="i-tabs-item">正在出售</div>
-                        <div class="i-tabs-item">正在购入</div>
-                        <div class="i-tabs-item">已出售</div>
-                        <div class="i-tabs-item">已购入</div>
+                        <div class="i-tabs-item active">全部记录${fn:length(orders)}</div>
                     </div>
-                    <div class="orders-list">
-                        <div class="orders-list-top">
-                            <div class="row">
-                                <div class="col-xs-4">
-                                    <strong style="margin-right: 20px;">2017-06-08</strong>
-                                    <span>订单号：093145</span>
+                    <c:forEach items="${orders}" var="order">
+                        <div class="orders-list ${order.status != 0 ? 'is-finish' : ''}">
+                            <div class="orders-list-top">
+                                <div class="row">
+                                    <div class="col-xs-4">
+                                        <strong style="margin-right: 20px;">
+                                            <fmt:formatDate value="${order.createTime}" type="date"/>
+                                        </strong>
+                                        <span>订单号：${12345 + order.id}</span>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        交易对象：
+                                        <a href="#" class="text-link">
+                                        ${sessionScope.username == order.buyerName ? order.salerName : order.buyerName}
+                                        </a>
+                                    </div>
+                                    <div class="col-xs-4 text-right">
+                                        交易状态：
+                                        <span class="is-${order.status == 1 ? 'sale' : 'finish' }-text">
+                                            <c:if test="${order.status == 1}">
+                                                ${order.buyerName == sessionScope.username ? '正在购入' : '正在售出'}
+                                            </c:if>
+
+                                            <c:if test="${order.status == 2}">
+                                                ${order.buyerName == sessionScope.username ? '已经购入' : '已经售出'}
+                                            </c:if>
+                                        </span>
+                                    </div>
                                 </div>
-                                <div class="col-xs-4">
-                                    交易对象：<a href="#" class="text-link">gx408076285</a>
-                                </div>
-                                <div class="col-xs-4 text-right">
-                                    交易状态：<span class="is-sale-text">正在出售</span>
+                            </div>
+                            <div class="orders-list-body">
+                                <div class="row">
+                                    <div class="col-xs-4 img_link">
+                                        <a href="/product/${order.proId}">
+                                            <c:set var="imgUrls" value="${fn:split(order.imgUrls, ',')}"/>
+                                            <img src="${imgUrls[0]}" class="pull-left">
+                                        </a>
+                                        <p><a href="/product/${order.proId}" class="text-link">${order.title}</a></p>
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <p class="no-m"><strong>商品金额：</strong></p>
+                                        <p class="no-m" style="color: red;font-size: 14px">¥
+                                            <fmt:formatNumber type="number" value="${order.price}" pattern="0.00" maxFractionDigits="2"/>
+                                        </p>
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <p class="no-m"><strong>操作：</strong></p>
+                                        <p class="no-m">
+                                            <c:if test="${order.status == 1}">
+                                                <a href="#" class="text-link">退货 / 退款</a>
+                                            </c:if>
+
+                                            <c:if test="${order.status == 2}">
+                                                <a href="javascript:;" class="text-link">给买(卖)家评分</a>
+                                            </c:if>
+                                        </p>
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <p class="no-m"><strong>查看：</strong></p>
+                                        <p class="no-m"><a href="#" class="text-link">订单详情</a></p>
+                                    </div>
+                                    <div class="col-xs-2 text-right">
+                                        <c:if test="${order.buyerName == sessionScope.username}">
+                                            <c:if test="${order.status == 1}">
+                                                <button class="btn btn-success" data-confirm-btn data-pro-id="${order.proId}">确认收货</button>
+                                            </c:if>
+
+                                            <c:if test="${order.status == 2}">
+                                                <button class="btn btn-success disabled">已收货</button>
+                                            </c:if>
+                                        </c:if>
+
+                                        <c:if test="${order.salerName == sessionScope.username}">
+
+                                        </c:if>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="orders-list-body">
-                            <div class="row">
-                                <div class="col-xs-4 img_link">
-                                    <img src="http://placehold.it/100x100" class="pull-left">
-                                    <p><a href="#" class="text-link">商品商品商品商品商品商品商品商品商品商品商品商品</a></p>
-                                </div>
-                                <div class="col-xs-2">
-                                    <p class="no-m"><strong>商品金额：</strong></p>
-                                    <p class="no-m" style="color: red;font-size: 14px">¥4398.00</p>
-                                </div>
-                                <div class="col-xs-2">
-                                    <p class="no-m"><strong>操作：</strong></p>
-                                    <p class="no-m"><a href="#" class="text-link">退货 / 退款</a></p>
-                                </div>
-                                <div class="col-xs-2">
-                                    <p class="no-m"><strong>查看：</strong></p>
-                                    <p class="no-m"><a href="#" class="text-link">订单详情</a></p>
-                                </div>
-                                <div class="col-xs-2 text-right">
-                                    <button class="btn btn-success">确认收货</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="orders-list is-finish">
-                        <div class="orders-list-top">
-                            <div class="row">
-                                <div class="col-xs-4">
-                                    <strong style="margin-right: 20px;">2017-06-08</strong>
-                                    <span>订单号：093145</span>
-                                </div>
-                                <div class="col-xs-4">
-                                    交易对象：<a href="#" class="text-link">gx408076285</a>
-                                </div>
-                                <div class="col-xs-4 text-right">
-                                    交易状态：<span class="is-finish-text">已经出售</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="orders-list-body">
-                            <div class="row">
-                                <div class="col-xs-4 img_link">
-                                    <img src="http://placehold.it/100x100" class="pull-left">
-                                    <p><a href="#" class="text-link">商品商品商品商品商品商品商品商品商品商品商品商品</a></p>
-                                </div>
-                                <div class="col-xs-2">
-                                    <p class="no-m"><strong>商品金额：</strong></p>
-                                    <p class="no-m" style="color: red;font-size: 14px">¥4398.00</p>
-                                </div>
-                                <div class="col-xs-2">
-                                    <p class="no-m"><strong>操作：</strong></p>
-                                    <p class="no-m"><a href="#" class="text-link">给买(卖)家评分</a></p>
-                                </div>
-                                <div class="col-xs-2">
-                                    <p class="no-m"><strong>查看：</strong></p>
-                                    <p class="no-m"><a href="#" class="text-link">订单详情</a></p>
-                                </div>
-                                <div class="col-xs-2 text-right">
-                                    <button class="btn btn-success disabled">已收货</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </c:forEach>
                 </c:if>
 
 
@@ -320,5 +318,25 @@
         </div>
     </div>
 </div>
+<script>
+    var $confirmBtn = $('[data-confirm-btn]')
+    $confirmBtn.on('click', function () {
+        var $t = $(this)
+        var id = Number($t.attr('data-pro-id'))
+        $.post('/api/getGoods', {
+            id: id
+        }).done(function (data) {
+            if(data.code == 1) { alert(data.msg)}
+            else {
+                if(data.data.status == 0) {
+                    $t.addClass('disabled')
+                    $t.text('已收货')
+                } else {
+                    alert(data.msg)
+                }
+            }
+        })
+    })
+</script>
 </body>
 </html>

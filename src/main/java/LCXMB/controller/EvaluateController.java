@@ -8,7 +8,6 @@ import LCXMB.service.OrdersService;
 import LCXMB.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -50,7 +49,7 @@ public class EvaluateController {
             if (evaluateService.buyerOrSaler(order_id, username)==0){
                 orders.setBuyer_score(creditsAfter);
             }else{
-                orders.setSaler_score(creditsAfter);
+                orders.setSalerScore(creditsAfter);
             }
             if(ordersService.updateScore(orders)>0){
                 return Msg.success("评价成功").add("status",0);
