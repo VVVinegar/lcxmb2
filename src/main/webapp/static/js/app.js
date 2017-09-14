@@ -19,6 +19,12 @@ var fromNow = function (time) {
     return Math.floor(interval / 1000 / 3600 / 24 / 30 / 12) + " \u5E74\u524D";
 };
 $(function () {
+    // 商品搜索页 时间 格式化为几小时前
+    var $cateItemTime = $('.cate-item-time');
+    $cateItemTime.each(function () {
+        var time = new Date($(this).text()).getTime();
+        $(this).text(fromNow(time));
+    });
     var appRank;
     if ($('#app-rank').length) {
         appRank = new Vue({

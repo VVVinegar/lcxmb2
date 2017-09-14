@@ -34,7 +34,17 @@ interface Wd extends Window {
   defaultList?: any;
 }
 
+
 $(function () {
+
+  // 商品搜索页 时间 格式化为几小时前
+  const $cateItemTime: JQ = $('.cate-item-time')
+  $cateItemTime.each(function () {
+    const time = new Date($(this).text()).getTime();
+    $(this).text(fromNow(time));
+  })
+
+
   let appRank
   if ($('#app-rank').length) {
     appRank = new Vue({

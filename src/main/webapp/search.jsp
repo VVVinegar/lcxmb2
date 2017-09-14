@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -62,17 +64,20 @@
                             </p>
                         </div>
                         <div class="cate-item-middle">
-                            <a href="#">
-                                <img src="${product.imgUrls}">
+                            <a href="/product/${product.id}">
+                                <c:set var="imgUrls" value="${fn:split(product.imgUrls, ',')}" />
+                                <img src="${imgUrls[0]}">
                             </a>
                         </div>
                         <p style="margin-top: 8px;margin-bottom: 8px">
-                            <span class="cate-item-time">${product.updateTime}</span>
+                            <span class="cate-item-time">
+                                <fmt:formatDate value="${product.updateTime}" type="both" />
+                            </span>
                             <span class="cate-item-price  pull-right">￥${product.price}</span>
                         </p>
                         <div class="line"></div>
                         <div class="cate-item-bottom" style="margin-top: 8px;">
-                            <a href="#" class="text-link">${product.desciption}</a>
+                            <a href="/product/${product.id}" class="text-link">${product.title}</a>
                         </div>
                     </div>
                 </div>
