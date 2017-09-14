@@ -420,6 +420,7 @@
     price &gt; #{minPrice}
     and price &lt; #{maxPrice}
     and status = 0
+    group by id
     order by
     <if test="newOrHot == 0">
       update_time

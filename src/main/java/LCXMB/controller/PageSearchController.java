@@ -37,6 +37,7 @@ public class PageSearchController {
 
         if(isCate){                          //按分类查询
             List<SearchProducts> products =  searchService.getProductsByCate(minPrice, maxPrice, keywords, newOrHot, lowOrHigh, begin, PAGE_SIZE);
+            System.out.println("产品数量:"+products.size());
             modelMap.addAttribute("products", products);
             modelMap.addAttribute("newOrHot",newOrHot);
             modelMap.addAttribute("lowOrHigh",lowOrHigh);
