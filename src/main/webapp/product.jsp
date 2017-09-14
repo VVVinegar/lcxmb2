@@ -18,6 +18,7 @@
     <script src="/static/js/lib/jquery.min.js"></script>
     <script src="/static/js/lib/swiper-3.4.2.jquery.min.js"></script>
     <script src="/static/js/lib/tooltipster.bundle.min.js"></script>
+
     <script src="/static/js/app.js"></script>
 </head>
 <body class="page-product">

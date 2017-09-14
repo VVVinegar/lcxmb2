@@ -31,11 +31,6 @@ public class PageController {
         return "register";
     }
 
-    @RequestMapping(value = "/publish")
-    public String publish(){
-        return "publish";
-    }
-
     @RequestMapping(value = "/search")
     public String search(){
         return "search";

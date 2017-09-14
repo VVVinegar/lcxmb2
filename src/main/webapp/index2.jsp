@@ -100,12 +100,12 @@
                             <div class="pro-img">
                                 <c:forEach items="${n_cate}" var="n_cate_1">
                                     <div class="pro-img-item">
-                                        <a href="#">
+                                        <a href="/product/${n_cate_1.id}">
                                             <c:set var="imgurl" value="${fn:split(n_cate_1.imgUrls, ',')}" />
                                             <img src="${imgurl[0]}">
                                         </a>
                                         <p class="no-m text-right pro-item-title">
-                                            <a href="#" class="text-link">${fn:substring(n_cate_1.title, 0, 12)}</a>
+                                            <a href="/product/${n_cate_1.id}" class="text-link">${fn:substring(n_cate_1.title, 0, 12)}</a>
                                         </p>
                                         <h5 class="no-m text-right pro-item-price">
                                             <fmt:formatNumber type="number" value="${n_cate_1.price}" pattern="0.00" maxFractionDigits="2"/>

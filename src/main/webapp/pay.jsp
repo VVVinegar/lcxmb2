@@ -46,7 +46,7 @@
                         <img src="${productImg[0]}" style="background-color: #c4c4c4; width: 100%">
                     </i-col>
                     <i-col :span="21">
-                        <p style="margin-bottom: 15px;"><a href="#" class="text-link" style="font-size: 14px;">标题标题</a>
+                        <p style="margin-bottom: 15px;"><a href="#" class="text-link" style="font-size: 14px;">${product.title}</a>
                         </p>
                         <p class="no-m">卖家：${product.salerUser}</p>
                     </i-col>

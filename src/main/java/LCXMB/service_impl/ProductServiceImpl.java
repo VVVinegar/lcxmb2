@@ -22,11 +22,15 @@ public class ProductServiceImpl implements ProductService{
         return  productMapper.selectByCategoryOrderAndLimit(category_1);
     }
 
-    public Product findById(int id) {
+    public Product findById(Integer id) {
         return productMapper.selectByPrimaryKey(id);
     }
 
     public int updateStatus(Product record) {
+        return productMapper.updateByPrimaryKeySelective(record);
+    }
+
+    public int update(Product record) {
         return productMapper.updateByPrimaryKeySelective(record);
     }
 }

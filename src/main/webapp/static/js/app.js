@@ -214,21 +214,15 @@ $(function () {
     };
     var appPublish;
     if ($('#app-publish').length) {
+        var wd = window;
         appPublish = new Vue({
             el: '#app-publish',
             data: {
                 width: '200',
                 showSuccess: false,
                 successUrl: '',
-                publishForm: {
-                    cate: [],
-                    title: 'title',
-                    contact: '15835134145',
-                    imgList: [],
-                    content: 'content',
-                    quality: 10,
-                    price: 30
-                },
+                proId: wd.proId,
+                publishForm: wd.publishForm,
                 publishRules: {
                     title: [{ required: true, message: '请输入标题', trigger: 'blur' }],
                     contact: [{ required: true, message: '请输入联系方式', trigger: 'blur' }],
@@ -239,12 +233,7 @@ $(function () {
                     quality: [{ validator: validateQuality, trigger: 'change' }],
                 },
                 categoryData: [],
-                defaultList: [
-                    {
-                        'name': 'a42bdcc1178e62b4694c830f028db5c0',
-                        'url': 'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar'
-                    }
-                ]
+                defaultList: wd.defaultList
             },
             mounted: function () {
                 this.publishForm.imgList = this.$refs.upload.fileList;
@@ -320,32 +309,47 @@ $(function () {
                                 price: form.price,
                                 desciption: form.content
                             };
-                            $.ajax({
-                                url: '/api/publish',
-                                type: 'post',
-                                data: JSON.stringify(data),
-                                headers: {
-                                    'Content-Type': "application/json"
-                                },
-                            }).done(function (data) {
+                            var ajax_cb_1 = function (data, ctx) {
                                 var code = data.code;
                                 var msg = data.msg;
                                 if (code === 0) {
                                     var id = data.data.id;
-                                    _self_1.showSuccess = true;
+                                    ctx.showSuccess = true;
                                     var url_1 = "/product/" + id;
-                                    _self_1.successUrl = url_1;
+                                    ctx.successUrl = url_1;
                                     setTimeout(function () {
                                         location.href = url_1;
                                     }, 3000);
                                 }
                                 else {
-                                    _self_1.$Modal.error({
+                                    ctx.$Modal.error({
                                         title: "发生错误",
                                         content: msg
                                     });
                                 }
-                            });
+                            };
+                            if (_this.proId) {
+                                data.id = _this.proId;
+                                $.ajax({
+                                    url: '/api/publish/update',
+                                    type: 'post',
+                                    data: data,
+                                }).done(function (data) {
+                                    ajax_cb_1(data, _self_1);
+                                });
+                            }
+                            else {
+                                $.ajax({
+                                    url: '/api/publish',
+                                    type: 'post',
+                                    data: JSON.stringify(data),
+                                    headers: {
+                                        'Content-Type': "application/json"
+                                    },
+                                }).done(function (data) {
+                                    ajax_cb_1(data, _self_1);
+                                });
+                            }
                         }
                     });
                 },

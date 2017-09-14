@@ -462,7 +462,9 @@
 
   <!--TOP10-->
   <select id="selectTop10" resultMap="BaseResultMap">
-    select * from product order by
+    select * from product
+    where status = 0
+    order by
 
     <if test="field == 'update_time'">
       update_time

@@ -17,6 +17,6 @@ public class QiNiuImageStyleServiceImpl implements QiNiuImageStyleService{
     }
 
     public String getImageUrl(String width, String QiNiuKey){
-        return url + "/" + QiNiuKey + "?" + getStyle(width);
+        return url + "/" + QiNiuKey + "?" + getStyle("400");
     }
 }

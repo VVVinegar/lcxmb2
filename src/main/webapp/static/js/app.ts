@@ -1,23 +1,23 @@
 const fromNow = (time) => {
   const now_stamp = Date.now()
   const interval = now_stamp - time
-  if(interval < 1000 * 60) {
+  if (interval < 1000 * 60) {
     return '刚刚'
   }
 
-  if(interval < 1000 * 60 * 60) {
+  if (interval < 1000 * 60 * 60) {
     return `${Math.floor(interval / 1000 / 60)} 分钟前`
   }
 
-  if(interval < 1000 * 3600 * 24) {
+  if (interval < 1000 * 3600 * 24) {
     return `${Math.floor(interval / 1000 / 3600)} 小时前`
   }
 
-  if(interval < 1000 * 3600 * 24 * 30) {
+  if (interval < 1000 * 3600 * 24 * 30) {
     return `${Math.floor(interval / 1000 / 3600 / 24)} 天前`
   }
 
-  if(interval < 1000 * 3600 * 24 * 30 * 12) {
+  if (interval < 1000 * 3600 * 24 * 30 * 12) {
     return `${Math.floor(interval / 1000 / 3600 / 24 / 30)} 个月前`
   }
 
@@ -28,6 +28,11 @@ interface JQ extends JQuery {
   tooltipster?(options: any): void
 }
 
+interface Wd extends Window {
+  proId?: number;
+  publishForm?: any;
+  defaultList?: any;
+}
 
 $(function () {
   let appRank
@@ -40,11 +45,11 @@ $(function () {
         loading: false,
         firstRequest: true
       },
-      mounted(){
+      mounted() {
         this.requestData('new')
       },
       filters: {
-        fromNow(time): string{
+        fromNow(time): string {
           return fromNow(time)
         }
       },
@@ -56,14 +61,14 @@ $(function () {
           $.get(`/api/top10/${type}`).done(function (data) {
             _self.loading = false
             _self.list = data.data.list
-            _self.$nextTick(()=>{
-              if(_self.firstRequest){
+            _self.$nextTick(() => {
+              if (_self.firstRequest) {
                 _self.setHover()
               }
             })
           })
         },
-        setHover(){
+        setHover() {
           // 主页排行榜 hover
           const $rankItems: JQ = $('.rank-item:gt(0)')
           $rankItems.hover(function () {
@@ -231,21 +236,16 @@ $(function () {
 
   let appPublish
   if ($('#app-publish').length) {
+
+    const wd: Wd = window
     appPublish = new Vue({
       el: '#app-publish',
       data: {
         width: '200',
         showSuccess: false,
         successUrl: '',
-        publishForm: {
-          cate: [],
-          title: 'title',
-          contact: '15835134145',
-          imgList: [],
-          content: 'content',
-          quality: 10,
-          price: 30
-        },
+        proId: wd.proId,
+        publishForm: wd.publishForm,
         publishRules: {
           title: [{required: true, message: '请输入标题', trigger: 'blur'}],
           contact: [{required: true, message: '请输入联系方式', trigger: 'blur'}],
@@ -256,12 +256,7 @@ $(function () {
           quality: [{validator: validateQuality, trigger: 'change'}],
         },
         categoryData: [],
-        defaultList: [
-          {
-            'name': 'a42bdcc1178e62b4694c830f028db5c0',
-            'url': 'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar'
-          }
-        ]
+        defaultList: wd.defaultList
       },
       mounted() {
         this.publishForm.imgList = this.$refs.upload.fileList
@@ -327,7 +322,7 @@ $(function () {
               const form = this.publishForm
               const imgUrls = form.imgList.map(v => v.url).join(',')
 
-              const data = {
+              let data: any = {
                 title: form.title,
                 category1: form.cate[0],
                 category2: form.cate[1] || null,
@@ -338,31 +333,46 @@ $(function () {
                 desciption: form.content
               }
 
-              $.ajax({
-                url: '/api/publish',
-                type: 'post',
-                data: JSON.stringify(data),
-                headers: {
-                  'Content-Type': "application/json"
-                },
-              }).done(function (data) {
+              const ajax_cb = function (data, ctx) {
                 const code = data.code
                 const msg = data.msg
                 if (code === 0) {
                   const id = data.data.id
-                  _self.showSuccess = true
+                  ctx.showSuccess = true
                   const url = `/product/${id}`
-                  _self.successUrl = url
+                  ctx.successUrl = url
                   setTimeout(() => {
                     location.href = url
                   }, 3000)
                 } else {
-                  _self.$Modal.error({
+                  ctx.$Modal.error({
                     title: "发生错误",
                     content: msg
                   })
                 }
-              })
+              }
+
+              if(this.proId) {
+                data.id = this.proId
+                $.ajax({
+                  url: '/api/publish/update',
+                  type: 'post',
+                  data: data,
+                }).done(function(data){
+                  ajax_cb(data, _self)
+                })
+              } else {
+                $.ajax({
+                  url: '/api/publish',
+                  type: 'post',
+                  data: JSON.stringify(data),
+                  headers: {
+                    'Content-Type': "application/json"
+                  },
+                }).done(function(data){
+                  ajax_cb(data, _self)
+                })
+              }
             }
           })
         },

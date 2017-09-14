@@ -1,5 +1,6 @@
 package LCXMB.controller;
 
+import LCXMB.pojo.Msg;
 import LCXMB.pojo.Pro_comment;
 import LCXMB.pojo.Product;
 import LCXMB.pojo.User_info;
@@ -10,8 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -30,12 +34,14 @@ public class PageProductController {
     @Resource
     CommentService commentService;
 
-
     @RequestMapping(value = "/product/{p_id}")
-    public String findProductById(@PathVariable int p_id, ModelMap model){
+    public String findProductById(@PathVariable int p_id, ModelMap model) {
         Product product = productService.findById(p_id);
         User_info saler = userService.findById(product.getSalerUser());
         List<Pro_comment> comments = commentService.findByProId(p_id);
+
+        product.setWatchCount(product.getWatchCount() + 1);
+        productService.update(product);
 
         model.addAttribute("product", product);
         model.addAttribute("saler", saler);

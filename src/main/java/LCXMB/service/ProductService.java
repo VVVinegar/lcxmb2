@@ -1,5 +1,6 @@
 package LCXMB.service;
 
+import LCXMB.pojo.Pro_comment;
 import LCXMB.pojo.Product;
 
 import java.util.List;
@@ -11,7 +12,9 @@ public interface ProductService {
 
     public List<Product> getProducts(String category_1);
 
-    public Product findById(int id);
+    public Product findById(Integer id);
 
     int updateStatus(Product record);
+
+    int update(Product record);
 }

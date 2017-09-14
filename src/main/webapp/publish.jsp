@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +15,7 @@
     <script src="static/js/lib/iview.min.js"></script>
     <script src="static/js/lib/jquery.min.js"></script>
     <script src="static/js/lib/tooltipster.bundle.min.js"></script>
-    <script src="static/js/app.js"></script>
+    <script src="/static/js/lib/qs.js"></script>
 </head>
 <body class="page-publish">
 
@@ -27,7 +28,7 @@
     <div class="bread-nav">
         您的位置：
         <a href="#" class="text-link">首页</a> &gt;
-        <span>发布闲置</span>
+        <span>${product == null ? '发布闲置' : '修改闲置'}</span>
     </div>
 
     <div id="app-publish" v-cloak>
@@ -49,7 +50,15 @@
             </Alert>
         </c:if>
 
-        <c:if test="${sessionScope.username != null}">
+        <c:if test="${fail}">
+            <Alert type="error" show-icon>警告
+                <span slot="desc">
+                    非法操作！
+                </span>
+            </Alert>
+        </c:if>
+
+        <c:if test="${sessionScope.username != null && !fail}">
             <i-form :model="publishForm" :rules="publishRules" ref="publish">
                 <form-item prop="title">
                     <i-input v-model="publishForm.title" placeholder="请输入标题" :maxlength="40"></i-input>
@@ -124,5 +133,48 @@
         </c:if>
     </div>
 </div>
+<script>
+    var publishForm
+    var defaultList
+    var proId
+    <c:if test="${product == null}">
+    publishForm = {
+        cate: [],
+        title: 'title',
+        contact: '15835134145',
+        imgList: [],
+        content: 'content',
+        quality: 10,
+        price: 30
+    }
+
+    defaultList = []
+    proId = null
+    </c:if>
+
+    <c:if test="${product != null}">
+    publishForm = {
+        cate: ['${product.category1}', '${product.category2}'],
+        title: '${product.title}',
+        contact: '${product.telNum}',
+        imgList: [],
+        content: '${product.desciption}',
+        quality: ${product.quality},
+        price: ${product.price}
+    }
+
+    defaultList = [
+        <c:forEach items="${fn:split(product.imgUrls, ',')}" var="item">
+        {
+            name: '${item}',
+            url: '${item}'
+        },
+        </c:forEach>
+    ]
+
+    proId = ${product.id}
+    </c:if>
+</script>
+<script src="static/js/app.js"></script>
 </body>
 </html>
