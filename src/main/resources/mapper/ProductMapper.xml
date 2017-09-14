@@ -422,20 +422,20 @@
     and status = 0
     group by id
     order by
+    price
+    <if test="lowOrHigh == 0">
+      asc,
+    </if>
+    <if test="lowOrHigh == 1">
+      desc,
+    </if>
     <if test="newOrHot == 0">
       update_time
     </if>
     <if test="newOrHot == 1">
       watch_count
     </if>
-    desc,
-    price
-    <if test="lowOrHigh == 0">
-      asc
-    </if>
-    <if test="lowOrHigh == 1">
-      desc
-    </if>
+    desc
     limit #{begin},#{pageSize}
   </select>
   <!--按照关键字(title)模糊查询-->

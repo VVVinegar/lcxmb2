@@ -24,8 +24,8 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     public int updateScore(Orders orders) {
-        int updateNumber = ordersMapper.updateByPrimaryKey(orders);
-        return 0;
+        int updateNumber = ordersMapper.updateByPrimaryKeySelective(orders);
+        return updateNumber;
     }
 
     public List<OrderAndProducts> selectOrderAndProductsByUsername(String username) {

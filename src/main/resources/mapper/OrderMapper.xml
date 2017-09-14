@@ -222,10 +222,10 @@
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="buyerScore != null">
-        create_time = #{buyercore,jdbcType=TIMESTAMP},
+        buyer_score = #{buyerScore,jdbcType=INTEGER},
       </if>
       <if test="salerScore != null">
-        create_time = #{salerScore,jdbcType=TIMESTAMP},
+        saler_score = #{salerScore,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -235,7 +235,9 @@
     set buyer_name = #{buyerName,jdbcType=VARCHAR},
       saler_name = #{salerName,jdbcType=VARCHAR},
       pro_id = #{proId,jdbcType=INTEGER},
-      create_time = #{create_time,jdbcType=TIMESTAMP}
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+      buyer_score = #{buyerScore,jdbcType=INTEGER}
+      saler_score = #{salerScore,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectOrderAndProductsByUsername" resultMap="OrderAndProductsMap">

@@ -49,9 +49,9 @@ public class EvaluateController {
             Orders orders = new Orders();
             orders.setId(order_id);
             if (evaluateService.buyerOrSaler(order_id, username)==0){
-                orders.setBuyer_score(creditsAfter);
+                orders.setBuyer_score(score);
             }else{
-                orders.setSalerScore(creditsAfter);
+                orders.setSalerScore(score);
             }
             if(ordersService.updateScore(orders)>0){
                 return Msg.success("评价成功").add("status",0);

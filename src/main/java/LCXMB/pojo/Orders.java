@@ -71,10 +71,6 @@ public class Orders {
         return proId;
     }
 
-    public void setProId(Integer proId) {
-        this.proId = proId;
-    }
-
     public Date getCreateTime() {
         return createTime;
     }
@@ -82,4 +78,14 @@ public class Orders {
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
+
+    public void setBuyerScore(Integer buyerScore) {
+        this.buyerScore = buyerScore;
+    }
+
+    public void setProId(Integer proId) {
+        this.proId = proId;
+    }
+
+
 }
