@@ -140,12 +140,12 @@
     <c:if test="${product == null}">
     publishForm = {
         cate: [],
-        title: 'title',
-        contact: '15835134145',
+        title: '',
+        contact: '',
         imgList: [],
-        content: 'content',
+        content: '',
         quality: 10,
-        price: 30
+        price: 0
     }
 
     defaultList = []

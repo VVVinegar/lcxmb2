@@ -1,11 +1,12 @@
 package LCXMB.dao;
 
-import LCXMB.pojo.Orders;
+import LCXMB.pojo.OrderAndProducts;
 import LCXMB.pojo.OrderExample;
-import java.util.List;
-
+import LCXMB.pojo.Orders;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface OrdersMapper {
@@ -30,4 +31,6 @@ public interface OrdersMapper {
     int updateByPrimaryKeySelective(Orders record);
 
     int updateByPrimaryKey(Orders record);
+
+    List<OrderAndProducts> selectOrderAndProductsByUsername(@Param("username") String username);
 }

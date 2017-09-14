@@ -9,7 +9,21 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="addr_id" jdbcType="INTEGER" property="addrId" />
     <result column="buyer_score" jdbcType="INTEGER" property="buyerScore" />
+  </resultMap>
+
+  <resultMap id="OrderAndProductsMap" type="LCXMB.pojo.OrderAndProducts">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="buyer_name" jdbcType="VARCHAR" property="buyerName" />
+    <result column="saler_name" jdbcType="VARCHAR" property="salerName" />
+    <result column="pro_id" jdbcType="INTEGER" property="proId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="addr_id" jdbcType="INTEGER" property="addrId" />
+    <result column="buyer_score" jdbcType="INTEGER" property="buyerScore" />
     <result column="saler_score" jdbcType="INTEGER" property="salerScore" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="img_urls" jdbcType="VARCHAR" property="imgUrls" />
+    <result column="price" jdbcType="INTEGER" property="price" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -224,4 +238,9 @@
       time = #{time,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectOrderAndProductsByUsername" resultMap="OrderAndProductsMap">
+    select * from orders left join product on (orders.pro_id = product.id)
+    where orders.saler_name = #{username} or orders.buyer_name = #{username}
+    order by orders.create_time
+  </select>
 </mapper>
