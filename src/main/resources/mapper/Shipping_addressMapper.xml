@@ -208,4 +208,12 @@
       tel = #{tel,jdbcType=CHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <!--列出用户地址列表-->
+  <select id="selectByUsername" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from shipping_address
+    where username = #{username}
+  </select>
 </mapper>

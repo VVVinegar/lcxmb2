@@ -14,7 +14,7 @@ public class AddressServiceImp implements AddressService {
     Shipping_addressMapper shippingAddressMapper;
 
     public List<Shipping_address> findByUser(String username) {
-        return null;
+        return shippingAddressMapper.selectByUsername(username);
     }
 
     public Shipping_address findById(int id) {
