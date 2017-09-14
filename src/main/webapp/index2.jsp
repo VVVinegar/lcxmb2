@@ -137,7 +137,7 @@
                                 <span class="rank-item-index">{{index}}</span>
                                 <div class="rank-item-link">
                                     <p class="text-ellipsis">
-                                        <a href="#" class="text-link">{{item.title}}</a>
+                                        <a :href="'/product/' + item.id" class="text-link">{{item.title}}</a>
                                     </p>
                                 </div>
                                 <div class="rank-item-price">￥{{item.price.toFixed(2)}}</div>

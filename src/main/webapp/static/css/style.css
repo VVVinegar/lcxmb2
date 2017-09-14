@@ -1306,8 +1306,14 @@ body {
   padding-left: 70px;
 }
 .page-me .collect-list .has-down {
-  padding: 1px 5px;
+  padding: 0 5px;
   background-color: #b8b8b8;
+  color: #fff;
+  border-radius: 2px;
+}
+.page-me .collect-list .has-up {
+  padding: 0 5px;
+  background-color: orange;
   color: #fff;
   border-radius: 2px;
 }

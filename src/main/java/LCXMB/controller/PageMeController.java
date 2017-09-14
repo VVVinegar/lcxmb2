@@ -3,6 +3,7 @@ package LCXMB.controller;
 import LCXMB.dao.ProductMapper;
 import LCXMB.pojo.User_info;
 import LCXMB.service.AddressService;
+import LCXMB.service.CollectionService;
 import LCXMB.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -25,6 +26,8 @@ public class PageMeController {
     ProductMapper productMapper;
     @Resource
     AddressService addressService;
+    @Resource
+    CollectionService collectionService;
 
     public User_info getUserinfo(String username){
         return userService.findById(username);
@@ -88,12 +91,18 @@ public class PageMeController {
     public String collect(HttpSession httpSession, ModelMap model){
         Object username = httpSession.getAttribute("username");
         if(username != null) {
-            model.addAttribute("user", getUserinfo(username.toString()));
+            User_info user = getUserinfo(username.toString());
+            int addressId = user.getDefaultAddress();
+            model.addAttribute("address", addressService.findById(addressId));
+            model.addAttribute("user", user);
         } else {
             return "/login";
         }
 
+        List collections = collectionService.findProductsByUser(username.toString());
+        
         model.addAttribute("subsite", "collect");
+        model.addAttribute("collections", collections);
 
         return "/me";
     }

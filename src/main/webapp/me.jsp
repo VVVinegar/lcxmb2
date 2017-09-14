@@ -286,48 +286,31 @@
                 <c:if test="${subsite == 'collect'}">
                     <div class="collect-manager">
                         <div class="i-tabs clearfix">
-                            <div class="i-tabs-item active">我的收藏(7)</div>
+                            <div class="i-tabs-item active">我的收藏(${fn:length(collections)})</div>
                         </div>
 
                         <div class="i-tabs-panel">
                             <div class="i-tabs-panel-item active" style="padding: 10px;">
                                 <div class="row" style="margin: 0 -7px;">
-                                    <div class="col-xs-4 collect-list">
-                                        <img src="http://placehold.it/60x60" class="pull-left">
-                                        <p style="margin-bottom: 5px;"><a href="#" class="text-link">商品商品商品商品商品商品商品商品</a>
-                                        </p>
-                                        <p class="no-m">
-                                            <span style="color: red;font-size: 14px;">¥4398.00</span>
-                                            <span class="pull-right has-down">已下架</span>
-                                        </p>
-                                    </div>
-                                    <div class="col-xs-4 collect-list">
-                                        <img src="http://placehold.it/60x60" class="pull-left">
-                                        <p style="margin-bottom: 5px;"><a href="#" class="text-link">商品商品商品商品商品商品商品商品</a>
-                                        </p>
-                                        <p class="no-m">
-                                            <span style="color: red;font-size: 14px;">¥4398.00</span>
-                                            <span class="pull-right has-down">已下架</span>
-                                        </p>
-                                    </div>
-                                    <div class="col-xs-4 collect-list">
-                                        <img src="http://placehold.it/60x60" class="pull-left">
-                                        <p style="margin-bottom: 5px;"><a href="#" class="text-link">商品商品商品商品商品商品商品商品</a>
-                                        </p>
-                                        <p class="no-m">
-                                            <span style="color: red;font-size: 14px;">¥4398.00</span>
-                                            <span class="pull-right has-down">已下架</span>
-                                        </p>
-                                    </div>
-                                    <div class="col-xs-4 collect-list">
-                                        <img src="http://placehold.it/60x60" class="pull-left">
-                                        <p style="margin-bottom: 5px;"><a href="#" class="text-link">商品商品商品商品商品商品商品商品</a>
-                                        </p>
-                                        <p class="no-m">
-                                            <span style="color: red;font-size: 14px;">¥4398.00</span>
-                                            <span class="pull-right has-down">已下架</span>
-                                        </p>
-                                    </div>
+                                    <c:forEach items="${collections}" var="item">
+                                        <div class="col-xs-4 collect-list">
+                                            <c:set var="imgs" value="${fn:split(item.imgUrls, ',')}"/>
+                                            <a href="/product/${item.proId}">
+                                                <img src="${imgs[0]}" class="pull-left">
+                                            </a>
+                                            <p style="margin-bottom: 5px;">
+                                                <a href="/product/${item.proId}" class="text-link">${item.title}</a>
+                                            </p>
+                                            <p class="no-m">
+                                                <span style="color: red;font-size: 14px;">¥
+                                                <fmt:formatNumber type="number" value="${item.price}" pattern="0.00" maxFractionDigits="2"/>
+                                                </span>
+                                                <span class="pull-right ${item.status == 0 ? 'has-up' : 'has-down'}">
+                                                        ${item.status == 0 ? '上架中' : '已下架'}
+                                                </span>
+                                            </p>
+                                        </div>
+                                    </c:forEach>
                                 </div>
                             </div>
                         </div>

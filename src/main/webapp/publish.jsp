@@ -7,14 +7,14 @@
 <head>
     <meta charset="UTF-8">
     <title>发布闲置</title>
-    <link rel="stylesheet" href="static/css/lib/tooltipster.bundle.min.css">
-    <link rel="stylesheet" href="static/css/lib/bootstrap.min.css">
-    <link rel="stylesheet" href="static/css/lib/iview.min.css">
-    <link rel="stylesheet" href="static/css/style.css">
-    <script src="static/js/lib/vue.js"></script>
-    <script src="static/js/lib/iview.min.js"></script>
-    <script src="static/js/lib/jquery.min.js"></script>
-    <script src="static/js/lib/tooltipster.bundle.min.js"></script>
+    <link rel="stylesheet" href="/static/css/lib/tooltipster.bundle.min.css">
+    <link rel="stylesheet" href="/static/css/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/lib/iview.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="/static/js/lib/vue.js"></script>
+    <script src="/static/js/lib/iview.min.js"></script>
+    <script src="/static/js/lib/jquery.min.js"></script>
+    <script src="/static/js/lib/tooltipster.bundle.min.js"></script>
     <script src="/static/js/lib/qs.js"></script>
 </head>
 <body class="page-publish">

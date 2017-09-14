@@ -175,7 +175,13 @@
                         <span class="p-label" style="vertical-align: text-bottom">价&nbsp;格：</span>
                         <span class="p-value" style="font-size: 24px;font-weight: bold;color: red;vertical-align: inherit">¥
                             <fmt:formatNumber type="number" value="${product.price}" pattern="0.00" maxFractionDigits="2"/>
-                            <i class="pull-right collect-btn">加入收藏</i>
+                            <c:if test="${sessionScope.username == null}">
+                                <a href="/login?from=/product/${product.id}" class="pull-right collect-btn">加入收藏</a>
+                            </c:if>
+
+                            <c:if test="${sessionScope.username != null}">
+                                <span class="pull-right collect-btn" id="collect-btn">加入收藏</span>
+                            </c:if>
                         </span>
                     </p>
                     <div class="line" style="margin-bottom: 10px;"></div>
@@ -314,6 +320,27 @@
 
 	galleryTop.params.control = galleryThumbs
 	galleryThumbs.params.control = galleryTop
+
+    $('#collect-btn').on('click', function () {
+        var $t = $(this)
+        $.post('/api/collection', {
+            pro_id: ${product.id}
+        }).done(function(data){
+            var code = data.code
+            var msg = data.msg
+            if(code == 1) {
+                alert(msg)
+            } else {
+                var status = data.data.status
+                if(status == 0) {
+                    $t.text('已收藏')
+                    $t.css('background-color', 'orangered')
+                } else {
+                    alert(msg)
+                }
+            }
+        })
+    })
 </script>
 </body>
 </html>

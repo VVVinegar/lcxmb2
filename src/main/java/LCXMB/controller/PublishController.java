@@ -15,9 +15,7 @@ import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import java.util.Date;
 
-/**
- * Created by 759517209@qq.com on 2017/9/12.
- */
+
 @Controller
 @RequestMapping(value = "/api")
 public class PublishController {

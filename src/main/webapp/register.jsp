@@ -137,6 +137,7 @@
             var password = $('#password').val()
             var password1 = $('#password1').val()
             if(validate(username, password, password1)) {
+                $("#register-btn").text('正在注册')
                 $.post('/api/register', {
                     username: username,
                     password: password,
@@ -166,7 +167,7 @@
         })
 
         $('.register-input').on('focus', function () {
-            $("#register-btn").text('登录').removeClass('btn-danger')
+            $("#register-btn").text('注册').removeClass('btn-danger')
             $('#register-warn').text('')
         })
     })

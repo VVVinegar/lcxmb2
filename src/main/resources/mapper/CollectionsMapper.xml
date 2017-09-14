@@ -7,6 +7,16 @@
     <result column="pro_id" jdbcType="INTEGER" property="proId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
+
+  <resultMap id="ProductMap" type="LCXMB.pojo.CollectionsProduct">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="img_urls" jdbcType="VARCHAR" property="imgUrls" />
+    <result column="price" jdbcType="FLOAT" property="price" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="pro_id" jdbcType="INTEGER" property="proId"></result>
+  </resultMap>
+
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -201,5 +211,10 @@
     from collections
     where username = #{username}
     and pro_id = #{pro_id}
+  </select>
+
+  <select id="findProductsByUser" resultMap="ProductMap">
+    select * from collections left join product on (collections.pro_id = product.id )
+    where collections.username = #{username}
   </select>
 </mapper>

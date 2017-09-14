@@ -23,7 +23,7 @@ public class RegisterServiceImpl implements RegisterService{
             User_login user_login = new User_login(username, md5_password);
             user_loginMapper.insert(user_login);
             return true;
-        }catch (Exception e){
+        } catch (Exception e){
             return false;
         }
     }

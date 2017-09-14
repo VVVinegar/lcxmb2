@@ -2,9 +2,10 @@ package LCXMB.dao;
 
 import LCXMB.pojo.Collections;
 import LCXMB.pojo.CollectionsExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface CollectionsMapper {
@@ -30,5 +31,7 @@ public interface CollectionsMapper {
 
     int updateByPrimaryKey(Collections record);
 
-    Collections selectByUsernameAndProid(@Param("username") String username, @Param("pro_id") int pro_id);
+    Collections selectByUsernameAndProid(@Param("username") String username, @Param("pro_id") Integer pro_id);
+
+    List<Collections> findProductsByUser(@Param("username") String username);
 }

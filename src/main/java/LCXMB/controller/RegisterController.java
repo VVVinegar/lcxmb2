@@ -2,7 +2,6 @@ package LCXMB.controller;
 
 import LCXMB.pojo.Msg;
 import LCXMB.pojo.User_info;
-import LCXMB.pojo.User_login;
 import LCXMB.service.RegisterService;
 import LCXMB.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -31,11 +30,11 @@ public class RegisterController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    public Msg login(String username, String password, String password1, HttpSession session){
+    public Msg register(String username, String password, String password1, HttpSession session){
 
         if (isExist(username)){
             return Msg.success("用户名存在 ").add("status", 1);
-        }else if (!isStandardUsername(username)){
+        } else if (!isStandardUsername(username)){
             return Msg.success("用户名格式错误 ").add("status", 1);
         }else if (!isStandardPassword(password)){
             return Msg.success("密码格式错误 ").add("status", 1);
