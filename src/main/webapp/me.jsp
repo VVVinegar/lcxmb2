@@ -334,47 +334,52 @@
     </div>
 </div>
 <script>
-    var $confirmBtn = $('[data-confirm-btn]')
-    $confirmBtn.on('click', function () {
-        var $t = $(this)
-        var id = Number($t.attr('data-pro-id'))
-        $.post('/api/getGoods', {
-            id: id
-        }).done(function (data) {
-            if(data.code == 1) { alert(data.msg)}
-            else {
-                if(data.data.status == 0) {
-                    $t.addClass('disabled')
-                    $t.text('已收货')
-                } else {
-                    alert(data.msg)
+    $(function(){
+
+        new Vue({
+            el: '#app',
+            data: {
+                order_id: null,
+                score: 0,
+                modal: false
+            },
+            mounted:function(){
+                var $confirmBtn = $('[data-confirm-btn]')
+                $confirmBtn.on('click', function () {
+                    console.log(1);
+                    var $t = $(this)
+                    var id = Number($t.attr('data-pro-id'))
+                    $.post('/api/getGoods', {
+                        id: id
+                    }).done(function (data) {
+                        if(data.code == 1) { alert(data.msg)}
+                        else {
+                            if(data.data.status == 0) {
+                                $t.addClass('disabled')
+                                $t.text('已收货')
+                            } else {
+                                alert(data.msg)
+                            }
+                        }
+                    })
+                })
+            },
+            methods: {
+                showModal: function (order_id) {
+                    this.modal = true
+                    this.order_id = order_id
+                },
+                doGrade: function () {
+                    var _this = this
+                    $.post('/api/evaluate', {
+                        order_id: Number(_this.order_id),
+                        score: _this.score
+                    }).done(function(data){
+                        console.log(data)
+                    })
                 }
             }
         })
-    })
-
-    new Vue({
-        el: '#app',
-        data: {
-            order_id: null,
-            score: 0,
-            modal: false
-        },
-        methods: {
-            showModal: function (order_id) {
-                this.modal = true
-                this.order_id = order_id
-            },
-            doGrade: function () {
-                var _this = this
-                $.post('/api/evaluate', {
-                    order_id: Number(_this.order_id),
-                    score: _this.score
-                }).done(function(data){
-                    console.log(data)
-                })
-            }
-        }
     })
 </script>
 </body>
