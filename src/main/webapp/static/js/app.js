@@ -1,3 +1,23 @@
+var fromNow = function (time) {
+    var now_stamp = Date.now();
+    var interval = now_stamp - time;
+    if (interval < 1000 * 60) {
+        return '刚刚';
+    }
+    if (interval < 1000 * 60 * 60) {
+        return Math.floor(interval / 1000 / 60) + " \u5206\u949F\u524D";
+    }
+    if (interval < 1000 * 3600 * 24) {
+        return Math.floor(interval / 1000 / 3600) + " \u5C0F\u65F6\u524D";
+    }
+    if (interval < 1000 * 3600 * 24 * 30) {
+        return Math.floor(interval / 1000 / 3600 / 24) + " \u5929\u524D";
+    }
+    if (interval < 1000 * 3600 * 24 * 30 * 12) {
+        return Math.floor(interval / 1000 / 3600 / 24 / 30) + " \u4E2A\u6708\u524D";
+    }
+    return Math.floor(interval / 1000 / 3600 / 24 / 30 / 12) + " \u5E74\u524D";
+};
 $(function () {
     var appRank;
     if ($('#app-rank').length) {
@@ -7,9 +27,15 @@ $(function () {
                 list: [],
                 type: 'new',
                 loading: false,
+                firstRequest: true
             },
             mounted: function () {
                 this.requestData('new');
+            },
+            filters: {
+                fromNow: function (time) {
+                    return fromNow(time);
+                }
             },
             methods: {
                 requestData: function (type) {
@@ -20,7 +46,9 @@ $(function () {
                         _self.loading = false;
                         _self.list = data.data.list;
                         _self.$nextTick(function () {
-                            _self.setHover();
+                            if (_self.firstRequest) {
+                                _self.setHover();
+                            }
                         });
                     });
                 },
@@ -32,7 +60,7 @@ $(function () {
                     }, function () {
                         $(this).find('.rank-item-hidden').stop().slideUp(300);
                     });
-                }
+                },
             }
         });
     }
@@ -66,7 +94,8 @@ $(function () {
             theme: 'tooltipster-light',
             side: 'bottom',
             interactive: true,
-            animation: 'grow'
+            animation: 'grow',
+            trigger: 'click'
         });
     }
     var $htmlTooltipBtmRight = $('.html-tooltip-btm-right');

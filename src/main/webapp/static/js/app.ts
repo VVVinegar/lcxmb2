@@ -1,3 +1,29 @@
+const fromNow = (time) => {
+  const now_stamp = Date.now()
+  const interval = now_stamp - time
+  if(interval < 1000 * 60) {
+    return '刚刚'
+  }
+
+  if(interval < 1000 * 60 * 60) {
+    return `${Math.floor(interval / 1000 / 60)} 分钟前`
+  }
+
+  if(interval < 1000 * 3600 * 24) {
+    return `${Math.floor(interval / 1000 / 3600)} 小时前`
+  }
+
+  if(interval < 1000 * 3600 * 24 * 30) {
+    return `${Math.floor(interval / 1000 / 3600 / 24)} 天前`
+  }
+
+  if(interval < 1000 * 3600 * 24 * 30 * 12) {
+    return `${Math.floor(interval / 1000 / 3600 / 24 / 30)} 个月前`
+  }
+
+  return `${Math.floor(interval / 1000 / 3600 / 24 / 30 / 12)} 年前`
+}
+
 interface JQ extends JQuery {
   tooltipster?(options: any): void
 }
@@ -12,9 +38,15 @@ $(function () {
         list: [],
         type: 'new',
         loading: false,
+        firstRequest: true
       },
       mounted(){
-        this.requestData('new');
+        this.requestData('new')
+      },
+      filters: {
+        fromNow(time): string{
+          return fromNow(time)
+        }
       },
       methods: {
         requestData(type: string) {
@@ -25,7 +57,9 @@ $(function () {
             _self.loading = false
             _self.list = data.data.list
             _self.$nextTick(()=>{
-              _self.setHover()
+              if(_self.firstRequest){
+                _self.setHover()
+              }
             })
           })
         },
@@ -37,7 +71,7 @@ $(function () {
           }, function () {
             $(this).find('.rank-item-hidden').stop().slideUp(300)
           })
-        }
+        },
       }
     })
   }
@@ -76,7 +110,8 @@ $(function () {
       theme: 'tooltipster-light',
       side: 'bottom',
       interactive: true,
-      animation: 'grow'
+      animation: 'grow',
+      trigger: 'click'
     })
   }
 

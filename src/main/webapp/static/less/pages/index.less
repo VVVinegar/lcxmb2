@@ -177,6 +177,7 @@
       &-hidden {
         margin-top: 8px;
         display: none;
+        height: 60px;
         .rank-item-img {
           width: 60px;
           height: 60px;
@@ -186,6 +187,12 @@
 
       &-desc {
         margin-left: 68px;
+        height: 100%;
+
+        .ab_item{
+          margin-top: 15px;
+          margin-bottom: 0;
+        }
       }
     }
   }
@@ -209,7 +216,12 @@
   }
 
   .rank-select {
+    color: rgba(255, 255, 255, .9);
     cursor: pointer;
+    .transition();
+    &:hover{
+      color: #fff;
+    }
   }
 
   .rank-select-arrow {

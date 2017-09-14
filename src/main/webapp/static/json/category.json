@@ -1,6 +1,7 @@
 [
   {
     "value": "数码产品",
+    "img_url": "/static/images/icon-cate-1.png",
     "children": [
       {
         "value": "手机",
@@ -54,6 +55,7 @@
   },
   {
     "value": "二手书籍",
+    "img_url": "/static/images/icon-cate-2.png",
     "children": [
       {
         "value": "教育考试",
@@ -104,6 +106,7 @@
   },
   {
     "value": "生活用品",
+    "img_url": "/static/images/icon-cate-3.png",
     "children": [
       {
         "value": "自行车",
@@ -141,6 +144,7 @@
   },
   {
     "value": "鞋服配饰",
+    "img_url": "/static/images/icon-cate-4.png",
     "children": [
       {
         "value": "女装",
@@ -186,6 +190,7 @@
   },
   {
     "value": "美容美颜",
+    "img_url": "/static/images/icon-cate-5.png",
     "children": [
       {
         "value": "化妆品",
@@ -212,6 +217,7 @@
   },
   {
     "value": "虚拟商品",
+    "img_url": "/static/images/icon-cate-6.png",
     "children": [
       {
         "value": "账号/装备",

@@ -35,7 +35,7 @@
                                 <c:if test="${cate.children != null}">
                                     <li class="clearfix">
                                         <span class="category-icon pull-left"
-                                            style="background-image: url(http://placehold.it/40x40)"></span>
+                                            style="background-image: url(${cate.img_url})"></span>
                                         <span class="pull-left category-title">${cate.value}</span>
                                         <c:forEach items="${cate.children}" var="cate2" end="${1}">
                                             <a href="#" class="pull-left text-link">${cate2.value}</a>
@@ -63,16 +63,16 @@
                         <div class="swiper-container h_100">
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide"
-                                     style="background-image: url(http://placehold.it/600x400/red)">
+                                     style="background-image: url(http://ow408mv5t.bkt.clouddn.com/a44cffed805b5e8982a40090fd4695f6.jpg)">
+                                    <a href="#"></a>
+                                </div>
+                                <div class="swiper-slide"
+                                     style="background-image: url(http://ow408mv5t.bkt.clouddn.com/0ca2bd29afb3d7c1d92afeeb2bff8869.jpg)">
+                                    <a href="#"></a>
+                                </div>
+                                <div class="swiper-slide"
+                                     style="background-image: url(http://ow408mv5t.bkt.clouddn.com/254c961ec98a78fd7fb2ad7c413d513c.jpg)">
                                     <!--轮播链接-->
-                                    <a href="#"></a>
-                                </div>
-                                <div class="swiper-slide"
-                                     style="background-image: url(http://placehold.it/600x400/#ff0000)">
-                                    <a href="#"></a>
-                                </div>
-                                <div class="swiper-slide"
-                                     style="background-image: url(http://placehold.it/600x400/slide3)">
                                     <a href="#"></a>
                                 </div>
                             </div>
@@ -126,18 +126,18 @@
                             <i class="rank-select-arrow"></i>
                         </span>
                         <div class="rank-select-panel tooltip-content" id="rank-select-panel">
-                            <p>最新</p>
-                            <p>最热</p>
-                            <p>降幅最大</p>
+                            <p @click="requestData('new')">最新</p>
+                            <p @click="requestData('hot')">最热</p>
+                            <p @click="requestData('desc')">降幅最大</p>
                         </div>
                     </div>
                     <div class="rank">
-                        <div class="rank-item" v-for="(item, index) in list" :key="item.title + index">
+                        <div class="rank-item" v-for="(item, index) in list" :key="Math.random() + index">
                             <div class="rank-item-visible">
                                 <span class="rank-item-index">{{index}}</span>
                                 <div class="rank-item-link">
                                     <p class="text-ellipsis">
-                                        <a href="#" class="text-link" title="全名">{{item.title}}</a>
+                                        <a href="#" class="text-link">{{item.title}}</a>
                                     </p>
                                 </div>
                                 <div class="rank-item-price">￥{{item.price.toFixed(2)}}</div>
@@ -148,7 +148,16 @@
                                         <img :src="item.imgUrls.split(',')[0]" style="width: 100%">
                                     </a>
                                 </div>
-                                <div class="rank-item-desc">{{item.desciption}}</div>
+                                <div class="rank-item-desc">
+                                    {{item.desciption.substring(0, 26)}}
+                                    <p v-if="type=='new'" class="ab_item text-color">{{item.updateTime | fromNow}}</p>
+                                    <p v-else-if="type == 'hot'" class="ab_item">
+                                        <span style="padding: 1px 5px;color: #fff;background-color: orangered">热度：{{item.watchCount}}</span>
+                                    </p>
+                                    <p v-else class="ab_item">
+                                        <span style="padding: 1px 5px;color: #fff;background-color: orange">降价：{{item.priceChanged}} 元</span>
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>

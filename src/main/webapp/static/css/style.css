@@ -403,6 +403,7 @@ body {
 .page-index .rank-item-hidden {
   margin-top: 8px;
   display: none;
+  height: 60px;
 }
 .page-index .rank-item-hidden .rank-item-img {
   width: 60px;
@@ -414,6 +415,11 @@ body {
 }
 .page-index .rank-item-desc {
   margin-left: 68px;
+  height: 100%;
+}
+.page-index .rank-item-desc .ab_item {
+  margin-top: 15px;
+  margin-bottom: 0;
 }
 .page-index .rank .rank-item:nth-of-type(1) .rank-item-index {
   background-color: #ff1234;
@@ -428,7 +434,15 @@ body {
   display: block !important;
 }
 .page-index .rank-select {
+  color: rgba(255, 255, 255, 0.9);
   cursor: pointer;
+  transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+}
+.page-index .rank-select:hover {
+  color: #fff;
 }
 .page-index .rank-select-arrow {
   display: inline-block;
