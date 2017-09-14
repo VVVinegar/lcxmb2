@@ -8,6 +8,7 @@ import LCXMB.service.OrdersService;
 import LCXMB.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -30,6 +31,7 @@ public class EvaluateController {
     OrdersService ordersService;
 
     @ResponseBody
+    @RequestMapping(value = "/evaluate", method = RequestMethod.POST)
     public Msg evaluate(Integer score, Integer order_id, HttpSession session){
         String username = session.getAttribute("username").toString();
         //得到要更新哪个用户的信誉度

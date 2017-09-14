@@ -8,7 +8,6 @@ import LCXMB.service.EvaluateService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.persistence.criteria.Order;
 
 /**
  * Created by 759517209@qq.com on 2017/9/14.
@@ -40,6 +39,6 @@ public class EvaluateServiceImpl implements EvaluateService{
 
     public int evaluate(User_info user_info) {
 
-       return user_infoMapper.updateByPrimaryKey(user_info);
+       return user_infoMapper.updateByPrimaryKeySelective(user_info);
     }
 }

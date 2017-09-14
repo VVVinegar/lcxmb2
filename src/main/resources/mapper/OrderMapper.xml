@@ -139,7 +139,7 @@
         pro_id,
       </if>
       <if test="time != null">
-        time,
+        create_time,
       </if>
       <if test="addrId != null">
         addr_id,
@@ -159,7 +159,7 @@
         #{proId,jdbcType=INTEGER},
       </if>
       <if test="time != null">
-        #{time,jdbcType=TIMESTAMP},
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="addrId != null">
         #{addrId,jdbcType=VARCHAR},
@@ -187,8 +187,8 @@
       <if test="record.proId != null">
         pro_id = #{record.proId,jdbcType=INTEGER},
       </if>
-      <if test="record.time != null">
-        time = #{record.time,jdbcType=TIMESTAMP},
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null">
@@ -201,7 +201,7 @@
       buyer_name = #{record.buyerName,jdbcType=VARCHAR},
       saler_name = #{record.salerName,jdbcType=VARCHAR},
       pro_id = #{record.proId,jdbcType=INTEGER},
-      time = #{record.time,jdbcType=TIMESTAMP}
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -219,13 +219,13 @@
         pro_id = #{proId,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
-        time = #{time,jdbcType=TIMESTAMP},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="buyerScore != null">
-        time = #{buyercore,jdbcType=TIMESTAMP},
+        create_time = #{buyercore,jdbcType=TIMESTAMP},
       </if>
       <if test="salerScore != null">
-        time = #{salerScore,jdbcType=TIMESTAMP},
+        create_time = #{salerScore,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -235,7 +235,7 @@
     set buyer_name = #{buyerName,jdbcType=VARCHAR},
       saler_name = #{salerName,jdbcType=VARCHAR},
       pro_id = #{proId,jdbcType=INTEGER},
-      time = #{time,jdbcType=TIMESTAMP}
+      create_time = #{create_time,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectOrderAndProductsByUsername" resultMap="OrderAndProductsMap">

@@ -79,7 +79,7 @@ public class Orders {
         return createTime;
     }
 
-    public void setCreateTime(Date time) {
-        this.createTime = time;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }
