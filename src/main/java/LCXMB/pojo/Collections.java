@@ -31,6 +31,12 @@ public class Collections {
         return proId;
     }
 
+    public Collections(String username, Integer proId, Date createTime) {
+        this.username = username;
+        this.proId = proId;
+        this.createTime = createTime;
+    }
+
     public void setProId(Integer proId) {
         this.proId = proId;
     }
