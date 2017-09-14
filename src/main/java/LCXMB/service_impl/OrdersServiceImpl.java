@@ -31,4 +31,8 @@ public class OrdersServiceImpl implements OrdersService {
     public List<OrderAndProducts> selectOrderAndProductsByUsername(String username) {
         return ordersMapper.selectOrderAndProductsByUsername(username);
     }
+
+    public Orders findById(Integer id) {
+        return null;
+    }
 }

@@ -14,4 +14,6 @@ public interface OrdersService {
     public int updateScore(Orders orders);
 
     public List<OrderAndProducts> selectOrderAndProductsByUsername(String username);
+
+    public  Orders findById(Integer id);
 }

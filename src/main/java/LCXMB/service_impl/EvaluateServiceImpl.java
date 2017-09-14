@@ -22,16 +22,18 @@ public class EvaluateServiceImpl implements EvaluateService{
     //获得信誉度改变的用户
     public String getUsername(Integer order_id, String username) {
         Orders orders = ordersMapper.selectByPrimaryKey(order_id);
-        if (orders.getBuyerName() == username){
+        if (orders.getBuyerName().equals(username) ){
+            System.out.println("salername:"+ orders.getSalerName());
             return orders.getSalerName();
         }
+        System.out.println("buyername:"+ orders.getBuyerName());
        return  orders.getBuyerName();
     }
 
     //判断目前用户是是卖家还是买家 0卖家   1买家
     public int buyerOrSaler(Integer order_id, String username) {
         Orders orders = ordersMapper.selectByPrimaryKey(order_id);
-        if (orders.getBuyerName() == username){
+        if (orders.getBuyerName().equals(username) ){
             return 1;
         }
         return 0;

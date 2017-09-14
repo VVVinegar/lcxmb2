@@ -36,6 +36,17 @@ public class EvaluateController {
         String username = session.getAttribute("username").toString();
         //得到要更新哪个用户的信誉度
         String aimName = evaluateService.getUsername(order_id, username);
+
+        Orders orders = ordersService.findById(order_id);
+
+        if (evaluateService.buyerOrSaler(order_id, username)==1 && orders.getBuyerScore() != null){
+            return  Msg.success("已评价").add("status",1);
+        }else if (evaluateService.buyerOrSaler(order_id, username)==0 && orders.getSalerScore() != null){
+            return  Msg.success("已评价").add("status",1);
+        }
+
+
+        System.out.println(aimName);
         //查询该用户信誉度
         int creditsBefore = userService.findById(aimName).getCredits();
         //更新user_info表信誉度
@@ -46,14 +57,14 @@ public class EvaluateController {
 
         if(evaluateService.evaluate(user_info)>0){
             //向订单表添加评分信息
-            Orders orders = new Orders();
-            orders.setId(order_id);
-            if (evaluateService.buyerOrSaler(order_id, username)==0){
-                orders.setBuyer_score(score);
+            Orders orders2 = new Orders();
+            orders2.setId(order_id);
+            if (evaluateService.buyerOrSaler(order_id, username)==1){
+                orders2.setBuyer_score(score);
             }else{
-                orders.setSalerScore(score);
+                orders2.setSalerScore(score);
             }
-            if(ordersService.updateScore(orders)>0){
+            if(ordersService.updateScore(orders2)>0){
                 return Msg.success("评价成功").add("status",0);
             }
             return Msg.fail("服务器错误");
