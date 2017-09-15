@@ -2,11 +2,11 @@ package LCXMB.dao;
 
 import LCXMB.pojo.Product;
 import LCXMB.pojo.ProductExample;
-import java.util.List;
-
 import LCXMB.pojo.SearchProducts;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface ProductMapper {
@@ -43,7 +43,15 @@ public interface ProductMapper {
     //按分类查询
     List<SearchProducts> selectByCate(@Param("minPrice") float minPrice,@Param("maxPrice") float maxPrice,
                                     @Param("category_2") String category_2, @Param("newOrHot") int newOrHot,
-                                    @Param("lowOrHigh") int lowOrHigh, @Param("begin") int begin, @Param("pageSize") int pageSize);
+                                      @Param("lowOrHigh") int lowOrHigh, @Param("begin") int begin, @Param("pageSize") int pageSize);
+
+    //按分类查询条数
+    SearchProducts selectCountByCate(@Param("minPrice") float minPrice,@Param("maxPrice") float maxPrice,
+                                      @Param("category_2") String category_2, @Param("newOrHot") int newOrHot,
+                                      @Param("lowOrHigh") int lowOrHigh, @Param("begin") int begin, @Param("pageSize") int pageSize);
     //按title模糊查询
     List<SearchProducts> selectByTitle(@Param("keywords") String keywords, @Param("begin") int begin , @Param("pageSize") int pageSize);
+
+    //按title模糊查询的条数
+    SearchProducts selectCountByTitle(@Param("keywords") String keywords, @Param("begin") int begin , @Param("pageSize") int pageSize);
 }

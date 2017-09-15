@@ -45,6 +45,16 @@ $(function () {
   })
 
 
+  // 头部搜索
+  const $searchInput: JQ = $('#search-input')
+  $searchInput.on('keyup', function (ev) {
+    const keyCode = ev.keyCode
+    const value = $(ev.target).val()
+    if(keyCode == 13) {
+      location.href = `/search?isCate=false&keywords=${value}`
+    }
+  })
+
   let appRank
   if ($('#app-rank').length) {
     appRank = new Vue({
@@ -103,19 +113,6 @@ $(function () {
     }
   })
 
-
-  // 查询结果页价格区间搜索，确定按钮的隐藏切换
-  const $controlPriceInput: JQ = $('.control-price-input')
-  $controlPriceInput.on('focus', function () {
-    const $t_p: JQ = $(this).parent()
-    $t_p.addClass('active')
-    $t_p.siblings('.control-price-confirm').css('display', 'inline-block')
-  })
-  $controlPriceInput.on('blur', function () {
-    const $t_p: JQ = $(this).parent()
-    $t_p.removeClass('active')
-    $t_p.siblings('.control-price-confirm').css('display', 'none')
-  })
 
 
   // 初始化tooltip

@@ -19,7 +19,7 @@
                 <div class="row">
                     <div class="col-xs-4">欢迎来到兰村小卖部！</div>
                     <div class="col-xs-8 text-right header-console-links">
-                        <a href="#" class="text-link">我的收藏</a>
+                        <a href="/me/collect" class="text-link">我的收藏</a>
                         <a href="/publish" class="text-link">发布闲置</a>
                         <a href="" class="text-link html-tooltip-btm-right" data-tooltip-content="#messages-tpl">
                             我的消息 <span class="arrow_b"></span>
@@ -75,7 +75,7 @@
                     <div class="search">
                         <div class="search-input">
                             <span class="icon"></span>
-                            <input placeholder="输入商品名称搜索">
+                            <input placeholder="输入商品名称搜索" id="search-input">
                         </div>
                         <div class="search-detail">
 

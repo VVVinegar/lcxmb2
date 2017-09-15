@@ -482,4 +482,29 @@
 
     desc limit 10
   </select>
+
+  <select id="selectCountByCate" resultMap="SearchResultMap">
+    select count(*) as productNumber from product
+    left join user_info
+    on (product.saler_user = user_info.username)
+    where
+    <if test="category_2 != null">
+      category_2 = #{category_2}
+      and
+    </if>
+    price &gt; #{minPrice}
+    and price &lt; #{maxPrice}
+    and status = 0
+  </select>
+
+  <select id="selectCountByTitle" resultMap="SearchResultMap">
+    select count(*) as productNumber
+    from product
+    left join user_info
+    on (product.saler_user = user_info.username)
+    where status = 0
+    <if test="keywords != null">
+      and title like '%${keywords}%'
+    </if>
+  </select>
 </mapper>

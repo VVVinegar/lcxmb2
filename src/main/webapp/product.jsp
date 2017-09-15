@@ -291,16 +291,7 @@
         </div>
     </div>
 </div>
-<div class="footer">
-    <div class="footer-top">
-        <div class="container">
-            footer
-        </div>
-    </div>
-    <div class="footer-bottom">
-
-    </div>
-</div>
+<c:import url="./footer.jsp"></c:import>
 <script>
 	// 商品页swipper
 	const galleryTop = new Swiper('.gallery-top', {

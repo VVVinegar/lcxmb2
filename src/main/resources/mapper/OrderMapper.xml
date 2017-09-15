@@ -243,6 +243,6 @@
   <select id="selectOrderAndProductsByUsername" resultMap="OrderAndProductsMap">
     select * from orders left join product on (orders.pro_id = product.id)
     where orders.saler_name = #{username} or orders.buyer_name = #{username}
-    order by orders.create_time
+    order by orders.create_time desc
   </select>
 </mapper>

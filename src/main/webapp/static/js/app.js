@@ -25,6 +25,15 @@ $(function () {
         var time = new Date($(this).text()).getTime();
         $(this).text(fromNow(time));
     });
+    // 头部搜索
+    var $searchInput = $('#search-input');
+    $searchInput.on('keyup', function (ev) {
+        var keyCode = ev.keyCode;
+        var value = $(ev.target).val();
+        if (keyCode == 13) {
+            location.href = "/search?isCate=false&keywords=" + value;
+        }
+    });
     var appRank;
     if ($('#app-rank').length) {
         appRank = new Vue({
@@ -80,18 +89,6 @@ $(function () {
         else {
             $rankWrap.removeClass('fixed');
         }
-    });
-    // 查询结果页价格区间搜索，确定按钮的隐藏切换
-    var $controlPriceInput = $('.control-price-input');
-    $controlPriceInput.on('focus', function () {
-        var $t_p = $(this).parent();
-        $t_p.addClass('active');
-        $t_p.siblings('.control-price-confirm').css('display', 'inline-block');
-    });
-    $controlPriceInput.on('blur', function () {
-        var $t_p = $(this).parent();
-        $t_p.removeClass('active');
-        $t_p.siblings('.control-price-confirm').css('display', 'none');
     });
     // 初始化tooltip
     var $htmlTooltip = $('.html-tooltip');

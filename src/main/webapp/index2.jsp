@@ -38,16 +38,19 @@
                                             style="background-image: url(${cate.img_url})"></span>
                                         <span class="pull-left category-title">${cate.value}</span>
                                         <c:forEach items="${cate.children}" var="cate2" end="${1}">
-                                            <a href="#" class="pull-left text-link">${cate2.value}</a>
+                                            <a href="/search?isCate=true&keywords=${cate2.value}"
+                                               class="pull-left text-link">${cate2.value}</a>
                                         </c:forEach>
                                         <div class="category-detail">
                                             <div class="row">
                                                 <c:forEach items="${cate.children}" var="cate3">
                                                     <c:if test="${cate3.keywords != null}">
                                                         <div class="col-xs-6">
-                                                            <p class="category-detail-title">${cate3.value}</p>
+                                                            <p class="category-detail-title">
+                                                                <a class="text-link" href="/search?isCate=true&keywords=${cate3.value}">${cate3.value}</a>
+                                                            </p>
                                                             <c:forEach items="${cate3.keywords}" var="cate4">
-                                                                <a href="#" class="text-link">${cate4}</a>
+                                                                <a href="/search?isCate=false&keywords=${cate4}" class="text-link">${cate4}</a>
                                                             </c:forEach>
                                                         </div>
                                                     </c:if>
@@ -93,7 +96,7 @@
                                 <span class="title-text">${category[st.index].value}</span>
                                 <c:forEach items="${category[st.index].children}" var="item">
                                     <c:if test="${item.value != '其他'}">
-                                        <a href="#" class="link-btn">${item.value}</a>
+                                        <a href="/search?isCate=true&keywords=${item.value}" class="link-btn">${item.value}</a>
                                     </c:if>
                                 </c:forEach>
                             </div>
@@ -166,16 +169,7 @@
         </div>
     </div>
 </div>
-<div class="footer">
-    <div class="footer-top">
-        <div class="container">
-            footer
-        </div>
-    </div>
-    <div class="footer-bottom">
-
-    </div>
-</div>
+<c:import url="./footer.jsp" />
 <script>
     var mySwiper = new Swiper('.swiper-container', {
         loop: true,

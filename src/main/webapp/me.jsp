@@ -17,6 +17,11 @@
     <script src="/static/js/lib/jquery.min.js"></script>
     <script src="/static/js/lib/tooltipster.bundle.min.js"></script>
     <script src="/static/js/app.js"></script>
+    <style>
+        .ivu-rate{
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body class="page-me">
 
@@ -34,7 +39,7 @@
             <c:when test="${subsite == 'order'}">订单管理</c:when>
             <c:when test="${subsite == 'message'}">我的消息</c:when>
             <c:when test="${subsite == 'collect'}">我的收藏</c:when>
-            <c:when test="${subsite == 'setting'}">个人资料设置</c:when>
+            <%--<c:when test="${subsite == 'setting'}">个人资料设置</c:when>--%>
         </c:choose>
     </div>
 
@@ -53,9 +58,9 @@
             <p class="menu-item ${subsite == 'collect' ? 'active' : ''}">
                 <a href="/me/collect" class="text-link">我的收藏</a>
             </p>
-            <p class="menu-item ${subsite == 'setting' ? 'active' : ''}">
-                <a href="/me/setting" class="text-link">个人资料设置</a>
-            </p>
+            <%--<p class="menu-item ${subsite == 'setting' ? 'active' : ''}">--%>
+                <%--<a href="/me/setting" class="text-link">个人资料设置</a>--%>
+            <%--</p>--%>
         </div>
         <div class="col-xs-10">
             <div class="detail-top flex-container">
@@ -70,18 +75,22 @@
                         <fmt:formatNumber type="number" value="${user.virtualCurrency}" pattern="0.00" maxFractionDigits="2"/>
                         </span>
                     </p>
-                    <c:if test="${user.credits == 100}">
-                        <c:set var="credits_class" value="eq-100" />
+
+                    <c:if test="${user.credits <= 60}">
+                        <c:set var="credits_class" value="lt-60" />
+                    </c:if>
+
+                    <c:if test="${user.credits > 60}">
+                        <c:set var="credits_class" value="gt-60" />
                     </c:if>
                     <c:if test="${user.credits > 80}">
                         <c:set var="credits_class" value="gt-80" />
                     </c:if>
-                    <c:if test="${user.credits > 60}">
-                        <c:set var="credits_class" value="gt-60" />
+
+                    <c:if test="${user.credits > 100}">
+                        <c:set var="credits_class" value="eq-100" />
                     </c:if>
-                    <c:if test="${user.credits <= 60}">
-                        <c:set var="credits_class" value="lt-60" />
-                    </c:if>
+
                     <p class="no-m">
                         信&nbsp;&nbsp;誉&nbsp;&nbsp;度：<span class="credits ${credits_class}">${user.credits}</span>
                     </p>
@@ -173,6 +182,7 @@
                             <div class="i-tabs-item active">全部记录${fn:length(orders)}</div>
                         </div>
                         <c:forEach items="${orders}" var="order">
+                            <c:set var="isBuyer" value="${sessionScope.username == order.buyerName}" />
                             <div class="orders-list ${order.status != 0 ? 'is-finish' : ''}">
                                 <div class="orders-list-top">
                                     <div class="row">
@@ -185,18 +195,18 @@
                                         <div class="col-xs-4">
                                             交易对象：
                                             <a href="#" class="text-link">
-                                                    ${sessionScope.username == order.buyerName ? order.salerName : order.buyerName}
+                                                    ${isBuyer ? order.salerName : order.buyerName}
                                             </a>
                                         </div>
                                         <div class="col-xs-4 text-right">
                                             交易状态：
                                             <span class="is-${order.status == 1 ? 'sale' : 'finish' }-text">
                                             <c:if test="${order.status == 1}">
-                                                ${order.buyerName == sessionScope.username ? '正在购入' : '正在售出'}
+                                                ${isBuyer ? '正在购入' : '正在售出'}
                                             </c:if>
 
                                             <c:if test="${order.status == 2}">
-                                                ${order.buyerName == sessionScope.username ? '已经购入' : '已经售出'}
+                                                ${isBuyer ? '已经购入' : '已经售出'}
                                             </c:if>
                                         </span>
                                         </div>
@@ -218,14 +228,56 @@
                                             </p>
                                         </div>
                                         <div class="col-xs-2">
-                                            <p class="no-m"><strong>操作：</strong></p>
                                             <p class="no-m">
-                                                <c:if test="${order.status == 1}">
-                                                    <a href="#" class="text-link">退货 / 退款</a>
+                                                <c:if test="${isBuyer}">
+                                                    <c:if test="${order.buyerScore != null}">
+                                                        <strong>评分：</strong>
+                                                    </c:if>
+
+                                                    <c:if test="${order.buyerScore == null}">
+                                                        <strong>操作：</strong>
+                                                    </c:if>
                                                 </c:if>
 
-                                                <c:if test="${order.status == 2}">
-                                                    <a href="javascript:;" class="text-link" @click="showModal('${order.id}')">给买(卖)家评分</a>
+                                                <c:if test="${!isBuyer}">
+                                                    <c:if test="${order.salerScore != null}">
+                                                        <strong>评分：</strong>
+                                                    </c:if>
+
+                                                    <c:if test="${order.salerScore == null}">
+                                                        <strong>操作：</strong>
+                                                    </c:if>
+                                                </c:if>
+                                            </p>
+                                            <p class="no-m">
+                                                <c:if test="${isBuyer}">
+                                                    <c:if test="${order.buyerScore != null}">
+                                                        <rate :value="${order.buyerScore}" disabled></rate>
+                                                    </c:if>
+                                                    <c:if test="${order.buyerScore == null}">
+                                                        <c:if test="${order.status == 1}">
+                                                            <a href="#" class="text-link">退货 / 退款</a>
+                                                        </c:if>
+
+                                                        <c:if test="${order.status == 2}">
+                                                            <a href="javascript:;" class="text-link" @click="showModal('${order.id}')">给买(卖)家评分</a>
+                                                        </c:if>
+                                                    </c:if>
+                                                </c:if>
+
+                                                <c:if test="${!isBuyer}">
+                                                    <c:if test="${order.salerScore != null}">
+                                                        <rate :value="${order.salerScore}" disabled></rate>
+                                                    </c:if>
+                                                    <c:if test="${order.salerScore == null}">
+                                                        <c:if test="${order.status == 1}">
+                                                            <a href="#" class="text-link">退货 / 退款</a>
+                                                        </c:if>
+
+                                                        <c:if test="${order.status == 2}">
+                                                            <a href="javascript:;" class="text-link" @click="showModal('${order.id}')">给买(卖)家评分</a>
+                                                        </c:if>
+                                                    </c:if>
                                                 </c:if>
                                             </p>
                                         </div>
@@ -234,7 +286,7 @@
                                             <p class="no-m"><a href="#" class="text-link">订单详情</a></p>
                                         </div>
                                         <div class="col-xs-2 text-right">
-                                            <c:if test="${order.buyerName == sessionScope.username}">
+                                            <c:if test="${isBuyer}">
                                                 <c:if test="${order.status == 1}">
                                                     <button class="btn btn-success" data-confirm-btn data-pro-id="${order.proId}">确认收货</button>
                                                 </c:if>
@@ -375,7 +427,17 @@
                         order_id: Number(_this.order_id),
                         score: _this.score
                     }).done(function(data){
-                        console.log(data)
+                        var code = data.code
+                        var msg = data.msg
+                        if(code == 1) {
+                            alert(msg)
+                        } else {
+                            if(data.data.status == 0) {
+                                location.reload()
+                            } else {
+                                alert(msg)
+                            }
+                        }
                     })
                 }
             }

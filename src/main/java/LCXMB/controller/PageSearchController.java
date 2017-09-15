@@ -35,22 +35,30 @@ public class PageSearchController {
         page -= 1;
         int begin = page * PAGE_SIZE;
 
+        List<SearchProducts> products;
+        SearchProducts countProduct;
+
         if(isCate){                          //按分类查询
-            List<SearchProducts> products =  searchService.getProductsByCate(minPrice, maxPrice, keywords, newOrHot, lowOrHigh, begin, PAGE_SIZE);
-            System.out.println("产品数量:"+products.size());
-            modelMap.addAttribute("products", products);
-            modelMap.addAttribute("newOrHot",newOrHot);
-            modelMap.addAttribute("lowOrHigh",lowOrHigh);
-            modelMap.addAttribute("isCate", isCate);
-            return "search";
+             products =  searchService.getProductsByCate(minPrice, maxPrice, keywords, newOrHot, lowOrHigh, begin, PAGE_SIZE);
+             countProduct = searchService.getProductsCountByCate(minPrice, maxPrice, keywords, newOrHot, lowOrHigh, begin, PAGE_SIZE);
         }else{                               //按关键字查询
-            List<SearchProducts> products =  searchService.getProductsByTitle(keywords, begin, PAGE_SIZE);
-            modelMap.addAttribute("products", products);
-            modelMap.addAttribute("newOrHot",newOrHot);
-            modelMap.addAttribute("lowOrHigh",lowOrHigh);
-            modelMap.addAttribute("isCate", isCate);
-            return "search";
+            products =  searchService.getProductsByTitle(keywords, begin, PAGE_SIZE);
+            countProduct = searchService.getProductsCountByTitle(keywords, begin, PAGE_SIZE);
         }
+
+        modelMap.addAttribute("products", products);
+        modelMap.addAttribute("totalPage", countProduct.getProductNumber());
+        modelMap.addAttribute("newOrHot",newOrHot);
+        modelMap.addAttribute("lowOrHigh",lowOrHigh);
+        if(minPrice == 0) minPrice = null;
+        if(maxPrice == 99999) maxPrice = null;
+        modelMap.addAttribute("minPrice", minPrice);
+        modelMap.addAttribute("maxPrice", maxPrice);
+        modelMap.addAttribute("isCate", isCate);
+        modelMap.addAttribute("keywords", keywords);
+        modelMap.addAttribute("pageSize", PAGE_SIZE);
+        modelMap.addAttribute("currentPage", page + 1 );
+        return "search";
     }
 
 }

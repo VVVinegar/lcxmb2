@@ -60,7 +60,7 @@ public class EvaluateController {
             Orders orders2 = new Orders();
             orders2.setId(order_id);
             if (evaluateService.buyerOrSaler(order_id, username)==1){
-                orders2.setBuyer_score(score);
+                orders2.setBuyerScore(score);
             }else{
                 orders2.setSalerScore(score);
             }

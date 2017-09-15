@@ -1,10 +1,8 @@
 package LCXMB.service_impl;
 
 import LCXMB.dao.ProductMapper;
-import LCXMB.pojo.Product;
 import LCXMB.pojo.SearchProducts;
 import LCXMB.service.SearchService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -24,8 +22,16 @@ public class SearchServiceImpl implements SearchService{
         return productMapper.selectByCate(minPrice, maxPrice, category_2,  newOrHot, lowOrHigh, begin, pageSize);
     }
 
+    public SearchProducts getProductsCountByCate(float minPrice, float maxPrice, String category_2, int newOrHot, int lowOrHigh, int begin, int pageSize) {
+        return productMapper.selectCountByCate(minPrice, maxPrice, category_2,  newOrHot, lowOrHigh, begin, pageSize);
+    }
+
     public List<SearchProducts> getProductsByTitle(String keywords, int page, int pageSize) {
         return productMapper.selectByTitle(keywords, page, pageSize);
+    }
+
+    public SearchProducts getProductsCountByTitle(String keywords, int page, int pageSize) {
+        return productMapper.selectCountByTitle(keywords, page, pageSize);
     }
 
 }
