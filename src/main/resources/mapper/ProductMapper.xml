@@ -450,6 +450,7 @@
     <if test="keywords != null">
       and title like '%${keywords}%'
     </if>
+    group by id
     limit #{begin},#{pageSize}
   </select>
   <!--个人中心中的展示-->
